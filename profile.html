@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>テスト太郎 | AI エンジニア</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #050510, #0a0a1a, #0d0d1f);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 540px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      margin: 0 auto 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .name {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .role {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+    }
+
+    .bio {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.8;
+      font-size: 18px;
+      margin-bottom: 36px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 30px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 4px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .skill-tag {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.8);
+      transition: all 0.3s;
+    }
+
+    .skill-tag:hover {
+      background: rgba(102, 126, 234, 0.3);
+      border-color: rgba(102, 126, 234, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .link-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 18px;
+      transition: all 0.3s;
+    }
+
+    .link-btn:hover {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-color: transparent;
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="avatar">T</div>
+    <h1 class="name">テスト太郎</h1>
+    <span class="role">AI エンジニア</span>
+
+    <p class="bio">
+      機械学習と自然言語処理を専門とするAIエンジニア。<br>
+      最新技術を活用して、人々の生活をより便利にするプロダクトを開発しています。
+    </p>
+
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Years Exp.</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">30+</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Publications</div>
+      </div>
+    </div>
+
+    <div class="skills">
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">PyTorch</span>
+      <span class="skill-tag">LLM</span>
+      <span class="skill-tag">NLP</span>
+      <span class="skill-tag">Computer Vision</span>
+      <span class="skill-tag">MLOps</span>
+    </div>
+
+    <div class="links">
+      <a href="#" class="link-btn" title="GitHub">GH</a>
+      <a href="#" class="link-btn" title="Twitter">X</a>
+      <a href="#" class="link-btn" title="LinkedIn">in</a>
+      <a href="#" class="link-btn" title="Email">@</a>
+    </div>
+  </div>
+</body>
+</html>

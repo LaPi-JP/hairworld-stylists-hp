@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hairworld",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-Command", "Start-Process 'http://localhost:8080'; $listener = [System.Net.HttpListener]::new(); $listener.Prefixes.Add('http://localhost:8080/'); $listener.Start(); while($listener.IsListening) { $ctx = $listener.GetContext(); $path = $ctx.Request.Url.LocalPath; if($path -eq '/') { $path = '/index.html' }; $file = Join-Path 'C:\\Users\\hmuro\\Desktop\\Hairworld Stylist HP' $path.TrimStart('/'); if(Test-Path $file) { $bytes = [IO.File]::ReadAllBytes($file); $ext = [IO.Path]::GetExtension($file); $ct = switch($ext) { '.html'{'text/html;charset=utf-8'} '.css'{'text/css;charset=utf-8'} '.js'{'application/javascript;charset=utf-8'} '.png'{'image/png'} '.jpg'{'image/jpeg'} '.jpeg'{'image/jpeg'} '.gif'{'image/gif'} '.svg'{'image/svg+xml'} '.mp4'{'video/mp4'} '.webm'{'video/webm'} default{'application/octet-stream'} }; $ctx.Response.ContentType = $ct; $ctx.Response.OutputStream.Write($bytes, 0, $bytes.Length) } else { $ctx.Response.StatusCode = 404 }; $ctx.Response.Close() }"],
+      "port": 8080
+    }
+  ]
+}

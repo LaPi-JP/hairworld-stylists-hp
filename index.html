@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hairworld Stylists | Hair & Makeup Salon in Bangkok</title>
+  <meta name="description" content="Hairworld Stylists - Premium Hair, Makeup & Nail Salon in Bangkok. Experience luxury beauty services in a relaxing atmosphere.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ヘッダー / ナビゲーション -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#home" class="logo">
+        <img src="logo.png" alt="Hairworld Stylists" class="logo-img">
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#gallery" class="nav-link">Gallery</a></li>
+          <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+          <li><a href="#access" class="nav-link">Access</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ヒーローセクション -->
+  <section class="hero" id="home">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="video-salon.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <img src="logo.png" alt="Hairworld Stylists" class="hero-logo">
+      <p class="hero-subtitle">Hair & Makeup Salon</p>
+      <h1 class="hero-title">Hairworld Stylists</h1>
+      <p class="hero-tagline">Luxury Beauty Experience in Bangkok</p>
+      <div class="hero-info">
+        <span class="hero-hours">Open Daily 10:00 - 21:00</span>
+      </div>
+      <a href="#contact" class="btn btn-primary">Book Now</a>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- About セクション -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">About Us</p>
+        <h2 class="section-title">Where Beauty<br>Meets Excellence</h2>
+      </div>
+      <div class="about-content fade-in">
+        <div class="about-text">
+          <p class="about-lead">
+            Hairworld Stylists is a premium beauty salon located in the heart of Bangkok,
+            offering exceptional hair, makeup, and nail services.
+          </p>
+          <p>
+            Our team of skilled stylists combines international expertise with a deep understanding
+            of the latest trends to deliver personalized beauty experiences. We believe that every
+            client deserves to feel confident and beautiful.
+          </p>
+          <p>
+            Using only the finest products and techniques, we create looks that enhance your
+            natural beauty while ensuring the health of your hair, skin, and nails.
+          </p>
+        </div>
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <span class="highlight-number">10+</span>
+            <span class="highlight-label">Years of Experience</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-number">5,000+</span>
+            <span class="highlight-label">Happy Clients</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-number">15+</span>
+            <span class="highlight-label">Expert Stylists</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video セクション -->
+  <section class="section video-section" id="video">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">Professional Training</h2>
+      </div>
+      <div class="video-wrapper fade-in">
+        <video controls playsinline preload="metadata">
+          <source src="video-training.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services セクション -->
+  <section class="section services" id="services">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">Our Services</p>
+        <h2 class="section-title">Premium Beauty<br>Services</h2>
+      </div>
+      <div class="services-grid fade-in">
+        <!-- Hair -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M32 8C24 8 18 14 18 22C18 30 22 36 22 42C22 48 18 52 18 52H46C46 52 42 48 42 42C42 36 46 30 46 22C46 14 40 8 32 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M26 52V56C26 58 28 60 32 60C36 60 38 58 38 56V52" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M32 8V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M22 18C22 18 26 20 32 20C38 20 42 18 42 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Hair</h3>
+          <p class="service-desc">
+            Cut, Color, Perm, Treatment, Keratin &mdash;
+            Expert styling tailored to your unique look and lifestyle.
+          </p>
+          <ul class="service-list">
+            <li>Cut & Styling</li>
+            <li>Color & Highlights</li>
+            <li>Perm & Straightening</li>
+            <li>Hair Treatment</li>
+          </ul>
+        </div>
+        <!-- Makeup -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="32" cy="40" rx="16" ry="12" stroke="currentColor" stroke-width="2"/>
+              <path d="M28 12L24 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M36 12L40 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M28 12C28 12 30 8 32 8C34 8 36 12 36 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="32" cy="40" r="4" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Makeup</h3>
+          <p class="service-desc">
+            From bridal looks to everyday glam &mdash;
+            professional makeup that brings out your best features.
+          </p>
+          <ul class="service-list">
+            <li>Bridal Makeup</li>
+            <li>Special Occasion</li>
+            <li>Everyday Glam</li>
+            <li>Makeup Lesson</li>
+          </ul>
+        </div>
+        <!-- Nail -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 44C20 44 18 32 22 24C26 16 32 14 32 14C32 14 38 16 42 24C46 32 44 44 44 44" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20 44C20 44 16 46 16 50C16 54 20 56 32 56C44 56 48 54 48 50C48 46 44 44 44 44" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M28 28C28 28 30 26 32 26C34 26 36 28 36 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M32 26V20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Nail</h3>
+          <p class="service-desc">
+            Gel, Acrylic, Art &mdash;
+            Beautiful nails crafted with precision and creativity.
+          </p>
+          <ul class="service-list">
+            <li>Gel Nail</li>
+            <li>Acrylic Nail</li>
+            <li>Nail Art & Design</li>
+            <li>Hand & Foot Care</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery セクション -->
+  <section class="section gallery" id="gallery">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">Gallery</p>
+        <h2 class="section-title">Our Work</h2>
+      </div>
+      <div class="gallery-grid fade-in">
+        <div class="gallery-item gallery-item--wide">
+          <div class="gallery-placeholder">
+            <span>Hair Style</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <span>Makeup</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <span>Nail Art</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <span>Interior</span>
+          </div>
+        </div>
+        <div class="gallery-item gallery-item--tall">
+          <div class="gallery-placeholder">
+            <span>Styling</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <span>Color</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials セクション -->
+  <section class="section testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">Testimonials</p>
+        <h2 class="section-title">What Our<br>Clients Say</h2>
+      </div>
+      <div class="testimonials-grid fade-in">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">
+            "ที่นี่ตัดผมสวยมาก ตัดตรงเรฟ เจ้าของร้านแต่งหน้าสวยมาก พนักงานทุกคนทำงานเป็นมืออาชีพมีประสบการณ์มาก professional และมารยาทดีสุดสุด พี่พนักงานทุกคนพูดเพราะ คุยสนุก บรรยากาศร้านหรูหรา ที่ร้านใช้แต่ของดีๆ คุณภาพสูง ทำผมถูกใจมากๆ ทุกครั้งที่เข้ารับบริการไม่มีครั้งไหนเลยที่ไม่ประทับใจ"
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">★</div>
+            <div>
+              <p class="testimonial-name">ลูกค้าประจำ</p>
+              <p class="testimonial-role">Regular Client</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">
+            "Amazing hair color work! They took the time to understand exactly what I wanted. The atmosphere is so relaxing and luxurious."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">S</div>
+            <div>
+              <p class="testimonial-name">Sarah M.</p>
+              <p class="testimonial-role">Color Client</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">
+            "I had my bridal makeup done here and it was absolutely perfect. The team is professional, talented, and incredibly kind."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">M</div>
+            <div>
+              <p class="testimonial-name">Mai K.</p>
+              <p class="testimonial-role">Bridal Client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Access / Map セクション -->
+  <section class="section access" id="access">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">Access</p>
+        <h2 class="section-title">Visit Us</h2>
+      </div>
+      <div class="access-content fade-in">
+        <div class="access-info">
+          <div class="access-item">
+            <h3 class="access-label">Address</h3>
+            <p>เลขที่ 55/11 Rama II Soi 50,<br>แสมดำ Bang Khun Thian,<br>Bangkok 10150</p>
+          </div>
+          <div class="access-item">
+            <h3 class="access-label">Hours</h3>
+            <p>Open Daily<br>10:00 - 21:00</p>
+          </div>
+          <div class="access-item">
+            <h3 class="access-label">Phone</h3>
+            <p><a href="tel:0639612999" class="access-link">063-961-2999</a></p>
+          </div>
+        </div>
+        <div class="access-map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1938.5!2d100.442198!3d13.6667143!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2a3f59212ef31%3A0xfe25aff31ebe9c56!2sHairworld%20Stylists%20Rama%202!5e0!3m2!1sja!2sth!4v1"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Hairworld Stylists Location">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Footer -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-top fade-in">
+        <div class="footer-brand">
+          <img src="logo.png" alt="Hairworld Stylists" class="footer-logo-img">
+          <h3 class="footer-salon-name">Hairworld Stylists</h3>
+          <p class="footer-tagline">Luxury Beauty Experience in Bangkok</p>
+        </div>
+        <div class="footer-contact">
+          <h3 class="footer-heading">Contact</h3>
+          <p>เลขที่ 55/11 Rama II Soi 50,<br>แสมดำ Bang Khun Thian, Bangkok 10150</p>
+          <p><a href="tel:0639612999" class="footer-link">063-961-2999</a></p>
+          <p>Open Daily 10:00 - 21:00</p>
+        </div>
+        <div class="footer-social">
+          <h3 class="footer-heading">Follow Us</h3>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://www.facebook.com/hairworld.stylists.th/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@hairworld.stylists.th" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+            </a>
+            <a href="https://line.me/R/ti/p/@hairworld" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LINE">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 3.27 2.4 6.12 6 7.5l-1 3.5 4-2.5c.33.03.66.05 1 .05 5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Hairworld Stylists. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- チャットボット -->
+  <div class="chatbot" id="chatbot">
+    <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat">
+      <svg class="chatbot-icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg class="chatbot-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="chatbot-window" id="chatbot-window">
+      <div class="chatbot-header">
+        <h3>Hairworld Stylists</h3>
+        <p>How can we help you?</p>
+      </div>
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chat-message bot">
+          <p>Hello! Welcome to Hairworld Stylists. How can I help you today?</p>
+        </div>
+      </div>
+      <div class="chatbot-quick">
+        <button class="quick-btn" data-question="hours">Business Hours</button>
+        <button class="quick-btn" data-question="location">Location</button>
+        <button class="quick-btn" data-question="services">Services</button>
+        <button class="quick-btn" data-question="booking">Booking</button>
+        <button class="quick-btn" data-question="price">Price</button>
+      </div>
+      <div class="chatbot-input">
+        <input type="text" id="chatbot-input-field" placeholder="Type a message..." autocomplete="off">
+        <button id="chatbot-send" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
