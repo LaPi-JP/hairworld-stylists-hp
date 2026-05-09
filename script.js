@@ -58,40 +58,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fadeElements.forEach(el => observerFade.observe(el));
 
-  // === チャットボット ===
+  // === AIチャットボット（Claude API） ===
   const chatbot = document.getElementById("chatbot");
   const chatToggle = document.getElementById("chatbot-toggle");
   const chatMessages = document.getElementById("chatbot-messages");
   const chatInput = document.getElementById("chatbot-input-field");
   const chatSend = document.getElementById("chatbot-send");
-
-  // FAQ応答データ
-  const faqResponses = {
-    hours: {
-      keywords: ["hours", "open", "close", "time", "schedule", "営業"],
-      answer: "We are open daily from 10:00 to 21:00. We look forward to welcoming you!"
-    },
-    location: {
-      keywords: ["location", "where", "address", "map", "direction", "場所"],
-      answer: "We are located at เลขที่ 55/11 Rama II Soi 50, แสมดำ Bang Khun Thian, Bangkok 10150."
-    },
-    services: {
-      keywords: ["service", "offer", "do", "menu", "what", "サービス"],
-      answer: "We offer three main services:\n• Hair — Cut, Color, Perm, Treatment\n• Makeup — Bridal, Special Occasion, Everyday\n• Nail — Gel, Acrylic, Nail Art, Hand & Foot Care"
-    },
-    booking: {
-      keywords: ["book", "reserve", "appointment", "予約"],
-      answer: "To make a booking, please call us at 063-961-2999 or send us a message via LINE or Instagram. We'll be happy to schedule your appointment!"
-    },
-    price: {
-      keywords: ["price", "cost", "how much", "fee", "rate", "料金"],
-      answer: "Our prices vary depending on the service and stylist. Please contact us at 063-961-2999 or visit our salon for a detailed price list."
-    },
-    phone: {
-      keywords: ["phone", "call", "number", "contact", "電話"],
-      answer: "You can reach us at 063-961-2999. We're available during our business hours (10:00 - 21:00)."
-    }
-  };
+  const sessionId = "session_" + Date.now() + "_" + Math.random().toString(36).slice(2);
 
   // チャットボットの開閉
   chatToggle.addEventListener("click", () => {
@@ -104,12 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // クイックボタンのクリック
   document.querySelectorAll(".quick-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      const question = btn.dataset.question;
-      const response = faqResponses[question];
-      if (response) {
-        addMessage(btn.textContent, "user");
-        setTimeout(() => addMessage(response.answer, "bot"), 500);
-      }
+      const questionText = btn.textContent;
+      sendToAPI(questionText);
     });
   });
 
@@ -117,12 +86,32 @@ document.addEventListener("DOMContentLoaded", () => {
   function sendMessage() {
     const text = chatInput.value.trim();
     if (!text) return;
-
-    addMessage(text, "user");
     chatInput.value = "";
+    sendToAPI(text);
+  }
 
-    const reply = findAnswer(text);
-    setTimeout(() => addMessage(reply, "bot"), 600);
+  // Claude APIへ送信
+  async function sendToAPI(text) {
+    addMessage(text, "user");
+    showTypingIndicator();
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, sessionId: sessionId }),
+      });
+
+      removeTypingIndicator();
+
+      if (!response.ok) throw new Error("API error");
+
+      const data = await response.json();
+      addMessage(data.reply, "bot");
+    } catch (error) {
+      removeTypingIndicator();
+      addMessage("申し訳ございません。現在応答できません。お電話（063-961-2999）でお問い合わせください。", "bot");
+    }
   }
 
   chatSend.addEventListener("click", sendMessage);
@@ -139,15 +128,19 @@ document.addEventListener("DOMContentLoaded", () => {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
-  // 入力テキストからFAQ応答を検索
-  function findAnswer(input) {
-    const lower = input.toLowerCase();
-    for (const key in faqResponses) {
-      const faq = faqResponses[key];
-      if (faq.keywords.some(kw => lower.includes(kw))) {
-        return faq.answer;
-      }
-    }
-    return "Thank you for your message! For more details, please call us at 063-961-2999 or visit our salon. We'd love to help you!";
+  // 入力中インジケーター表示
+  function showTypingIndicator() {
+    const indicator = document.createElement("div");
+    indicator.className = "chat-message bot typing-indicator";
+    indicator.innerHTML = "<p><span class='dot'></span><span class='dot'></span><span class='dot'></span></p>";
+    indicator.id = "typing-indicator";
+    chatMessages.appendChild(indicator);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // 入力中インジケーター削除
+  function removeTypingIndicator() {
+    const indicator = document.getElementById("typing-indicator");
+    if (indicator) indicator.remove();
   }
 });
