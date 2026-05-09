@@ -20,15 +20,21 @@
       </a>
       <nav class="nav" id="nav">
         <ul class="nav-list">
-          <li><a href="#home" class="nav-link active">Home</a></li>
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#services" class="nav-link">Services</a></li>
-          <li><a href="#gallery" class="nav-link">Gallery</a></li>
-          <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-          <li><a href="#access" class="nav-link">Access</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
+          <li><a href="#home" class="nav-link active" data-i18n="nav.home">Home</a></li>
+          <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+          <li><a href="#services" class="nav-link" data-i18n="nav.services">Services</a></li>
+          <li><a href="#gallery" class="nav-link" data-i18n="nav.gallery">Gallery</a></li>
+          <li><a href="#testimonials" class="nav-link" data-i18n="nav.testimonials">Testimonials</a></li>
+          <li><a href="#access" class="nav-link" data-i18n="nav.access">Access</a></li>
+          <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
         </ul>
       </nav>
+      <!-- 言語セレクター -->
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="th">TH</button>
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ja">JP</button>
+      </div>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span>
         <span></span>
@@ -45,13 +51,13 @@
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <img src="logo.png" alt="Hairworld Stylists" class="hero-logo">
-      <p class="hero-subtitle">Hair & Makeup Salon</p>
+      <p class="hero-subtitle" data-i18n="hero.subtitle">Hair & Makeup Salon</p>
       <h1 class="hero-title">Hairworld Stylists</h1>
-      <p class="hero-tagline">Luxury Beauty Experience in Bangkok</p>
+      <p class="hero-tagline" data-i18n="hero.tagline">Luxury Beauty Experience in Bangkok</p>
       <div class="hero-info">
-        <span class="hero-hours">Open Daily 10:00 - 21:00</span>
+        <span class="hero-hours" data-i18n="hero.hours">Open Daily 10:00 - 21:00</span>
       </div>
-      <a href="#contact" class="btn btn-primary">Book Now</a>
+      <a href="#contact" class="btn btn-primary" data-i18n="hero.cta">Book Now</a>
     </div>
     <div class="hero-scroll">
       <span>Scroll</span>
@@ -63,21 +69,21 @@
   <section class="section about" id="about">
     <div class="container">
       <div class="section-header fade-in">
-        <p class="section-label">About Us</p>
-        <h2 class="section-title">Where Beauty<br>Meets Excellence</h2>
+        <p class="section-label" data-i18n="about.label">About Us</p>
+        <h2 class="section-title" data-i18n="about.title" data-i18n-html="true">Where Beauty<br>Meets Excellence</h2>
       </div>
       <div class="about-content fade-in">
         <div class="about-text">
-          <p class="about-lead">
+          <p class="about-lead" data-i18n="about.lead">
             Hairworld Stylists is a premium beauty salon located in the heart of Bangkok,
             offering exceptional hair, makeup, and nail services.
           </p>
-          <p>
+          <p data-i18n="about.text1">
             Our team of skilled stylists combines international expertise with a deep understanding
             of the latest trends to deliver personalized beauty experiences. We believe that every
             client deserves to feel confident and beautiful.
           </p>
-          <p>
+          <p data-i18n="about.text2">
             Using only the finest products and techniques, we create looks that enhance your
             natural beauty while ensuring the health of your hair, skin, and nails.
           </p>
@@ -85,15 +91,15 @@
         <div class="about-highlights">
           <div class="highlight-item">
             <span class="highlight-number">10+</span>
-            <span class="highlight-label">Years of Experience</span>
+            <span class="highlight-label" data-i18n="about.exp">Years of Experience</span>
           </div>
           <div class="highlight-item">
             <span class="highlight-number">5,000+</span>
-            <span class="highlight-label">Happy Clients</span>
+            <span class="highlight-label" data-i18n="about.clients">Happy Clients</span>
           </div>
           <div class="highlight-item">
             <span class="highlight-number">15+</span>
-            <span class="highlight-label">Expert Stylists</span>
+            <span class="highlight-label" data-i18n="about.stylists">Expert Stylists</span>
           </div>
         </div>
       </div>
@@ -104,8 +110,8 @@
   <section class="section video-section" id="video">
     <div class="container">
       <div class="section-header fade-in">
-        <p class="section-label">Our Story</p>
-        <h2 class="section-title">Professional Training</h2>
+        <p class="section-label" data-i18n="video.label">Our Story</p>
+        <h2 class="section-title" data-i18n="video.title">Professional Training</h2>
       </div>
       <div class="video-wrapper fade-in">
         <video controls playsinline preload="metadata">
@@ -119,8 +125,8 @@
   <section class="section services" id="services">
     <div class="container">
       <div class="section-header fade-in">
-        <p class="section-label">Our Services</p>
-        <h2 class="section-title">Premium Beauty<br>Services</h2>
+        <p class="section-label" data-i18n="services.label">Our Services</p>
+        <h2 class="section-title" data-i18n="services.title" data-i18n-html="true">Premium Beauty<br>Services</h2>
       </div>
       <div class="services-grid fade-in">
         <!-- Hair -->
@@ -134,15 +140,15 @@
             </svg>
           </div>
           <h3 class="service-title">Hair</h3>
-          <p class="service-desc">
+          <p class="service-desc" data-i18n="services.hair.desc">
             Cut, Color, Perm, Treatment, Keratin &mdash;
             Expert styling tailored to your unique look and lifestyle.
           </p>
           <ul class="service-list">
-            <li>Cut & Styling</li>
-            <li>Color & Highlights</li>
-            <li>Perm & Straightening</li>
-            <li>Hair Treatment</li>
+            <li data-i18n="services.hair.item1">Cut & Styling</li>
+            <li data-i18n="services.hair.item2">Color & Highlights</li>
+            <li data-i18n="services.hair.item3">Perm & Straightening</li>
+            <li data-i18n="services.hair.item4">Hair Treatment</li>
           </ul>
         </div>
         <!-- Makeup -->
@@ -157,15 +163,15 @@
             </svg>
           </div>
           <h3 class="service-title">Makeup</h3>
-          <p class="service-desc">
+          <p class="service-desc" data-i18n="services.makeup.desc">
             From bridal looks to everyday glam &mdash;
             professional makeup that brings out your best features.
           </p>
           <ul class="service-list">
-            <li>Bridal Makeup</li>
-            <li>Special Occasion</li>
-            <li>Everyday Glam</li>
-            <li>Makeup Lesson</li>
+            <li data-i18n="services.makeup.item1">Bridal Makeup</li>
+            <li data-i18n="services.makeup.item2">Special Occasion</li>
+            <li data-i18n="services.makeup.item3">Everyday Glam</li>
+            <li data-i18n="services.makeup.item4">Makeup Lesson</li>
           </ul>
         </div>
         <!-- Nail -->
@@ -179,15 +185,15 @@
             </svg>
           </div>
           <h3 class="service-title">Nail</h3>
-          <p class="service-desc">
+          <p class="service-desc" data-i18n="services.nail.desc">
             Gel, Acrylic, Art &mdash;
             Beautiful nails crafted with precision and creativity.
           </p>
           <ul class="service-list">
-            <li>Gel Nail</li>
-            <li>Acrylic Nail</li>
-            <li>Nail Art & Design</li>
-            <li>Hand & Foot Care</li>
+            <li data-i18n="services.nail.item1">Gel Nail</li>
+            <li data-i18n="services.nail.item2">Acrylic Nail</li>
+            <li data-i18n="services.nail.item3">Nail Art & Design</li>
+            <li data-i18n="services.nail.item4">Hand & Foot Care</li>
           </ul>
         </div>
       </div>
@@ -198,8 +204,8 @@
   <section class="section gallery" id="gallery">
     <div class="container">
       <div class="section-header fade-in">
-        <p class="section-label">Gallery</p>
-        <h2 class="section-title">Our Work</h2>
+        <p class="section-label" data-i18n="gallery.label">Gallery</p>
+        <h2 class="section-title" data-i18n="gallery.title">Our Work</h2>
       </div>
       <div class="gallery-grid fade-in">
         <div class="gallery-item gallery-item--wide">
@@ -240,8 +246,8 @@
   <section class="section testimonials" id="testimonials">
     <div class="container">
       <div class="section-header fade-in">
-        <p class="section-label">Testimonials</p>
-        <h2 class="section-title">What Our<br>Clients Say</h2>
+        <p class="section-label" data-i18n="testimonials.label">Testimonials</p>
+        <h2 class="section-title" data-i18n="testimonials.title" data-i18n-html="true">What Our<br>Clients Say</h2>
       </div>
       <div class="testimonials-grid fade-in">
         <div class="testimonial-card">
@@ -291,21 +297,21 @@
   <section class="section access" id="access">
     <div class="container">
       <div class="section-header fade-in">
-        <p class="section-label">Access</p>
-        <h2 class="section-title">Visit Us</h2>
+        <p class="section-label" data-i18n="access.label">Access</p>
+        <h2 class="section-title" data-i18n="access.title">Visit Us</h2>
       </div>
       <div class="access-content fade-in">
         <div class="access-info">
           <div class="access-item">
-            <h3 class="access-label">Address</h3>
-            <p>เลขที่ 55/11 Rama II Soi 50,<br>แสมดำ Bang Khun Thian,<br>Bangkok 10150</p>
+            <h3 class="access-label" data-i18n="access.address">Address</h3>
+            <p data-i18n="access.addressText" data-i18n-html="true">เลขที่ 55/11 Rama II Soi 50,<br>แสมดำ Bang Khun Thian,<br>Bangkok 10150</p>
           </div>
           <div class="access-item">
-            <h3 class="access-label">Hours</h3>
-            <p>Open Daily<br>10:00 - 21:00</p>
+            <h3 class="access-label" data-i18n="access.hours">Hours</h3>
+            <p data-i18n="access.hoursText" data-i18n-html="true">Open Daily<br>10:00 - 21:00</p>
           </div>
           <div class="access-item">
-            <h3 class="access-label">Phone</h3>
+            <h3 class="access-label" data-i18n="access.phone">Phone</h3>
             <p><a href="tel:0639612999" class="access-link">063-961-2999</a></p>
           </div>
         </div>
@@ -328,16 +334,16 @@
         <div class="footer-brand">
           <img src="logo.png" alt="Hairworld Stylists" class="footer-logo-img">
           <h3 class="footer-salon-name">Hairworld Stylists</h3>
-          <p class="footer-tagline">Luxury Beauty Experience in Bangkok</p>
+          <p class="footer-tagline" data-i18n="footer.tagline">Luxury Beauty Experience in Bangkok</p>
         </div>
         <div class="footer-contact">
-          <h3 class="footer-heading">Contact</h3>
-          <p>เลขที่ 55/11 Rama II Soi 50,<br>แสมดำ Bang Khun Thian, Bangkok 10150</p>
+          <h3 class="footer-heading" data-i18n="footer.contact">Contact</h3>
+          <p data-i18n="footer.addressText" data-i18n-html="true">เลขที่ 55/11 Rama II Soi 50,<br>แสมดำ Bang Khun Thian, Bangkok 10150</p>
           <p><a href="tel:0639612999" class="footer-link">063-961-2999</a></p>
-          <p>Open Daily 10:00 - 21:00</p>
+          <p data-i18n="footer.hours">Open Daily 10:00 - 21:00</p>
         </div>
         <div class="footer-social">
-          <h3 class="footer-heading">Follow Us</h3>
+          <h3 class="footer-heading" data-i18n="footer.followUs">Follow Us</h3>
           <div class="social-links">
             <a href="#" class="social-link" aria-label="Instagram">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -369,22 +375,22 @@
     <div class="chatbot-window" id="chatbot-window">
       <div class="chatbot-header">
         <h3>Hairworld Stylists</h3>
-        <p>How can we help you?</p>
+        <p data-i18n="chat.subtitle">How can we help you?</p>
       </div>
       <div class="chatbot-messages" id="chatbot-messages">
         <div class="chat-message bot">
-          <p>Hello! Welcome to Hairworld Stylists. How can I help you today?</p>
+          <p data-i18n="chat.welcome">Hello! Welcome to Hairworld Stylists. How can I help you today?</p>
         </div>
       </div>
       <div class="chatbot-quick">
-        <button class="quick-btn" data-question="hours">Business Hours</button>
-        <button class="quick-btn" data-question="location">Location</button>
-        <button class="quick-btn" data-question="services">Services</button>
-        <button class="quick-btn" data-question="booking">Booking</button>
-        <button class="quick-btn" data-question="price">Price</button>
+        <button class="quick-btn" data-question="hours" data-i18n="chat.btn.hours">Business Hours</button>
+        <button class="quick-btn" data-question="location" data-i18n="chat.btn.location">Location</button>
+        <button class="quick-btn" data-question="services" data-i18n="chat.btn.services">Services</button>
+        <button class="quick-btn" data-question="booking" data-i18n="chat.btn.booking">Booking</button>
+        <button class="quick-btn" data-question="price" data-i18n="chat.btn.price">Price</button>
       </div>
       <div class="chatbot-input">
-        <input type="text" id="chatbot-input-field" placeholder="Type a message..." autocomplete="off">
+        <input type="text" id="chatbot-input-field" data-i18n-placeholder="chat.placeholder" placeholder="Type a message..." autocomplete="off">
         <button id="chatbot-send" aria-label="Send message">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
