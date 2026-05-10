@@ -64,7 +64,39 @@ document.addEventListener("DOMContentLoaded", () => {
       "chat.btn.services": "Services",
       "chat.btn.booking": "Booking",
       "chat.btn.price": "Price",
-      "chat.placeholder": "Type a message..."
+      "chat.placeholder": "Type a message...",
+      "nav.reservation": "Reservation",
+      "reservation.label": "Reservation",
+      "reservation.title": "Book Your<br>Appointment",
+      "reservation.info": "Please fill out the form below and we will confirm your appointment. If the requested time is unavailable, we will contact you by phone.",
+      "reservation.noteTitle": "Business Hours",
+      "reservation.noteText": "Open Daily 10:00 - 21:00",
+      "reservation.phoneTitle": "Phone Reservation",
+      "reservation.name": "Name *",
+      "reservation.namePh": "Your name",
+      "reservation.phone": "Phone Number *",
+      "reservation.phonePh": "e.g. 063-961-2999",
+      "reservation.date": "Preferred Date *",
+      "reservation.time": "Preferred Time *",
+      "reservation.timePh": "Select time",
+      "reservation.service": "Service *",
+      "reservation.servicePh": "Select service",
+      "reservation.svc.cut": "Hair - Cut & Styling",
+      "reservation.svc.color": "Hair - Color & Highlights",
+      "reservation.svc.perm": "Hair - Perm & Straightening",
+      "reservation.svc.treatment": "Hair - Treatment",
+      "reservation.svc.bridal": "Makeup - Bridal",
+      "reservation.svc.occasion": "Makeup - Special Occasion",
+      "reservation.svc.daily": "Makeup - Everyday",
+      "reservation.svc.gel": "Nail - Gel",
+      "reservation.svc.acrylic": "Nail - Acrylic",
+      "reservation.svc.art": "Nail - Art & Design",
+      "reservation.svc.care": "Nail - Hand & Foot Care",
+      "reservation.message": "Message (optional)",
+      "reservation.messagePh": "Any special requests or notes",
+      "reservation.submit": "Submit Reservation",
+      "reservation.success": "Your reservation request has been submitted! We will contact you shortly to confirm.",
+      "reservation.error": "Failed to submit. Please call 063-961-2999 to make a reservation."
     },
     th: {
       "nav.home": "หน้าแรก",
@@ -128,7 +160,39 @@ document.addEventListener("DOMContentLoaded", () => {
       "chat.btn.services": "บริการ",
       "chat.btn.booking": "จองคิว",
       "chat.btn.price": "ราคา",
-      "chat.placeholder": "พิมพ์ข้อความ..."
+      "chat.placeholder": "พิมพ์ข้อความ...",
+      "nav.reservation": "จองคิว",
+      "reservation.label": "จองคิว",
+      "reservation.title": "นัดหมาย<br>ล่วงหน้า",
+      "reservation.info": "กรุณากรอกแบบฟอร์มด้านล่าง เราจะติดต่อกลับเพื่อยืนยันนัดหมาย หากเวลาที่เลือกไม่ว่าง เราจะโทรแจ้งท่านค่ะ",
+      "reservation.noteTitle": "เวลาเปิดให้บริการ",
+      "reservation.noteText": "เปิดทุกวัน 10:00 - 21:00",
+      "reservation.phoneTitle": "จองทางโทรศัพท์",
+      "reservation.name": "ชื่อ *",
+      "reservation.namePh": "ชื่อของคุณ",
+      "reservation.phone": "เบอร์โทรศัพท์ *",
+      "reservation.phonePh": "เช่น 063-961-2999",
+      "reservation.date": "วันที่ต้องการ *",
+      "reservation.time": "เวลาที่ต้องการ *",
+      "reservation.timePh": "เลือกเวลา",
+      "reservation.service": "บริการ *",
+      "reservation.servicePh": "เลือกบริการ",
+      "reservation.svc.cut": "ผม - ตัดผม & จัดทรง",
+      "reservation.svc.color": "ผม - ทำสี & ไฮไลท์",
+      "reservation.svc.perm": "ผม - ดัดผม & ยืดผม",
+      "reservation.svc.treatment": "ผม - ทรีตเมนต์",
+      "reservation.svc.bridal": "เมคอัพ - เจ้าสาว",
+      "reservation.svc.occasion": "เมคอัพ - โอกาสพิเศษ",
+      "reservation.svc.daily": "เมคอัพ - แต่งหน้าประจำวัน",
+      "reservation.svc.gel": "เล็บ - เจล",
+      "reservation.svc.acrylic": "เล็บ - อะครีลิค",
+      "reservation.svc.art": "เล็บ - ออกแบบลายเล็บ",
+      "reservation.svc.care": "เล็บ - ดูแลมือ & เท้า",
+      "reservation.message": "ข้อความ (ไม่บังคับ)",
+      "reservation.messagePh": "ข้อความเพิ่มเติมหรือคำขอพิเศษ",
+      "reservation.submit": "ส่งคำขอจองคิว",
+      "reservation.success": "ส่งคำขอจองคิวเรียบร้อยแล้ว! เราจะติดต่อกลับเพื่อยืนยันค่ะ",
+      "reservation.error": "ส่งไม่สำเร็จ กรุณาโทร 063-961-2999 เพื่อจองคิวค่ะ"
     },
     ja: {
       "nav.home": "ホーム",
@@ -192,7 +256,39 @@ document.addEventListener("DOMContentLoaded", () => {
       "chat.btn.services": "サービス",
       "chat.btn.booking": "ご予約",
       "chat.btn.price": "料金",
-      "chat.placeholder": "メッセージを入力..."
+      "chat.placeholder": "メッセージを入力...",
+      "nav.reservation": "ご予約",
+      "reservation.label": "ご予約",
+      "reservation.title": "ご予約は<br>こちらから",
+      "reservation.info": "下記フォームにご記入ください。ご予約内容を確認し、折り返しご連絡いたします。ご希望の日時が空いていない場合は、お電話にてご連絡いたします。",
+      "reservation.noteTitle": "営業時間",
+      "reservation.noteText": "毎日営業 10:00 - 21:00",
+      "reservation.phoneTitle": "お電話でのご予約",
+      "reservation.name": "お名前 *",
+      "reservation.namePh": "お名前を入力",
+      "reservation.phone": "電話番号 *",
+      "reservation.phonePh": "例: 063-961-2999",
+      "reservation.date": "ご希望日 *",
+      "reservation.time": "ご希望時間 *",
+      "reservation.timePh": "時間を選択",
+      "reservation.service": "サービス *",
+      "reservation.servicePh": "サービスを選択",
+      "reservation.svc.cut": "ヘア — カット & スタイリング",
+      "reservation.svc.color": "ヘア — カラー & ハイライト",
+      "reservation.svc.perm": "ヘア — パーマ & ストレート",
+      "reservation.svc.treatment": "ヘア — トリートメント",
+      "reservation.svc.bridal": "メイク — ブライダル",
+      "reservation.svc.occasion": "メイク — 特別なシーンに",
+      "reservation.svc.daily": "メイク — デイリーメイク",
+      "reservation.svc.gel": "ネイル — ジェル",
+      "reservation.svc.acrylic": "ネイル — アクリル",
+      "reservation.svc.art": "ネイル — アート & デザイン",
+      "reservation.svc.care": "ネイル — ハンド & フットケア",
+      "reservation.message": "メッセージ（任意）",
+      "reservation.messagePh": "ご要望やご質問がありましたらご記入ください",
+      "reservation.submit": "予約リクエストを送信",
+      "reservation.success": "予約リクエストを送信しました！確認後、折り返しご連絡いたします。",
+      "reservation.error": "送信に失敗しました。お電話（063-961-2999）でご予約ください。"
     }
   };
 
@@ -302,6 +398,69 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.15 });
 
   fadeElements.forEach(el => observerFade.observe(el));
+
+  // === 予約フォーム ===
+  const reservationForm = document.getElementById("reservation-form");
+  const reservationResult = document.getElementById("reservation-result");
+  const reservationSubmit = document.getElementById("reservation-submit");
+
+  // 日付の最小値を今日に設定
+  const dateInput = document.getElementById("res-date");
+  if (dateInput) {
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.setAttribute("min", today);
+  }
+
+  if (reservationForm) {
+    reservationForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // 送信中の状態
+      reservationSubmit.disabled = true;
+      reservationSubmit.textContent = "...";
+      reservationResult.className = "reservation-result";
+      reservationResult.textContent = "";
+
+      const formData = {
+        name: document.getElementById("res-name").value.trim(),
+        phone: document.getElementById("res-phone").value.trim(),
+        date: document.getElementById("res-date").value,
+        time: document.getElementById("res-time").value,
+        service: document.getElementById("res-service").selectedOptions[0].textContent,
+        message: document.getElementById("res-message").value.trim()
+      };
+
+      try {
+        const response = await fetch("/api/reserve", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // 成功
+          const successMsg = translations[currentLang]["reservation.success"] || translations.en["reservation.success"];
+          reservationResult.className = "reservation-result success";
+          reservationResult.textContent = successMsg;
+          reservationForm.reset();
+        } else {
+          throw new Error(data.error || "送信失敗");
+        }
+      } catch (error) {
+        // エラー
+        const errorMsg = translations[currentLang]["reservation.error"] || translations.en["reservation.error"];
+        reservationResult.className = "reservation-result error";
+        reservationResult.textContent = errorMsg;
+      } finally {
+        // ボタンを元に戻す
+        reservationSubmit.disabled = false;
+        const submitText = translations[currentLang]["reservation.submit"] || translations.en["reservation.submit"];
+        reservationSubmit.textContent = submitText;
+      }
+    });
+  }
 
   // === AIチャットボット（Claude API + FAQフォールバック） ===
   const chatbot = document.getElementById("chatbot");

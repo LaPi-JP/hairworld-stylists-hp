@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservation | Hairworld Stylists</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <style>
+    :root {
+      --color-bg: #f5f0e8;
+      --color-bg-light: #ece5d9;
+      --color-bg-card: #ffffff;
+      --color-gold: #b8943e;
+      --color-gold-light: #c9a84c;
+      --color-gold-dark: #96782e;
+      --color-white: #2c1e10;
+      --color-text: #3d2e1c;
+      --color-text-muted: #7a6b5a;
+      --color-border: rgba(184, 148, 62, 0.2);
+      --font-heading: "Playfair Display", serif;
+      --font-body: "Inter", "Noto Sans JP", sans-serif;
+      --transition: 0.3s ease;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ヘッダー */
+    .liff-header {
+      background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold));
+      padding: 24px;
+      text-align: center;
+    }
+
+    .liff-header img {
+      width: 60px;
+      height: auto;
+      margin: 0 auto 8px;
+      display: block;
+    }
+
+    .liff-header h1 {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .liff-header p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-top: 4px;
+    }
+
+    /* コンテンツ */
+    .liff-content {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    /* ユーザー情報 */
+    .liff-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    .liff-user-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--color-gold);
+    }
+
+    .liff-user-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-white);
+    }
+
+    .liff-user-label {
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    /* フォーム */
+    .liff-form {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 28px 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 8px;
+    }
+
+    .form-group label .required {
+      color: #c0392b;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-text);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--color-gold);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .liff-submit {
+      width: 100%;
+      padding: 16px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--color-gold);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 8px;
+    }
+
+    .liff-submit:hover {
+      background: var(--color-gold-light);
+    }
+
+    .liff-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* 結果メッセージ */
+    .liff-result {
+      margin-top: 16px;
+      padding: 0;
+      font-size: 14px;
+      text-align: center;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+
+    .liff-result.success {
+      padding: 16px;
+      background: rgba(39, 174, 96, 0.1);
+      border: 1px solid rgba(39, 174, 96, 0.3);
+      color: #27ae60;
+    }
+
+    .liff-result.error {
+      padding: 16px;
+      background: rgba(192, 57, 43, 0.1);
+      border: 1px solid rgba(192, 57, 43, 0.3);
+      color: #c0392b;
+    }
+
+    /* ローディング */
+    .liff-loading {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .liff-loading p {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      margin-top: 16px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--color-border);
+      border-top-color: var(--color-gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 非LIFF警告 */
+    .liff-warning {
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+    }
+
+    .liff-warning h2 {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      color: var(--color-white);
+      margin-bottom: 12px;
+    }
+
+    .liff-warning p {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+
+    .liff-warning a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: #06C755;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <div class="liff-header">
+    <img src="logo.png" alt="Hairworld Stylists">
+    <h1>Hairworld Stylists</h1>
+    <p>ご予約フォーム</p>
+  </div>
+
+  <!-- ローディング -->
+  <div class="liff-content" id="liff-loading">
+    <div class="liff-loading">
+      <div class="spinner"></div>
+      <p>読み込み中...</p>
+    </div>
+  </div>
+
+  <!-- 非LINEブラウザの場合 -->
+  <div class="liff-content hidden" id="liff-warning">
+    <div class="liff-warning">
+      <h2>LINE から予約</h2>
+      <p>LINEで予約確認メッセージをお受け取りいただくには、LINE公式アカウントを友だち追加して、メニューから予約してください。</p>
+      <a href="https://line.me/R/ti/p/@hairworld" target="_blank">友だち追加する</a>
+      <p style="margin-top: 20px; font-size: 12px;">または <a href="index.html#reservation" style="color: var(--color-gold);">Webサイトから予約</a></p>
+    </div>
+  </div>
+
+  <!-- 予約フォーム（LIFF内） -->
+  <div class="liff-content hidden" id="liff-form-container">
+    <!-- ユーザー情報 -->
+    <div class="liff-user">
+      <img id="liff-avatar" class="liff-user-avatar" src="" alt="">
+      <div>
+        <p class="liff-user-name" id="liff-display-name"></p>
+        <p class="liff-user-label">LINEアカウントで予約</p>
+      </div>
+    </div>
+
+    <!-- フォーム -->
+    <form class="liff-form" id="liff-reservation-form">
+      <div class="form-group">
+        <label>お名前 <span class="required">*</span></label>
+        <input type="text" id="liff-name" required placeholder="お名前を入力">
+      </div>
+      <div class="form-group">
+        <label>電話番号 <span class="required">*</span></label>
+        <input type="tel" id="liff-phone" required placeholder="例: 063-961-2999">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>ご希望日 <span class="required">*</span></label>
+          <input type="date" id="liff-date" required>
+        </div>
+        <div class="form-group">
+          <label>ご希望時間 <span class="required">*</span></label>
+          <select id="liff-time" required>
+            <option value="">時間を選択</option>
+            <option value="10:00">10:00</option>
+            <option value="10:30">10:30</option>
+            <option value="11:00">11:00</option>
+            <option value="11:30">11:30</option>
+            <option value="12:00">12:00</option>
+            <option value="12:30">12:30</option>
+            <option value="13:00">13:00</option>
+            <option value="13:30">13:30</option>
+            <option value="14:00">14:00</option>
+            <option value="14:30">14:30</option>
+            <option value="15:00">15:00</option>
+            <option value="15:30">15:30</option>
+            <option value="16:00">16:00</option>
+            <option value="16:30">16:30</option>
+            <option value="17:00">17:00</option>
+            <option value="17:30">17:30</option>
+            <option value="18:00">18:00</option>
+            <option value="18:30">18:30</option>
+            <option value="19:00">19:00</option>
+            <option value="19:30">19:30</option>
+            <option value="20:00">20:00</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>サービス <span class="required">*</span></label>
+        <select id="liff-service" required>
+          <option value="">サービスを選択</option>
+          <option value="ヘア — カット & スタイリング">ヘア — カット & スタイリング</option>
+          <option value="ヘア — カラー & ハイライト">ヘア — カラー & ハイライト</option>
+          <option value="ヘア — パーマ & ストレート">ヘア — パーマ & ストレート</option>
+          <option value="ヘア — トリートメント">ヘア — トリートメント</option>
+          <option value="メイク — ブライダル">メイク — ブライダル</option>
+          <option value="メイク — 特別なシーンに">メイク — 特別なシーンに</option>
+          <option value="メイク — デイリーメイク">メイク — デイリーメイク</option>
+          <option value="ネイル — ジェル">ネイル — ジェル</option>
+          <option value="ネイル — アクリル">ネイル — アクリル</option>
+          <option value="ネイル — アート & デザイン">ネイル — アート & デザイン</option>
+          <option value="ネイル — ハンド & フットケア">ネイル — ハンド & フットケア</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>メッセージ（任意）</label>
+        <textarea id="liff-message" placeholder="ご要望やご質問がありましたらご記入ください"></textarea>
+      </div>
+      <button type="submit" class="liff-submit" id="liff-submit">予約リクエストを送信</button>
+      <div class="liff-result" id="liff-result"></div>
+    </form>
+  </div>
+
+  <script>
+    const LIFF_ID = "2010031564-epVCX2tp";
+    let userProfile = null;
+
+    // LIFF初期化
+    async function initLiff() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+
+        if (!liff.isLoggedIn()) {
+          // 未ログインならログインさせる
+          liff.login();
+          return;
+        }
+
+        // LINEブラウザ内かチェック（LIFF内でなくても動作させる）
+        userProfile = await liff.getProfile();
+
+        // ローディングを非表示、フォームを表示
+        document.getElementById("liff-loading").classList.add("hidden");
+        document.getElementById("liff-form-container").classList.remove("hidden");
+
+        // ユーザー情報をセット
+        document.getElementById("liff-avatar").src = userProfile.pictureUrl || "";
+        document.getElementById("liff-display-name").textContent = userProfile.displayName;
+        document.getElementById("liff-name").value = userProfile.displayName;
+
+        // 日付の最小値を今日に設定
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("liff-date").setAttribute("min", today);
+
+      } catch (error) {
+        console.error("LIFF init error:", error);
+        // LIFFが使えない場合、警告を表示
+        document.getElementById("liff-loading").classList.add("hidden");
+        document.getElementById("liff-warning").classList.remove("hidden");
+      }
+    }
+
+    // フォーム送信
+    document.getElementById("liff-reservation-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById("liff-submit");
+      const resultDiv = document.getElementById("liff-result");
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "送信中...";
+      resultDiv.className = "liff-result";
+      resultDiv.textContent = "";
+
+      const formData = {
+        name: document.getElementById("liff-name").value.trim(),
+        phone: document.getElementById("liff-phone").value.trim(),
+        date: document.getElementById("liff-date").value,
+        time: document.getElementById("liff-time").value,
+        service: document.getElementById("liff-service").value,
+        message: document.getElementById("liff-message").value.trim(),
+        lineUserId: userProfile ? userProfile.userId : null,
+        lineDisplayName: userProfile ? userProfile.displayName : null
+      };
+
+      try {
+        const response = await fetch("/api/reserve", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          resultDiv.className = "liff-result success";
+          resultDiv.textContent = "予約リクエストを送信しました！LINEで確認メッセージをお送りしました。";
+          document.getElementById("liff-reservation-form").reset();
+          // 3秒後にLIFFを閉じる
+          if (liff.isInClient()) {
+            setTimeout(() => liff.closeWindow(), 3000);
+          }
+        } else {
+          throw new Error(data.error || "送信失敗");
+        }
+      } catch (error) {
+        resultDiv.className = "liff-result error";
+        resultDiv.textContent = "送信に失敗しました。お電話（063-961-2999）でご予約ください。";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "予約リクエストを送信";
+      }
+    });
+
+    // LIFF初期化実行
+    initLiff();
+  </script>
+</body>
+</html>

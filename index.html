@@ -26,6 +26,7 @@
           <li><a href="#gallery" class="nav-link" data-i18n="nav.gallery">Gallery</a></li>
           <li><a href="#testimonials" class="nav-link" data-i18n="nav.testimonials">Testimonials</a></li>
           <li><a href="#access" class="nav-link" data-i18n="nav.access">Access</a></li>
+          <li><a href="#reservation" class="nav-link" data-i18n="nav.reservation">Reservation</a></li>
           <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
         </ul>
       </nav>
@@ -57,7 +58,7 @@
       <div class="hero-info">
         <span class="hero-hours" data-i18n="hero.hours">Open Daily 10:00 - 21:00</span>
       </div>
-      <a href="#contact" class="btn btn-primary" data-i18n="hero.cta">Book Now</a>
+      <a href="#reservation" class="btn btn-primary" data-i18n="hero.cta">Book Now</a>
     </div>
     <div class="hero-scroll">
       <span>Scroll</span>
@@ -323,6 +324,105 @@
             title="Hairworld Stylists Location">
           </iframe>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation セクション -->
+  <section class="section reservation" id="reservation">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label" data-i18n="reservation.label">Reservation</p>
+        <h2 class="section-title" data-i18n="reservation.title" data-i18n-html="true">Book Your<br>Appointment</h2>
+      </div>
+      <div class="reservation-content fade-in">
+        <div class="reservation-info">
+          <p data-i18n="reservation.info">Please fill out the form below and we will confirm your appointment. If the requested time is unavailable, we will contact you by phone.</p>
+          <div class="reservation-note">
+            <div class="reservation-note-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div>
+              <p class="reservation-note-title" data-i18n="reservation.noteTitle">Business Hours</p>
+              <p class="reservation-note-text" data-i18n="reservation.noteText">Open Daily 10:00 - 21:00</p>
+            </div>
+          </div>
+          <div class="reservation-note">
+            <div class="reservation-note-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <p class="reservation-note-title" data-i18n="reservation.phoneTitle">Phone Reservation</p>
+              <p class="reservation-note-text"><a href="tel:0639612999" class="access-link">063-961-2999</a></p>
+            </div>
+          </div>
+        </div>
+        <form class="reservation-form" id="reservation-form">
+          <div class="form-group">
+            <label for="res-name" data-i18n="reservation.name">Name <span class="required">*</span></label>
+            <input type="text" id="res-name" name="name" required data-i18n-placeholder="reservation.namePh" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label for="res-phone" data-i18n="reservation.phone">Phone Number <span class="required">*</span></label>
+            <input type="tel" id="res-phone" name="phone" required data-i18n-placeholder="reservation.phonePh" placeholder="e.g. 063-961-2999">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-date" data-i18n="reservation.date">Preferred Date <span class="required">*</span></label>
+              <input type="date" id="res-date" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="res-time" data-i18n="reservation.time">Preferred Time <span class="required">*</span></label>
+              <select id="res-time" name="time" required>
+                <option value="" data-i18n="reservation.timePh">Select time</option>
+                <option value="10:00">10:00</option>
+                <option value="10:30">10:30</option>
+                <option value="11:00">11:00</option>
+                <option value="11:30">11:30</option>
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="14:00">14:00</option>
+                <option value="14:30">14:30</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+                <option value="16:00">16:00</option>
+                <option value="16:30">16:30</option>
+                <option value="17:00">17:00</option>
+                <option value="17:30">17:30</option>
+                <option value="18:00">18:00</option>
+                <option value="18:30">18:30</option>
+                <option value="19:00">19:00</option>
+                <option value="19:30">19:30</option>
+                <option value="20:00">20:00</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="res-service" data-i18n="reservation.service">Service <span class="required">*</span></label>
+            <select id="res-service" name="service" required>
+              <option value="" data-i18n="reservation.servicePh">Select service</option>
+              <option value="hair-cut" data-i18n="reservation.svc.cut">Hair - Cut & Styling</option>
+              <option value="hair-color" data-i18n="reservation.svc.color">Hair - Color & Highlights</option>
+              <option value="hair-perm" data-i18n="reservation.svc.perm">Hair - Perm & Straightening</option>
+              <option value="hair-treatment" data-i18n="reservation.svc.treatment">Hair - Treatment</option>
+              <option value="makeup-bridal" data-i18n="reservation.svc.bridal">Makeup - Bridal</option>
+              <option value="makeup-occasion" data-i18n="reservation.svc.occasion">Makeup - Special Occasion</option>
+              <option value="makeup-daily" data-i18n="reservation.svc.daily">Makeup - Everyday</option>
+              <option value="nail-gel" data-i18n="reservation.svc.gel">Nail - Gel</option>
+              <option value="nail-acrylic" data-i18n="reservation.svc.acrylic">Nail - Acrylic</option>
+              <option value="nail-art" data-i18n="reservation.svc.art">Nail - Art & Design</option>
+              <option value="nail-care" data-i18n="reservation.svc.care">Nail - Hand & Foot Care</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="res-message" data-i18n="reservation.message">Message (optional)</label>
+            <textarea id="res-message" name="message" rows="3" data-i18n-placeholder="reservation.messagePh" placeholder="Any special requests or notes"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary reservation-submit" id="reservation-submit" data-i18n="reservation.submit">Submit Reservation</button>
+          <div class="reservation-result" id="reservation-result"></div>
+        </form>
       </div>
     </div>
   </section>
