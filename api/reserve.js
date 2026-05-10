@@ -17,20 +17,20 @@ module.exports = async function handler(req, res) {
     const GROUP_ID = process.env.LINE_GROUP_ID;
     const SALON_USER_ID = process.env.LINE_USER_ID;
 
-    // --- 1. サロンへの通知メッセージ ---
+    // --- 1. サロンへの通知メッセージ（タイ語） ---
     const salonMessage = [
-      "📋 新しい予約リクエスト",
+      "📋 คำขอจองคิวใหม่",
       "━━━━━━━━━━━━━━",
-      `👤 お名前: ${name}`,
-      `📞 電話番号: ${phone}`,
-      `📅 希望日: ${date}`,
-      `🕐 希望時間: ${time}`,
-      `💇 サービス: ${service}`,
-      message ? `💬 メッセージ: ${message}` : "",
+      `👤 ชื่อ: ${name}`,
+      `📞 เบอร์โทร: ${phone}`,
+      `📅 วันที่ต้องการ: ${date}`,
+      `🕐 เวลาที่ต้องการ: ${time}`,
+      `💇 บริการ: ${service}`,
+      message ? `💬 ข้อความ: ${message}` : "",
       lineDisplayName ? `💬 LINE: ${lineDisplayName}` : "",
       "━━━━━━━━━━━━━━",
-      "※ 予約確定ではありません。",
-      "確認後、お客様にご連絡ください。"
+      "※ ยังไม่ได้ยืนยันการจอง",
+      "กรุณาตรวจสอบและติดต่อลูกค้าค่ะ"
     ].filter(Boolean).join("\n");
 
     // サロンにLINE通知を送信
