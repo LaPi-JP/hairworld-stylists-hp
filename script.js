@@ -417,6 +417,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       await liff.init({ liffId: LIFF_ID });
       liffReady = true;
+      console.log("LIFF init success, isLoggedIn:", liff.isLoggedIn());
 
       // LINEログインからのリダイレクト直後かチェック
       // URLに#reservationがあり、ログイン済みならプロフィールを表示
@@ -430,7 +431,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     } catch (error) {
-      console.log("LIFF init (website):", error.message);
+      console.error("LIFF init error:", error.message);
+      liffReady = false;
     }
   }
 
@@ -465,15 +467,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const lineLoginBtn = document.getElementById("line-login-btn");
   if (lineLoginBtn) {
     lineLoginBtn.addEventListener("click", async () => {
-      if (!liffReady) return;
+      console.log("LINE button clicked, liffReady:", liffReady);
 
-      if (liff.isLoggedIn()) {
-        // 既にログイン済み → プロフィール取得して表示
-        lineUserProfile = await liff.getProfile();
-        showLineConnected();
-      } else {
-        // 未ログイン → LINEログインを実行
-        liff.login({ redirectUri: window.location.href.split("#")[0] + "#reservation" });
+      if (!liffReady) {
+        // LIFF未初期化 → エラー表示
+        alert("LINE連携の準備ができていません。ページを再読み込みしてお試しください。");
+        return;
+      }
+
+      try {
+        if (liff.isLoggedIn()) {
+          // 既にログイン済み → プロフィール取得して表示
+          console.log("Already logged in, getting profile...");
+          lineUserProfile = await liff.getProfile();
+          showLineConnected();
+        } else {
+          // 未ログイン → LINEログインを実行
+          console.log("Not logged in, redirecting to LINE login...");
+          liff.login({ redirectUri: window.location.href.split("#")[0] + "#reservation" });
+        }
+      } catch (error) {
+        console.error("LINE login error:", error.message);
+        alert("LINE連携でエラーが発生しました: " + error.message);
       }
     });
   }
