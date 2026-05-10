@@ -417,7 +417,18 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       await liff.init({ liffId: LIFF_ID });
       liffReady = true;
-      // ログイン状態でも自動表示しない（お客様が自分で選択する）
+
+      // LINEログインからのリダイレクト直後かチェック
+      // URLに#reservationがあり、ログイン済みならプロフィールを表示
+      if (liff.isLoggedIn() && window.location.hash.includes("reservation")) {
+        lineUserProfile = await liff.getProfile();
+        showLineConnected();
+        // 予約セクションにスクロール
+        const reservationSection = document.getElementById("reservation");
+        if (reservationSection) {
+          setTimeout(() => reservationSection.scrollIntoView({ behavior: "smooth" }), 500);
+        }
+      }
     } catch (error) {
       console.log("LIFF init (website):", error.message);
     }
