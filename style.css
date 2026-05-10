@@ -886,6 +886,22 @@ img {
   color: #06C755;
 }
 
+/* LINE切断ボタン */
+.line-disconnect-btn {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 4px;
+  margin-left: auto;
+  line-height: 1;
+  transition: color 0.3s;
+}
+.line-disconnect-btn:hover {
+  color: #ff4444;
+}
+
 .hidden {
   display: none !important;
 }

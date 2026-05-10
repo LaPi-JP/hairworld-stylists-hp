@@ -411,16 +411,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // === LIFF初期化（LINE連携用） ===
   const LIFF_ID = "2010031564-epVCX2tp";
   let lineUserProfile = null;
+  let liffReady = false;
 
   async function initLiffForWebsite() {
     try {
       await liff.init({ liffId: LIFF_ID });
-
-      // 既にログイン済みならプロフィールを取得
-      if (liff.isLoggedIn()) {
-        lineUserProfile = await liff.getProfile();
-        showLineConnected();
-      }
+      liffReady = true;
+      // ログイン状態でも自動表示しない（お客様が自分で選択する）
     } catch (error) {
       console.log("LIFF init (website):", error.message);
     }
@@ -442,17 +439,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // LINE連携を解除（表示をリセット）
+  function disconnectLine() {
+    lineUserProfile = null;
+    const connectDiv = document.getElementById("line-connect");
+    const connectedDiv = document.getElementById("line-connected");
+    if (connectDiv && connectedDiv) {
+      connectedDiv.classList.add("hidden");
+      connectDiv.classList.remove("hidden");
+    }
+  }
+
   // LINEログインボタン
   const lineLoginBtn = document.getElementById("line-login-btn");
   if (lineLoginBtn) {
-    lineLoginBtn.addEventListener("click", () => {
-      if (typeof liff !== "undefined" && liff.isLoggedIn()) {
-        // 既にログイン済み
-        return;
+    lineLoginBtn.addEventListener("click", async () => {
+      if (!liffReady) return;
+
+      if (liff.isLoggedIn()) {
+        // 既にログイン済み → プロフィール取得して表示
+        lineUserProfile = await liff.getProfile();
+        showLineConnected();
+      } else {
+        // 未ログイン → LINEログインを実行
+        liff.login({ redirectUri: window.location.href.split("#")[0] + "#reservation" });
       }
-      // LINEログインを実行（現在のページにリダイレクト）
-      liff.login({ redirectUri: window.location.href.split("#")[0] + "#reservation" });
     });
+  }
+
+  // LINE連携解除ボタン
+  const lineDisconnectBtn = document.getElementById("line-disconnect-btn");
+  if (lineDisconnectBtn) {
+    lineDisconnectBtn.addEventListener("click", disconnectLine);
   }
 
   // LIFF初期化実行
