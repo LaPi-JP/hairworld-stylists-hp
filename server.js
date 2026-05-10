@@ -73,6 +73,7 @@ app.post("/api/reserve", async (req, res) => {
     }
 
     const TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN;
+    const GROUP_ID = process.env.LINE_GROUP_ID;
     const SALON_USER_ID = process.env.LINE_USER_ID;
 
     // サロンへの通知メッセージ
@@ -99,7 +100,7 @@ app.post("/api/reserve", async (req, res) => {
         "Authorization": `Bearer ${TOKEN}`
       },
       body: JSON.stringify({
-        to: SALON_USER_ID,
+        to: GROUP_ID || SALON_USER_ID,
         messages: [{ type: "text", text: salonMessage }]
       })
     });
