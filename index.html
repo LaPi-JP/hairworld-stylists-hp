@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 <body>
 
@@ -419,6 +420,20 @@
           <div class="form-group">
             <label for="res-message" data-i18n="reservation.message">Message (optional)</label>
             <textarea id="res-message" name="message" rows="3" data-i18n-placeholder="reservation.messagePh" placeholder="Any special requests or notes"></textarea>
+          </div>
+          <!-- LINE連携 -->
+          <div class="line-connect" id="line-connect">
+            <button type="button" class="line-connect-btn" id="line-login-btn">
+              <svg class="line-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 3.27 2.4 6.12 6 7.5l-1 3.5 4-2.5c.33.03.66.05 1 .05 5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
+              <span data-i18n="reservation.lineConnect">Receive confirmation via LINE</span>
+            </button>
+          </div>
+          <div class="line-connected hidden" id="line-connected">
+            <img id="line-user-avatar" class="line-connected-avatar" src="" alt="">
+            <div>
+              <p class="line-connected-name" id="line-user-name"></p>
+              <p class="line-connected-label" data-i18n="reservation.lineConnected">LINE confirmation enabled</p>
+            </div>
           </div>
           <button type="submit" class="btn btn-primary reservation-submit" id="reservation-submit" data-i18n="reservation.submit">Submit Reservation</button>
           <div class="reservation-result" id="reservation-result"></div>

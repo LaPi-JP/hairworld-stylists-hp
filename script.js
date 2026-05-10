@@ -96,7 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "reservation.messagePh": "Any special requests or notes",
       "reservation.submit": "Submit Reservation",
       "reservation.success": "Your reservation request has been submitted! We will contact you shortly to confirm.",
-      "reservation.error": "Failed to submit. Please call 063-961-2999 to make a reservation."
+      "reservation.error": "Failed to submit. Please call 063-961-2999 to make a reservation.",
+      "reservation.lineConnect": "Receive confirmation via LINE",
+      "reservation.lineConnected": "LINE confirmation enabled",
+      "reservation.successLine": "Reservation submitted! A confirmation has been sent to your LINE."
     },
     th: {
       "nav.home": "หน้าแรก",
@@ -192,7 +195,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "reservation.messagePh": "ข้อความเพิ่มเติมหรือคำขอพิเศษ",
       "reservation.submit": "ส่งคำขอจองคิว",
       "reservation.success": "ส่งคำขอจองคิวเรียบร้อยแล้ว! เราจะติดต่อกลับเพื่อยืนยันค่ะ",
-      "reservation.error": "ส่งไม่สำเร็จ กรุณาโทร 063-961-2999 เพื่อจองคิวค่ะ"
+      "reservation.error": "ส่งไม่สำเร็จ กรุณาโทร 063-961-2999 เพื่อจองคิวค่ะ",
+      "reservation.lineConnect": "รับการยืนยันผ่าน LINE",
+      "reservation.lineConnected": "เปิดใช้งานการยืนยันผ่าน LINE แล้ว",
+      "reservation.successLine": "ส่งคำขอจองคิวเรียบร้อยแล้ว! ข้อความยืนยันถูกส่งไปยัง LINE ของคุณแล้วค่ะ"
     },
     ja: {
       "nav.home": "ホーム",
@@ -288,7 +294,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "reservation.messagePh": "ご要望やご質問がありましたらご記入ください",
       "reservation.submit": "予約リクエストを送信",
       "reservation.success": "予約リクエストを送信しました！確認後、折り返しご連絡いたします。",
-      "reservation.error": "送信に失敗しました。お電話（063-961-2999）でご予約ください。"
+      "reservation.error": "送信に失敗しました。お電話（063-961-2999）でご予約ください。",
+      "reservation.lineConnect": "LINEで予約確認を受け取る",
+      "reservation.lineConnected": "LINE確認が有効です",
+      "reservation.successLine": "予約リクエストを送信しました！LINEに確認メッセージをお送りしました。"
     }
   };
 
@@ -399,6 +408,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fadeElements.forEach(el => observerFade.observe(el));
 
+  // === LIFF初期化（LINE連携用） ===
+  const LIFF_ID = "2010031564-epVCX2tp";
+  let lineUserProfile = null;
+
+  async function initLiffForWebsite() {
+    try {
+      await liff.init({ liffId: LIFF_ID });
+
+      // 既にログイン済みならプロフィールを取得
+      if (liff.isLoggedIn()) {
+        lineUserProfile = await liff.getProfile();
+        showLineConnected();
+      }
+    } catch (error) {
+      console.log("LIFF init (website):", error.message);
+    }
+  }
+
+  // LINE連携済みの表示
+  function showLineConnected() {
+    if (!lineUserProfile) return;
+    const connectDiv = document.getElementById("line-connect");
+    const connectedDiv = document.getElementById("line-connected");
+    const avatar = document.getElementById("line-user-avatar");
+    const name = document.getElementById("line-user-name");
+
+    if (connectDiv && connectedDiv) {
+      avatar.src = lineUserProfile.pictureUrl || "";
+      name.textContent = lineUserProfile.displayName;
+      connectDiv.classList.add("hidden");
+      connectedDiv.classList.remove("hidden");
+    }
+  }
+
+  // LINEログインボタン
+  const lineLoginBtn = document.getElementById("line-login-btn");
+  if (lineLoginBtn) {
+    lineLoginBtn.addEventListener("click", () => {
+      if (typeof liff !== "undefined" && liff.isLoggedIn()) {
+        // 既にログイン済み
+        return;
+      }
+      // LINEログインを実行（現在のページにリダイレクト）
+      liff.login({ redirectUri: window.location.href.split("#")[0] + "#reservation" });
+    });
+  }
+
+  // LIFF初期化実行
+  if (typeof liff !== "undefined") {
+    initLiffForWebsite();
+  }
+
   // === 予約フォーム ===
   const reservationForm = document.getElementById("reservation-form");
   const reservationResult = document.getElementById("reservation-result");
@@ -427,7 +488,9 @@ document.addEventListener("DOMContentLoaded", () => {
         date: document.getElementById("res-date").value,
         time: document.getElementById("res-time").value,
         service: document.getElementById("res-service").selectedOptions[0].textContent,
-        message: document.getElementById("res-message").value.trim()
+        message: document.getElementById("res-message").value.trim(),
+        lineUserId: lineUserProfile ? lineUserProfile.userId : null,
+        lineDisplayName: lineUserProfile ? lineUserProfile.displayName : null
       };
 
       try {
@@ -440,8 +503,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await response.json();
 
         if (response.ok) {
-          // 成功
-          const successMsg = translations[currentLang]["reservation.success"] || translations.en["reservation.success"];
+          // 成功（LINE連携済みなら別メッセージ）
+          const msgKey = lineUserProfile ? "reservation.successLine" : "reservation.success";
+          const successMsg = translations[currentLang][msgKey] || translations.en[msgKey];
           reservationResult.className = "reservation-result success";
           reservationResult.textContent = successMsg;
           reservationForm.reset();
