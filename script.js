@@ -551,7 +551,8 @@ document.addEventListener("DOMContentLoaded", () => {
         service: document.getElementById("res-service").selectedOptions[0].textContent,
         message: document.getElementById("res-message").value.trim(),
         lineUserId: lineUserProfile ? lineUserProfile.userId : null,
-        lineDisplayName: lineUserProfile ? lineUserProfile.displayName : null
+        lineDisplayName: lineUserProfile ? lineUserProfile.displayName : null,
+        lang: currentLang
       };
 
       try {

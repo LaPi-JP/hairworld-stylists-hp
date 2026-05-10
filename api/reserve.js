@@ -6,7 +6,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const { name, phone, date, time, service, message, lineUserId, lineDisplayName } = req.body;
+    const { name, phone, date, time, service, message, lineUserId, lineDisplayName, lang } = req.body;
 
     // 必須項目チェック
     if (!name || !phone || !date || !time || !service) {
@@ -54,24 +54,69 @@ module.exports = async function handler(req, res) {
 
     // --- 2. お客様への確認メッセージ（LINE IDがある場合のみ） ---
     if (lineUserId) {
+      // お客様の選択言語に応じたメッセージテンプレート
+      const customerMessages = {
+        ja: {
+          title: "✅ 予約リクエストを受け付けました",
+          thanks: "Hairworld Stylists をご利用いただきありがとうございます。",
+          accepted: "以下の内容で予約リクエストを承りました。",
+          date: "日付",
+          time: "時間",
+          service: "サービス",
+          message: "メッセージ",
+          notConfirmed: "※ この予約はまだ確定ではありません。",
+          willContact: "スタッフが確認後、確定のご連絡をいたします。",
+          question: "ご不明な点がございましたら、",
+          phone: "📞 063-961-2999 までお気軽にご連絡ください。"
+        },
+        en: {
+          title: "✅ Reservation request received",
+          thanks: "Thank you for choosing Hairworld Stylists.",
+          accepted: "We have received your reservation request with the following details.",
+          date: "Date",
+          time: "Time",
+          service: "Service",
+          message: "Message",
+          notConfirmed: "※ This reservation is not yet confirmed.",
+          willContact: "Our staff will contact you to confirm your booking.",
+          question: "If you have any questions,",
+          phone: "📞 Please feel free to call 063-961-2999."
+        },
+        th: {
+          title: "✅ รับคำขอจองคิวเรียบร้อยแล้ว",
+          thanks: "ขอบคุณที่เลือกใช้บริการ Hairworld Stylists ค่ะ",
+          accepted: "เราได้รับคำขอจองคิวของคุณด้วยรายละเอียดดังนี้",
+          date: "วันที่",
+          time: "เวลา",
+          service: "บริการ",
+          message: "ข้อความ",
+          notConfirmed: "※ การจองนี้ยังไม่ได้รับการยืนยัน",
+          willContact: "พนักงานจะติดต่อกลับเพื่อยืนยันการจองค่ะ",
+          question: "หากมีข้อสงสัย",
+          phone: "📞 กรุณาโทร 063-961-2999 ค่ะ"
+        }
+      };
+
+      const t = customerMessages[lang] || customerMessages.en;
+
       const customerMessage = [
-        "✅ 予約リクエストを受け付けました",
+        t.title,
         "",
-        "Hairworld Stylists をご利用いただきありがとうございます。",
-        "以下の内容で予約リクエストを承りました。",
+        t.thanks,
+        t.accepted,
         "",
         "━━━━━━━━━━━━━━",
-        `📅 日付: ${date}`,
-        `🕐 時間: ${time}`,
-        `💇 サービス: ${service}`,
-        message ? `💬 メッセージ: ${message}` : "",
+        `📅 ${t.date}: ${date}`,
+        `🕐 ${t.time}: ${time}`,
+        `💇 ${t.service}: ${service}`,
+        message ? `💬 ${t.message}: ${message}` : "",
         "━━━━━━━━━━━━━━",
         "",
-        "※ この予約はまだ確定ではありません。",
-        "スタッフが確認後、確定のご連絡をいたします。",
+        t.notConfirmed,
+        t.willContact,
         "",
-        "ご不明な点がございましたら、",
-        "📞 063-961-2999 までお気軽にご連絡ください。",
+        t.question,
+        t.phone,
         "",
         "Hairworld Stylists 🌟"
       ].filter(Boolean).join("\n");
