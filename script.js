@@ -97,6 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "reservation.submit": "Submit Reservation",
       "reservation.success": "Your reservation request has been submitted! We will contact you shortly to confirm.",
       "reservation.error": "Failed to submit. Please call 063-961-2999 to make a reservation.",
+      "reservation.lineFriendTitle": "Step 1: Add us on LINE",
+      "reservation.lineFriendDesc": "Scan the QR code or tap the button below to add us as a friend first.",
+      "reservation.lineConnectTitle": "Step 2: Connect your LINE",
       "reservation.lineConnect": "Receive confirmation via LINE",
       "reservation.lineConnected": "LINE confirmation enabled",
       "reservation.successLine": "Reservation submitted! A confirmation has been sent to your LINE."
@@ -196,6 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "reservation.submit": "ส่งคำขอจองคิว",
       "reservation.success": "ส่งคำขอจองคิวเรียบร้อยแล้ว! เราจะติดต่อกลับเพื่อยืนยันค่ะ",
       "reservation.error": "ส่งไม่สำเร็จ กรุณาโทร 063-961-2999 เพื่อจองคิวค่ะ",
+      "reservation.lineFriendTitle": "ขั้นตอนที่ 1: เพิ่มเราเป็นเพื่อนใน LINE",
+      "reservation.lineFriendDesc": "สแกน QR โค้ดหรือกดปุ่มด้านล่างเพื่อเพิ่มเราเป็นเพื่อนก่อนค่ะ",
+      "reservation.lineConnectTitle": "ขั้นตอนที่ 2: เชื่อมต่อ LINE ของคุณ",
       "reservation.lineConnect": "รับการยืนยันผ่าน LINE",
       "reservation.lineConnected": "เปิดใช้งานการยืนยันผ่าน LINE แล้ว",
       "reservation.successLine": "ส่งคำขอจองคิวเรียบร้อยแล้ว! ข้อความยืนยันถูกส่งไปยัง LINE ของคุณแล้วค่ะ"
@@ -295,6 +301,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "reservation.submit": "予約リクエストを送信",
       "reservation.success": "予約リクエストを送信しました！確認後、折り返しご連絡いたします。",
       "reservation.error": "送信に失敗しました。お電話（063-961-2999）でご予約ください。",
+      "reservation.lineFriendTitle": "ステップ1: LINE友だち追加",
+      "reservation.lineFriendDesc": "QRコードをスキャンするか、下のボタンをタップして友だち追加してください。",
+      "reservation.lineConnectTitle": "ステップ2: LINEを連携する",
       "reservation.lineConnect": "LINEで予約確認を受け取る",
       "reservation.lineConnected": "LINE確認が有効です",
       "reservation.successLine": "予約リクエストを送信しました！LINEに確認メッセージをお送りしました。"

@@ -421,8 +421,20 @@
             <label for="res-message" data-i18n="reservation.message">Message (optional)</label>
             <textarea id="res-message" name="message" rows="3" data-i18n-placeholder="reservation.messagePh" placeholder="Any special requests or notes"></textarea>
           </div>
+          <!-- LINE友だち追加 -->
+          <div class="line-friend-add" id="line-friend-add">
+            <p class="line-friend-add-title" data-i18n="reservation.lineFriendTitle">Step 1: Add us on LINE</p>
+            <p class="line-friend-add-desc" data-i18n="reservation.lineFriendDesc">Scan the QR code or tap the button below to add us as a friend first.</p>
+            <div class="line-friend-add-content">
+              <img src="https://qr-official.line.me/gs/M_411vvcqq_GW.png?oat_content=qr" alt="LINE QR Code" class="line-qr-code">
+              <a href="https://lin.ee/wNIy5dq" target="_blank" rel="noopener noreferrer" class="line-friend-add-btn">
+                <img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" class="line-friend-btn-img">
+              </a>
+            </div>
+          </div>
           <!-- LINE連携 -->
           <div class="line-connect" id="line-connect">
+            <p class="line-connect-title" data-i18n="reservation.lineConnectTitle">Step 2: Connect your LINE</p>
             <button type="button" class="line-connect-btn" id="line-login-btn">
               <svg class="line-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 3.27 2.4 6.12 6 7.5l-1 3.5 4-2.5c.33.03.66.05 1 .05 5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
               <span data-i18n="reservation.lineConnect">Receive confirmation via LINE</span>
