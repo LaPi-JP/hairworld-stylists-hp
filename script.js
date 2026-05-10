@@ -347,6 +347,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // HTML lang属性を更新
     document.documentElement.lang = lang;
+
+    // LINE友だち追加ボタンの言語切替
+    const lineFriendBtnImg = document.getElementById("line-friend-btn-img");
+    if (lineFriendBtnImg) {
+      const lineLangMap = { en: "en", th: "th", ja: "ja" };
+      const lineLang = lineLangMap[lang] || "en";
+      lineFriendBtnImg.src = `https://scdn.line-apps.com/n/line_add_friends/btn/${lineLang}.png`;
+    }
   }
 
   // 言語ボタンのクリックイベント
