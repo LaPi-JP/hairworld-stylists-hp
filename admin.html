@@ -753,13 +753,62 @@
 
     <!-- タブ2: 予約管理 -->
     <div class="tab-content" id="tab-reservations">
-      <div class="res-filter">
-        <button class="active" onclick="filterReservations('all')" data-admin-i18n="res.all">All</button>
-        <button onclick="filterReservations('new')" data-admin-i18n="res.new">🆕 New</button>
-        <button onclick="filterReservations('confirmed')" data-admin-i18n="res.confirmed">✅ Confirmed</button>
-        <button onclick="filterReservations('completed')" data-admin-i18n="res.completed">✔️ Completed</button>
-        <button onclick="filterReservations('cancelled')" data-admin-i18n="res.cancelled">❌ Cancelled</button>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+        <div class="res-filter" style="margin-bottom:0;">
+          <button class="active" onclick="filterReservations('all')" data-admin-i18n="res.all">All</button>
+          <button onclick="filterReservations('new')" data-admin-i18n="res.new">🆕 New</button>
+          <button onclick="filterReservations('confirmed')" data-admin-i18n="res.confirmed">✅ Confirmed</button>
+          <button onclick="filterReservations('completed')" data-admin-i18n="res.completed">✔️ Completed</button>
+          <button onclick="filterReservations('cancelled')" data-admin-i18n="res.cancelled">❌ Cancelled</button>
+        </div>
+        <button onclick="toggleAddReservation()" style="padding:8px 16px;background:#d4a853;border:none;border-radius:8px;color:#000;font-weight:600;font-size:13px;cursor:pointer;" data-admin-i18n="res.addNew">+ Add Reservation</button>
       </div>
+
+      <!-- 手動予約追加フォーム -->
+      <div class="note-form" id="addResForm" style="display:none;margin-bottom:20px;">
+        <h3 data-admin-i18n="res.addTitle">📞 Add Manual Reservation</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-admin-i18n="res.selectMember">Existing Member</label>
+            <select id="resSelectMember" onchange="fillMemberInfo()">
+              <option value="">-- Select or enter manually --</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-admin-i18n="res.name">Name *</label>
+            <input type="text" id="resName" required>
+          </div>
+          <div class="form-group">
+            <label data-admin-i18n="res.phone">Phone</label>
+            <input type="tel" id="resPhone">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-admin-i18n="res.date">Date *</label>
+            <input type="date" id="resDate">
+          </div>
+          <div class="form-group">
+            <label data-admin-i18n="res.time">Time *</label>
+            <input type="time" id="resTime">
+          </div>
+          <div class="form-group">
+            <label data-admin-i18n="res.service">Service</label>
+            <input type="text" id="resService" data-admin-i18n-placeholder="res.servicePlaceholder" placeholder="e.g. Cut, Color, Perm">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:12px;">
+          <label data-admin-i18n="res.memo">Memo</label>
+          <textarea id="resMemo" rows="2" data-admin-i18n-placeholder="res.memoPlaceholder" placeholder="Notes about this reservation..." style="width:100%;padding:8px 12px;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#fff;font-size:13px;resize:vertical;"></textarea>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-add-note" onclick="addManualReservation()" id="btnAddRes" data-admin-i18n="res.saveRes">Save Reservation</button>
+          <button style="padding:10px 20px;background:#333;border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:13px;" onclick="toggleAddReservation()" data-admin-i18n="modal.cancel">Cancel</button>
+        </div>
+      </div>
+
       <div id="reservationsList">
         <p class="empty-state" data-admin-i18n="res.loading">Loading...</p>
       </div>
@@ -976,7 +1025,23 @@
         "rem.noTargets": "No reminder targets found",
         "rem.lastVisit": "Last visit",
         "rem.target": "Target",
-        "rem.monthsAgo": "months set"
+        "rem.monthsAgo": "months set",
+        "res.addNew": "+ Add Reservation",
+        "res.addTitle": "📞 Add Manual Reservation",
+        "res.selectMember": "Existing Member",
+        "res.selectManual": "-- Select or enter manually --",
+        "res.name": "Name *",
+        "res.phone": "Phone",
+        "res.date": "Date *",
+        "res.time": "Time *",
+        "res.service": "Service",
+        "res.memo": "Memo",
+        "res.servicePlaceholder": "e.g. Cut, Color, Perm",
+        "res.memoPlaceholder": "Notes about this reservation...",
+        "res.saveRes": "Save Reservation",
+        "res.saving": "Saving...",
+        "res.saved": "Saved!",
+        "res.required": "Please fill in Name, Date, and Time"
       },
       th: {
         "login.subtitle": "แดชบอร์ดผู้ดูแลระบบ",
@@ -1063,7 +1128,23 @@
         "rem.noTargets": "ไม่มีรายการแจ้งเตือน",
         "rem.lastVisit": "เข้าใช้ล่าสุด",
         "rem.target": "กำหนด",
-        "rem.monthsAgo": "เดือนที่ตั้ง"
+        "rem.monthsAgo": "เดือนที่ตั้ง",
+        "res.addNew": "+ เพิ่มการจอง",
+        "res.addTitle": "📞 เพิ่มการจองด้วยตนเอง",
+        "res.selectMember": "สมาชิกที่มีอยู่",
+        "res.selectManual": "-- เลือกหรือกรอกเอง --",
+        "res.name": "ชื่อ *",
+        "res.phone": "เบอร์โทร",
+        "res.date": "วันที่ *",
+        "res.time": "เวลา *",
+        "res.service": "บริการ",
+        "res.memo": "หมายเหตุ",
+        "res.servicePlaceholder": "เช่น ตัด, ทำสี, ดัด",
+        "res.memoPlaceholder": "โน้ตเกี่ยวกับการจองนี้...",
+        "res.saveRes": "บันทึกการจอง",
+        "res.saving": "กำลังบันทึก...",
+        "res.saved": "บันทึกแล้ว!",
+        "res.required": "กรุณากรอก ชื่อ วันที่ และเวลา"
       }
     };
 
@@ -1591,6 +1672,101 @@
         }
       } catch (e) {
         console.error("Delete note error:", e);
+      }
+    }
+
+    // ========== 手動予約追加 ==========
+    function toggleAddReservation() {
+      const form = document.getElementById("addResForm");
+      const isHidden = form.style.display === "none";
+      form.style.display = isHidden ? "block" : "none";
+
+      if (isHidden) {
+        // 会員リストをドロップダウンにセット
+        const select = document.getElementById("resSelectMember");
+        select.innerHTML = `<option value="">${t("res.selectManual")}</option>`;
+        friendsData.forEach(f => {
+          select.innerHTML += `<option value="${f.user_id}" data-name="${f.display_name}">${f.display_name} (${f.member_number || "-"})</option>`;
+        });
+        // フォームをリセット
+        document.getElementById("resName").value = "";
+        document.getElementById("resPhone").value = "";
+        document.getElementById("resDate").value = new Date().toISOString().split("T")[0];
+        document.getElementById("resTime").value = "10:00";
+        document.getElementById("resService").value = "";
+        document.getElementById("resMemo").value = "";
+      }
+    }
+
+    // 会員選択時に名前を自動入力
+    function fillMemberInfo() {
+      const select = document.getElementById("resSelectMember");
+      const userId = select.value;
+      if (userId) {
+        const friend = friendsData.find(f => f.user_id === userId);
+        if (friend) {
+          document.getElementById("resName").value = friend.display_name || "";
+        }
+      }
+    }
+
+    // 手動予約を保存
+    async function addManualReservation() {
+      const name = document.getElementById("resName").value.trim();
+      const phone = document.getElementById("resPhone").value.trim();
+      const date = document.getElementById("resDate").value;
+      const time = document.getElementById("resTime").value;
+      const service = document.getElementById("resService").value.trim();
+      const memo = document.getElementById("resMemo").value.trim();
+      const selectedMember = document.getElementById("resSelectMember").value;
+
+      if (!name || !date || !time) {
+        alert(t("res.required"));
+        return;
+      }
+
+      const btn = document.getElementById("btnAddRes");
+      btn.textContent = t("res.saving");
+      btn.disabled = true;
+
+      try {
+        const res = await fetch("/api/reservations", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-password": adminPassword
+          },
+          body: JSON.stringify({
+            name,
+            phone,
+            preferred_date: date,
+            preferred_time: time,
+            service,
+            message: memo,
+            user_id: selectedMember || null,
+            line_display_name: selectedMember ? name : "",
+            language: "th",
+            status: "confirmed"
+          })
+        });
+
+        if (res.ok) {
+          btn.textContent = t("res.saved");
+          setTimeout(() => {
+            btn.textContent = t("res.saveRes");
+            btn.disabled = false;
+            toggleAddReservation();
+            loadReservations();
+          }, 1000);
+        } else {
+          alert(t("modal.error"));
+          btn.textContent = t("res.saveRes");
+          btn.disabled = false;
+        }
+      } catch (e) {
+        alert(t("modal.error"));
+        btn.textContent = t("res.saveRes");
+        btn.disabled = false;
       }
     }
 

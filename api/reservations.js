@@ -37,6 +37,46 @@ module.exports = async function handler(req, res) {
     }
   }
 
+  // POST: 手動で予約を追加
+  if (req.method === "POST") {
+    const { name, phone, preferred_date, preferred_time, service, message, user_id, line_display_name, language, status } = req.body;
+
+    if (!name || !preferred_date || !preferred_time) {
+      return res.status(400).json({ error: "name, preferred_date, and preferred_time are required" });
+    }
+
+    try {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/reservations`, {
+        method: "POST",
+        headers: { ...headers, "Prefer": "return=representation" },
+        body: JSON.stringify({
+          name,
+          phone: phone || "",
+          preferred_date,
+          preferred_time,
+          service: service || "",
+          message: message || "",
+          user_id: user_id || null,
+          line_display_name: line_display_name || "",
+          language: language || "th",
+          status: status || "confirmed"
+        })
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error("DB save error:", errText);
+        return res.status(500).json({ error: "Failed to save reservation" });
+      }
+
+      const saved = await response.json();
+      return res.json({ success: true, data: saved });
+    } catch (e) {
+      console.error("Save reservation error:", e.message);
+      return res.status(500).json({ error: "Failed to save reservation" });
+    }
+  }
+
   // PATCH: 予約ステータスを変更
   if (req.method === "PATCH") {
     const { id, status, preferred_date, preferred_time, service, message } = req.body;
