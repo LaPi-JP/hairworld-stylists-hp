@@ -285,6 +285,15 @@
     .btn-send { background: #d4a853; color: #000; font-weight: 600; }
     .btn-send:hover { opacity: 0.9; }
 
+    /* チェックボックス */
+    .friend-checkbox {
+      width: 18px;
+      height: 18px;
+      accent-color: #d4a853;
+      cursor: pointer;
+    }
+    tr.selected { background: rgba(212, 168, 83, 0.08); }
+
     .loading { text-align: center; padding: 40px; color: #888; }
     .empty-state { text-align: center; padding: 40px; color: #666; }
 
@@ -338,12 +347,18 @@
     <div class="action-bar">
       <button onclick="loadFriends()" data-admin-i18n="dashboard.refresh">Refresh</button>
       <button onclick="openBroadcastModal()" data-admin-i18n="dashboard.broadcast">Broadcast Message</button>
+      <button onclick="openSelectedModal()" data-admin-i18n="dashboard.sendSelected" id="sendSelectedBtn" style="display:none;">Send to Selected (0)</button>
+      <label style="display:flex;align-items:center;gap:6px;color:#888;font-size:13px;cursor:pointer;margin-left:auto;">
+        <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)">
+        <span data-admin-i18n="dashboard.selectAll">Select All</span>
+      </label>
     </div>
 
     <div class="table-container">
       <table>
         <thead>
           <tr>
+            <th style="width:40px;"></th>
             <th></th>
             <th data-admin-i18n="table.name">Name</th>
             <th data-admin-i18n="table.status">Status</th>
@@ -354,7 +369,7 @@
           </tr>
         </thead>
         <tbody id="friendsTable">
-          <tr><td colspan="7" class="loading">Loading...</td></tr>
+          <tr><td colspan="8" class="loading">Loading...</td></tr>
         </tbody>
       </table>
     </div>
@@ -414,7 +429,11 @@
         "modal.sent": "Message sent!",
         "modal.broadcastResult": "Message sent to {sent}/{total} friends!",
         "modal.error": "Error sending message",
-        "btn.send": "Send"
+        "btn.send": "Send",
+        "dashboard.sendSelected": "Send to Selected",
+        "dashboard.selectAll": "Select All",
+        "modal.selectedTitle": "Send to Selected",
+        "modal.selectedDesc": "Send a message to {count} selected friends"
       },
       th: {
         "login.subtitle": "แดชบอร์ดผู้ดูแลระบบ",
@@ -449,7 +468,11 @@
         "modal.sent": "ส่งข้อความแล้ว!",
         "modal.broadcastResult": "ส่งข้อความถึง {sent}/{total} คนแล้ว!",
         "modal.error": "เกิดข้อผิดพลาดในการส่งข้อความ",
-        "btn.send": "ส่ง"
+        "btn.send": "ส่ง",
+        "dashboard.sendSelected": "ส่งถึงที่เลือก",
+        "dashboard.selectAll": "เลือกทั้งหมด",
+        "modal.selectedTitle": "ส่งถึงที่เลือก",
+        "modal.selectedDesc": "ส่งข้อความถึง {count} คนที่เลือก"
       }
     };
 
@@ -537,7 +560,7 @@
       let activeCount = 0;
 
       if (!friends || friends.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="empty-state">${t("table.empty")}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="empty-state">${t("table.empty")}</td></tr>`;
         document.getElementById("totalCount").textContent = "0";
         document.getElementById("activeCoupons").textContent = "0";
         return;
@@ -572,7 +595,8 @@
           ? `<img class="avatar" src="${f.picture_url}" alt="${f.display_name}">`
           : `<div class="avatar-placeholder">?</div>`;
 
-        return `<tr>
+        return `<tr id="row-${f.user_id}">
+          <td><input type="checkbox" class="friend-checkbox" value="${f.user_id}" data-name="${f.display_name}" onchange="updateSelectedCount()"></td>
           <td>${avatar}</td>
           <td><strong>${f.display_name || "Unknown"}</strong></td>
           <td>${f.status_message || "-"}</td>
@@ -584,6 +608,46 @@
       }).join("");
 
       document.getElementById("activeCoupons").textContent = activeCount;
+    }
+
+    // チェックボックス：選択数を更新
+    function updateSelectedCount() {
+      const checked = document.querySelectorAll(".friend-checkbox:checked");
+      const btn = document.getElementById("sendSelectedBtn");
+      if (checked.length > 0) {
+        btn.style.display = "inline-block";
+        btn.textContent = `${t("dashboard.sendSelected")} (${checked.length})`;
+      } else {
+        btn.style.display = "none";
+      }
+      // 行のハイライト
+      document.querySelectorAll(".friend-checkbox").forEach(cb => {
+        const row = cb.closest("tr");
+        row.classList.toggle("selected", cb.checked);
+      });
+      // Select Allチェックボックスの状態を同期
+      const allCheckboxes = document.querySelectorAll(".friend-checkbox");
+      document.getElementById("selectAllCheckbox").checked =
+        allCheckboxes.length > 0 && checked.length === allCheckboxes.length;
+    }
+
+    // 全選択/全解除
+    function toggleSelectAll(checked) {
+      document.querySelectorAll(".friend-checkbox").forEach(cb => {
+        cb.checked = checked;
+      });
+      updateSelectedCount();
+    }
+
+    // 選択者へ送信モーダル
+    function openSelectedModal() {
+      const checked = document.querySelectorAll(".friend-checkbox:checked");
+      if (checked.length === 0) return;
+      sendTarget = "selected";
+      document.getElementById("modalTitle").textContent = t("modal.selectedTitle");
+      document.getElementById("modalDesc").textContent = t("modal.selectedDesc").replace("{count}", checked.length);
+      document.getElementById("messageInput").value = "";
+      document.getElementById("modalOverlay").classList.add("active");
     }
 
     // 個別送信モーダル
@@ -619,7 +683,27 @@
       btn.disabled = true;
 
       try {
-        if (sendTarget) {
+        if (sendTarget === "selected") {
+          // 選択者へ送信
+          const checked = document.querySelectorAll(".friend-checkbox:checked");
+          let sent = 0;
+          for (const cb of checked) {
+            try {
+              await fetch("/api/friends", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-admin-password": adminPassword
+                },
+                body: JSON.stringify({ userId: cb.value, message })
+              });
+              sent++;
+            } catch (e) {
+              console.error("Failed to send to:", cb.dataset.name);
+            }
+          }
+          alert(t("modal.broadcastResult").replace("{sent}", sent).replace("{total}", checked.length));
+        } else if (sendTarget) {
           // 個別送信
           await fetch("/api/friends", {
             method: "POST",
