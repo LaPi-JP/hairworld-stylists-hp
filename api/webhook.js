@@ -19,8 +19,30 @@ module.exports = async function handler(req, res) {
       // === 友だち追加イベント → クーポン自動送信 ===
       if (event.type === "follow" && event.source && event.source.type === "user") {
         const userId = event.source.userId;
+
+        // ユーザープロフィールを取得
+        let displayName = "Unknown";
+        let pictureUrl = "";
+        let statusMessage = "";
+        if (TOKEN) {
+          try {
+            const profileRes = await fetch(`https://api.line.me/v2/bot/profile/${userId}`, {
+              headers: { "Authorization": `Bearer ${TOKEN}` }
+            });
+            if (profileRes.ok) {
+              const profile = await profileRes.json();
+              displayName = profile.displayName || "Unknown";
+              pictureUrl = profile.pictureUrl || "";
+              statusMessage = profile.statusMessage || "";
+            }
+          } catch (e) {
+            console.error("Profile fetch error:", e.message);
+          }
+        }
+
         console.log("=== NEW FRIEND ADDED ===");
         console.log("User ID:", userId);
+        console.log("Display Name:", displayName);
         console.log("========================");
 
         // 有効期間を計算：翌月1日〜2ヶ月後の末日
@@ -103,12 +125,14 @@ module.exports = async function handler(req, res) {
             const salonNotify = [
               "🆕 เพื่อนใหม่เพิ่มบัญชี LINE!",
               "━━━━━━━━━━━━━━",
-              `👤 User ID: ${userId}`,
+              `👤 ชื่อ: ${displayName}`,
+              statusMessage ? `💬 สถานะ: ${statusMessage}` : "",
               `🎁 คูปอง: ${couponCode}`,
               "💰 ส่วนลด: 15% OFF (ทุกบริการ)",
               `📅 ใช้ได้: ${startStr} - ${endStr}`,
+              pictureUrl ? `🖼️ รูปโปรไฟล์: ${pictureUrl}` : "",
               "━━━━━━━━━━━━━━"
-            ].join("\n");
+            ].filter(Boolean).join("\n");
 
             await fetch("https://api.line.me/v2/bot/message/push", {
               method: "POST",
