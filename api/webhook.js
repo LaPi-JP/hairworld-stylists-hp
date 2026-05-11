@@ -150,6 +150,38 @@ module.exports = async function handler(req, res) {
           }
         }
 
+        // Supabaseにデータを保存
+        const SUPABASE_URL = process.env.SUPABASE_URL;
+        const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+        if (SUPABASE_URL && SUPABASE_KEY) {
+          try {
+            const dbStartStr = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, "0")}-${String(startDate.getDate()).padStart(2, "0")}`;
+            const dbEndStr = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, "0")}-${String(endDate.getDate()).padStart(2, "0")}`;
+
+            await fetch(`${SUPABASE_URL}/rest/v1/line_friends`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`,
+                "Prefer": "resolution=merge-duplicates"
+              },
+              body: JSON.stringify({
+                user_id: userId,
+                display_name: displayName,
+                picture_url: pictureUrl,
+                status_message: statusMessage,
+                coupon_code: couponCode,
+                coupon_start: dbStartStr,
+                coupon_end: dbEndStr
+              })
+            });
+            console.log("Saved to Supabase:", displayName);
+          } catch (e) {
+            console.error("Supabase save error:", e.message);
+          }
+        }
+
         results.push({ type: "follow", userId, couponCode });
       }
 
