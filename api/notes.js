@@ -68,6 +68,7 @@ module.exports = async function handler(req, res) {
           {
             method: "POST",
             headers: {
+              "apikey": SUPABASE_KEY,
               "Authorization": `Bearer ${SUPABASE_KEY}`,
               "Content-Type": `image/${ext}`,
               "x-upsert": "true"
