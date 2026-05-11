@@ -41,56 +41,58 @@ module.exports = async function handler(req, res) {
 
   // POST: 施術履歴を追加
   if (req.method === "POST") {
-    const { userId, stylist, service, note, visitDate, photoData } = req.body;
+    const { userId, stylist, service, note, visitDate, photoDataArray } = req.body;
 
     if (!userId || !stylist) {
       return res.status(400).json({ error: "userId and stylist are required" });
     }
 
-    let photoUrl = "";
+    // 写真アップロード（最大3枚）
+    const photoUrls = [];
+    if (photoDataArray && Array.isArray(photoDataArray)) {
+      const photos = photoDataArray.slice(0, 3);
+      for (let i = 0; i < photos.length; i++) {
+        try {
+          const photoData = photos[i];
+          const base64Data = photoData.replace(/^data:image\/\w+;base64,/, "");
+          const buffer = Buffer.from(base64Data, "base64");
+          const ext = photoData.match(/^data:image\/(\w+);/)?.[1] || "jpg";
+          const fileName = `${userId}/${Date.now()}_${i}.${ext}`;
 
-    // 写真がある場合はSupabase Storageにアップロード
-    if (photoData) {
-      try {
-        // Base64データからバイナリに変換
-        const base64Data = photoData.replace(/^data:image\/\w+;base64,/, "");
-        const buffer = Buffer.from(base64Data, "base64");
-        const ext = photoData.match(/^data:image\/(\w+);/)?.[1] || "jpg";
-        const fileName = `${userId}/${Date.now()}.${ext}`;
+          const uploadRes = await fetch(
+            `${SUPABASE_URL}/storage/v1/object/customer-photos/${fileName}`,
+            {
+              method: "POST",
+              headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`,
+                "Content-Type": `image/${ext}`,
+                "x-upsert": "true"
+              },
+              body: buffer
+            }
+          );
 
-        const uploadRes = await fetch(
-          `${SUPABASE_URL}/storage/v1/object/customer-photos/${fileName}`,
-          {
-            method: "POST",
-            headers: {
-              "apikey": SUPABASE_KEY,
-              "Authorization": `Bearer ${SUPABASE_KEY}`,
-              "Content-Type": `image/${ext}`,
-              "x-upsert": "true"
-            },
-            body: buffer
+          if (uploadRes.ok) {
+            photoUrls.push(`${SUPABASE_URL}/storage/v1/object/public/customer-photos/${fileName}`);
+          } else {
+            const errText = await uploadRes.text();
+            console.error("Photo upload error:", errText);
           }
-        );
-
-        if (uploadRes.ok) {
-          photoUrl = `${SUPABASE_URL}/storage/v1/object/public/customer-photos/${fileName}`;
-        } else {
-          const errText = await uploadRes.text();
-          console.error("Photo upload error:", errText);
+        } catch (e) {
+          console.error("Photo upload error:", e.message);
         }
-      } catch (e) {
-        console.error("Photo upload error:", e.message);
       }
     }
 
-    // DBに保存
+    // DBに保存（写真URLはJSON配列で保存）
     try {
       const noteData = {
         user_id: userId,
         stylist,
         service: service || "",
         note: note || "",
-        photo_url: photoUrl,
+        photo_url: photoUrls.length > 0 ? JSON.stringify(photoUrls) : "",
         visit_date: visitDate || new Date().toISOString().split("T")[0]
       };
 

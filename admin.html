@@ -408,7 +408,12 @@
       height: 60px;
       border-radius: 6px;
       object-fit: cover;
-      display: none;
+    }
+    .note-photos {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
     }
     .btn-add-note {
       padding: 10px 24px;
@@ -615,11 +620,11 @@
           <textarea id="noteComment" data-admin-i18n-placeholder="detail.commentPlaceholder" placeholder="Hair type, preferences, notes for next visit..."></textarea>
         </div>
         <div class="photo-upload">
-          <label for="notePhoto" data-admin-i18n="detail.uploadPhoto">Upload Photo</label>
-          <input type="file" id="notePhoto" accept="image/*" style="display:none" onchange="previewPhoto(this)">
-          <img class="photo-preview" id="photoPreview">
-          <span id="photoFileName" style="color:#888;font-size:12px;"></span>
+          <label for="notePhoto" data-admin-i18n="detail.uploadPhoto">Upload Photo (max 3)</label>
+          <input type="file" id="notePhoto" accept="image/*" multiple style="display:none" onchange="previewPhotos(this)">
+          <span id="photoCount" style="color:#888;font-size:12px;"></span>
         </div>
+        <div id="photoPreviewList" style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;"></div>
         <button class="btn-add-note" onclick="addNote()" data-admin-i18n="detail.save">Save</button>
       </div>
 
@@ -689,7 +694,8 @@
         "detail.servicePlaceholder": "e.g. Cut, Color #7N, Perm",
         "detail.comment": "Comment",
         "detail.commentPlaceholder": "Hair type, preferences, notes for next visit...",
-        "detail.uploadPhoto": "Upload Photo",
+        "detail.uploadPhoto": "Upload Photo (max 3)",
+        "detail.photoMax": "Maximum 3 photos",
         "detail.save": "Save",
         "detail.history": "Visit History",
         "detail.noRecords": "No records yet",
@@ -745,7 +751,8 @@
         "detail.servicePlaceholder": "เช่น ตัด, ทำสี #7N, ดัด",
         "detail.comment": "หมายเหตุ",
         "detail.commentPlaceholder": "ประเภทเส้นผม, ความชอบ, โน้ตสำหรับครั้งถัดไป...",
-        "detail.uploadPhoto": "อัปโหลดรูป",
+        "detail.uploadPhoto": "อัปโหลดรูป (สูงสุด 3)",
+        "detail.photoMax": "สูงสุด 3 รูป",
         "detail.save": "บันทึก",
         "detail.history": "ประวัติการเข้าใช้บริการ",
         "detail.noRecords": "ยังไม่มีบันทึก",
@@ -1065,8 +1072,8 @@
       document.getElementById("noteService").value = "";
       document.getElementById("noteComment").value = "";
       document.getElementById("notePhoto").value = "";
-      document.getElementById("photoPreview").style.display = "none";
-      document.getElementById("photoFileName").textContent = "";
+      document.getElementById("photoPreviewList").innerHTML = "";
+      document.getElementById("photoCount").textContent = "";
 
       // モーダルを表示
       document.getElementById("customerDetail").classList.add("active");
@@ -1081,22 +1088,32 @@
       currentDetailUserId = null;
     }
 
-    // 写真プレビュー
-    function previewPhoto(input) {
-      const preview = document.getElementById("photoPreview");
-      const fileName = document.getElementById("photoFileName");
+    // 写真プレビュー（最大3枚）
+    function previewPhotos(input) {
+      const previewList = document.getElementById("photoPreviewList");
+      const photoCount = document.getElementById("photoCount");
+      previewList.innerHTML = "";
 
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          preview.src = e.target.result;
-          preview.style.display = "block";
-        };
-        reader.readAsDataURL(input.files[0]);
-        fileName.textContent = input.files[0].name;
+      if (input.files && input.files.length > 0) {
+        // 最大3枚に制限
+        const files = Array.from(input.files).slice(0, 3);
+        if (input.files.length > 3) {
+          alert(t("detail.photoMax"));
+        }
+        photoCount.textContent = `${files.length}/3`;
+
+        files.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.className = "photo-preview";
+            previewList.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        });
       } else {
-        preview.style.display = "none";
-        fileName.textContent = "";
+        photoCount.textContent = "";
       }
     }
 
@@ -1141,10 +1158,14 @@
 
       if (!stylist) return;
 
-      // 写真をリサイズ・圧縮してBase64に変換
-      let photoData = "";
-      if (photoInput.files && photoInput.files[0]) {
-        photoData = await resizeImage(photoInput.files[0]);
+      // 写真をリサイズ・圧縮してBase64配列に変換（最大3枚）
+      let photoDataArray = [];
+      if (photoInput.files && photoInput.files.length > 0) {
+        const files = Array.from(photoInput.files).slice(0, 3);
+        for (const file of files) {
+          const resized = await resizeImage(file);
+          photoDataArray.push(resized);
+        }
       }
 
       // 保存ボタンを無効化
@@ -1165,7 +1186,7 @@
             service,
             note,
             visitDate,
-            photoData
+            photoDataArray
           })
         });
 
@@ -1175,8 +1196,8 @@
           document.getElementById("noteService").value = "";
           document.getElementById("noteComment").value = "";
           document.getElementById("notePhoto").value = "";
-          document.getElementById("photoPreview").style.display = "none";
-          document.getElementById("photoFileName").textContent = "";
+          document.getElementById("photoPreviewList").innerHTML = "";
+          document.getElementById("photoCount").textContent = "";
           // 履歴を再読み込み
           await loadNotes(currentDetailUserId);
         } else {
@@ -1224,8 +1245,18 @@
       }
 
       container.innerHTML = notes.map(n => {
-        const photoHtml = n.photo_url
-          ? `<img class="note-photo" src="${n.photo_url}" alt="photo" onclick="window.open('${n.photo_url}','_blank')">`
+        // 写真URLの処理（JSON配列 or 単一URL対応）
+        let photoUrls = [];
+        if (n.photo_url) {
+          try {
+            const parsed = JSON.parse(n.photo_url);
+            photoUrls = Array.isArray(parsed) ? parsed : [n.photo_url];
+          } catch {
+            photoUrls = [n.photo_url];
+          }
+        }
+        const photosHtml = photoUrls.length > 0
+          ? `<div class="note-photos">${photoUrls.map(url => `<img class="note-photo" src="${url}" alt="photo" onclick="window.open('${url}','_blank')">`).join("")}</div>`
           : "";
 
         return `<div class="note-card">
@@ -1236,7 +1267,7 @@
           </div>
           ${n.service ? `<div class="note-service">💇 ${n.service}</div>` : ""}
           ${n.note ? `<div class="note-text">${n.note}</div>` : ""}
-          ${photoHtml}
+          ${photosHtml}
         </div>`;
       }).join("");
     }
