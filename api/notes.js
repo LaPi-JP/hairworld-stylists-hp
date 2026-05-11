@@ -48,6 +48,7 @@ module.exports = async function handler(req, res) {
     }
 
     let photoUrl = "";
+    let photoDebug = { hasPhotoData: !!photoData, photoDataLength: photoData ? photoData.length : 0 };
 
     // 写真がある場合はSupabase Storageにアップロード
     if (photoData) {
@@ -57,6 +58,10 @@ module.exports = async function handler(req, res) {
         const buffer = Buffer.from(base64Data, "base64");
         const ext = photoData.match(/^data:image\/(\w+);/)?.[1] || "jpg";
         const fileName = `${userId}/${Date.now()}.${ext}`;
+
+        photoDebug.bufferSize = buffer.length;
+        photoDebug.ext = ext;
+        photoDebug.fileName = fileName;
 
         const uploadRes = await fetch(
           `${SUPABASE_URL}/storage/v1/object/customer-photos/${fileName}`,
@@ -71,13 +76,18 @@ module.exports = async function handler(req, res) {
           }
         );
 
+        photoDebug.uploadStatus = uploadRes.status;
+
         if (uploadRes.ok) {
           photoUrl = `${SUPABASE_URL}/storage/v1/object/public/customer-photos/${fileName}`;
+          photoDebug.success = true;
         } else {
           const errText = await uploadRes.text();
+          photoDebug.uploadError = errText;
           console.error("Photo upload error:", errText);
         }
       } catch (e) {
+        photoDebug.exception = e.message;
         console.error("Photo upload error:", e.message);
       }
     }
@@ -102,14 +112,14 @@ module.exports = async function handler(req, res) {
       if (!response.ok) {
         const errText = await response.text();
         console.error("DB save error:", errText);
-        return res.status(500).json({ error: "Failed to save note" });
+        return res.status(500).json({ error: "Failed to save note", photoDebug });
       }
 
       const saved = await response.json();
-      return res.json({ success: true, data: saved });
+      return res.json({ success: true, data: saved, photoDebug });
     } catch (e) {
       console.error("Save note error:", e.message);
-      return res.status(500).json({ error: "Failed to save note" });
+      return res.status(500).json({ error: "Failed to save note", photoDebug });
     }
   }
 
