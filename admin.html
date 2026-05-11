@@ -285,6 +285,189 @@
     .btn-send { background: #d4a853; color: #000; font-weight: 600; }
     .btn-send:hover { opacity: 0.9; }
 
+    /* 検索バー */
+    .search-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 10px 16px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+    }
+    .search-bar input::placeholder { color: #666; }
+    .search-bar input:focus { border-color: #d4a853; outline: none; }
+
+    /* お客様カルテモーダル */
+    .customer-detail {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 1001;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .customer-detail.active { display: block; }
+    .detail-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 30px;
+    }
+    .detail-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .detail-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #d4a853;
+    }
+    .detail-info h2 { color: #d4a853; font-size: 20px; }
+    .detail-info p { color: #888; font-size: 13px; margin-top: 4px; }
+    .detail-close {
+      margin-left: auto;
+      background: none;
+      border: 1px solid #555;
+      color: #888;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .detail-close:hover { border-color: #ff6b6b; color: #ff6b6b; }
+
+    /* カルテ追加フォーム */
+    .note-form {
+      background: #222;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .note-form h3 { color: #d4a853; font-size: 15px; margin-bottom: 16px; }
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .form-group {
+      flex: 1;
+      min-width: 150px;
+    }
+    .form-group label {
+      display: block;
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 12px;
+      background: #0a0a0a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 13px;
+    }
+    .form-group textarea { height: 80px; resize: vertical; }
+    .photo-upload {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .photo-upload label {
+      padding: 8px 16px;
+      background: #333;
+      border-radius: 6px;
+      color: #d4a853;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .photo-upload label:hover { background: #444; }
+    .photo-preview {
+      width: 60px;
+      height: 60px;
+      border-radius: 6px;
+      object-fit: cover;
+      display: none;
+    }
+    .btn-add-note {
+      padding: 10px 24px;
+      background: #d4a853;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .btn-add-note:hover { opacity: 0.9; }
+
+    /* 施術履歴一覧 */
+    .notes-list h3 { color: #d4a853; font-size: 15px; margin-bottom: 16px; }
+    .note-card {
+      background: #222;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .note-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .note-date { color: #d4a853; font-size: 13px; font-weight: 600; }
+    .note-stylist {
+      background: rgba(212,168,83,0.15);
+      color: #d4a853;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+    .note-service { color: #4ecdc4; font-size: 13px; margin-bottom: 6px; }
+    .note-text { color: #ccc; font-size: 13px; line-height: 1.6; }
+    .note-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .note-photo:hover { opacity: 0.8; }
+    .note-delete {
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .note-delete:hover { color: #ff6b6b; }
+    .note-empty { color: #666; text-align: center; padding: 20px; }
+
     /* チェックボックス */
     .friend-checkbox {
       width: 18px;
@@ -344,6 +527,10 @@
       </div>
     </div>
 
+    <div class="search-bar">
+      <input type="text" id="searchInput" data-admin-i18n-placeholder="dashboard.search" placeholder="Search by name or member number..." oninput="filterFriends()">
+    </div>
+
     <div class="action-bar">
       <button onclick="loadFriends()" data-admin-i18n="dashboard.refresh">Refresh</button>
       <button onclick="openBroadcastModal()" data-admin-i18n="dashboard.broadcast">Broadcast Message</button>
@@ -385,6 +572,63 @@
       <div class="modal-actions">
         <button class="btn-cancel" onclick="closeModal()" data-admin-i18n="modal.cancel">Cancel</button>
         <button class="btn-send" id="sendBtn" onclick="sendMessage()" data-admin-i18n="modal.send">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- お客様カルテ -->
+  <div class="customer-detail" id="customerDetail">
+    <div class="detail-container">
+      <div class="detail-header">
+        <img class="detail-avatar" id="detailAvatar" src="" alt="">
+        <div class="detail-info">
+          <h2 id="detailName"></h2>
+          <p id="detailMember"></p>
+        </div>
+        <button class="detail-close" onclick="closeCustomerDetail()" data-admin-i18n="detail.close">Close</button>
+      </div>
+
+      <!-- カルテ追加フォーム -->
+      <div class="note-form">
+        <h3 data-admin-i18n="detail.addNote">Add Visit Record</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-admin-i18n="detail.date">Date</label>
+            <input type="date" id="noteDate">
+          </div>
+          <div class="form-group">
+            <label data-admin-i18n="detail.stylist">Stylist</label>
+            <select id="noteStylist">
+              <option value="Laphit">Laphit</option>
+              <option value="Aoy">Aoy</option>
+              <option value="Ploy">Ploy</option>
+              <option value="Tuk">Tuk</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-admin-i18n="detail.service">Service</label>
+            <input type="text" id="noteService" data-admin-i18n-placeholder="detail.servicePlaceholder" placeholder="e.g. Cut, Color #7N, Perm">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:12px;">
+          <label data-admin-i18n="detail.comment">Comment</label>
+          <textarea id="noteComment" data-admin-i18n-placeholder="detail.commentPlaceholder" placeholder="Hair type, preferences, notes for next visit..."></textarea>
+        </div>
+        <div class="photo-upload">
+          <label for="notePhoto" data-admin-i18n="detail.uploadPhoto">Upload Photo</label>
+          <input type="file" id="notePhoto" accept="image/*" style="display:none" onchange="previewPhoto(this)">
+          <img class="photo-preview" id="photoPreview">
+          <span id="photoFileName" style="color:#888;font-size:12px;"></span>
+        </div>
+        <button class="btn-add-note" onclick="addNote()" data-admin-i18n="detail.save">Save</button>
+      </div>
+
+      <!-- 施術履歴一覧 -->
+      <div class="notes-list">
+        <h3 data-admin-i18n="detail.history">Visit History</h3>
+        <div id="notesList">
+          <p class="note-empty" data-admin-i18n="detail.noRecords">No records yet</p>
+        </div>
       </div>
     </div>
   </div>
@@ -435,7 +679,23 @@
         "dashboard.sendSelected": "Send to Selected",
         "dashboard.selectAll": "Select All",
         "modal.selectedTitle": "Send to Selected",
-        "modal.selectedDesc": "Send a message to {count} selected friends"
+        "modal.selectedDesc": "Send a message to {count} selected friends",
+        "dashboard.search": "Search by name or member number...",
+        "detail.close": "Close",
+        "detail.addNote": "Add Visit Record",
+        "detail.date": "Date",
+        "detail.stylist": "Stylist",
+        "detail.service": "Service",
+        "detail.servicePlaceholder": "e.g. Cut, Color #7N, Perm",
+        "detail.comment": "Comment",
+        "detail.commentPlaceholder": "Hair type, preferences, notes for next visit...",
+        "detail.uploadPhoto": "Upload Photo",
+        "detail.save": "Save",
+        "detail.history": "Visit History",
+        "detail.noRecords": "No records yet",
+        "detail.saving": "Saving...",
+        "detail.saved": "Saved!",
+        "detail.deleteConfirm": "Delete this record?"
       },
       th: {
         "login.subtitle": "แดชบอร์ดผู้ดูแลระบบ",
@@ -475,7 +735,23 @@
         "dashboard.sendSelected": "ส่งถึงที่เลือก",
         "dashboard.selectAll": "เลือกทั้งหมด",
         "modal.selectedTitle": "ส่งถึงที่เลือก",
-        "modal.selectedDesc": "ส่งข้อความถึง {count} คนที่เลือก"
+        "modal.selectedDesc": "ส่งข้อความถึง {count} คนที่เลือก",
+        "dashboard.search": "ค้นหาชื่อหรือเลขสมาชิก...",
+        "detail.close": "ปิด",
+        "detail.addNote": "เพิ่มบันทึกการเข้าใช้บริการ",
+        "detail.date": "วันที่",
+        "detail.stylist": "ช่างผม",
+        "detail.service": "บริการ",
+        "detail.servicePlaceholder": "เช่น ตัด, ทำสี #7N, ดัด",
+        "detail.comment": "หมายเหตุ",
+        "detail.commentPlaceholder": "ประเภทเส้นผม, ความชอบ, โน้ตสำหรับครั้งถัดไป...",
+        "detail.uploadPhoto": "อัปโหลดรูป",
+        "detail.save": "บันทึก",
+        "detail.history": "ประวัติการเข้าใช้บริการ",
+        "detail.noRecords": "ยังไม่มีบันทึก",
+        "detail.saving": "กำลังบันทึก...",
+        "detail.saved": "บันทึกแล้ว!",
+        "detail.deleteConfirm": "ลบบันทึกนี้?"
       }
     };
 
@@ -602,7 +878,7 @@
           <td><input type="checkbox" class="friend-checkbox" value="${f.user_id}" data-name="${f.display_name}" onchange="updateSelectedCount()"></td>
           <td>${avatar}</td>
           <td><span class="coupon-code">${f.member_number || "-"}</span></td>
-          <td><strong>${f.display_name || "Unknown"}</strong></td>
+          <td><a href="#" onclick="openCustomerDetail('${f.user_id}');return false;" style="color:#d4a853;text-decoration:none;"><strong>${f.display_name || "Unknown"}</strong></a></td>
           <td>${f.status_message || "-"}</td>
           <td><span class="coupon-code">${f.coupon_code}</span> <span class="${couponClass}">${couponStatus}</span></td>
           <td>${f.coupon_start} ~ ${f.coupon_end}</td>
@@ -745,6 +1021,216 @@
       btn.textContent = t("modal.send");
       btn.disabled = false;
       closeModal();
+    }
+
+    // ========== 検索フィルター ==========
+    function filterFriends() {
+      const query = document.getElementById("searchInput").value.toLowerCase().trim();
+      if (!query) {
+        renderFriends(friendsData);
+        return;
+      }
+      const filtered = friendsData.filter(f =>
+        (f.display_name || "").toLowerCase().includes(query) ||
+        (f.member_number || "").toLowerCase().includes(query) ||
+        (f.coupon_code || "").toLowerCase().includes(query)
+      );
+      renderFriends(filtered);
+    }
+
+    // ========== お客様カルテ機能 ==========
+    let currentDetailUserId = null;
+
+    // カルテ画面を開く
+    function openCustomerDetail(userId) {
+      const friend = friendsData.find(f => f.user_id === userId);
+      if (!friend) return;
+
+      currentDetailUserId = userId;
+
+      // ヘッダー情報をセット
+      const avatar = document.getElementById("detailAvatar");
+      if (friend.picture_url) {
+        avatar.src = friend.picture_url;
+        avatar.style.display = "block";
+      } else {
+        avatar.style.display = "none";
+      }
+      document.getElementById("detailName").textContent = friend.display_name || "Unknown";
+      document.getElementById("detailMember").textContent = friend.member_number || "";
+
+      // フォームをリセット
+      document.getElementById("noteDate").value = new Date().toISOString().split("T")[0];
+      document.getElementById("noteStylist").selectedIndex = 0;
+      document.getElementById("noteService").value = "";
+      document.getElementById("noteComment").value = "";
+      document.getElementById("notePhoto").value = "";
+      document.getElementById("photoPreview").style.display = "none";
+      document.getElementById("photoFileName").textContent = "";
+
+      // モーダルを表示
+      document.getElementById("customerDetail").classList.add("active");
+
+      // 施術履歴を読み込み
+      loadNotes(userId);
+    }
+
+    // カルテ画面を閉じる
+    function closeCustomerDetail() {
+      document.getElementById("customerDetail").classList.remove("active");
+      currentDetailUserId = null;
+    }
+
+    // 写真プレビュー
+    function previewPhoto(input) {
+      const preview = document.getElementById("photoPreview");
+      const fileName = document.getElementById("photoFileName");
+
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(input.files[0]);
+        fileName.textContent = input.files[0].name;
+      } else {
+        preview.style.display = "none";
+        fileName.textContent = "";
+      }
+    }
+
+    // 施術履歴を追加
+    async function addNote() {
+      if (!currentDetailUserId) return;
+
+      const visitDate = document.getElementById("noteDate").value;
+      const stylist = document.getElementById("noteStylist").value;
+      const service = document.getElementById("noteService").value.trim();
+      const note = document.getElementById("noteComment").value.trim();
+      const photoInput = document.getElementById("notePhoto");
+
+      if (!stylist) return;
+
+      // 写真をBase64に変換
+      let photoData = "";
+      if (photoInput.files && photoInput.files[0]) {
+        photoData = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target.result);
+          reader.readAsDataURL(photoInput.files[0]);
+        });
+      }
+
+      // 保存ボタンを無効化
+      const btn = document.querySelector(".btn-add-note");
+      btn.textContent = t("detail.saving");
+      btn.disabled = true;
+
+      try {
+        const res = await fetch("/api/notes", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-password": adminPassword
+          },
+          body: JSON.stringify({
+            userId: currentDetailUserId,
+            stylist,
+            service,
+            note,
+            visitDate,
+            photoData
+          })
+        });
+
+        if (res.ok) {
+          btn.textContent = t("detail.saved");
+          // フォームをリセット
+          document.getElementById("noteService").value = "";
+          document.getElementById("noteComment").value = "";
+          document.getElementById("notePhoto").value = "";
+          document.getElementById("photoPreview").style.display = "none";
+          document.getElementById("photoFileName").textContent = "";
+          // 履歴を再読み込み
+          await loadNotes(currentDetailUserId);
+        } else {
+          alert(t("modal.error"));
+        }
+      } catch (e) {
+        console.error("Add note error:", e);
+        alert(t("modal.error"));
+      }
+
+      setTimeout(() => {
+        btn.textContent = t("detail.save");
+        btn.disabled = false;
+      }, 1500);
+    }
+
+    // 施術履歴を取得
+    async function loadNotes(userId) {
+      const container = document.getElementById("notesList");
+      container.innerHTML = `<p class="note-empty">${t("table.loading")}</p>`;
+
+      try {
+        const res = await fetch(`/api/notes?userId=${userId}`, {
+          headers: { "x-admin-password": adminPassword }
+        });
+        if (res.ok) {
+          const notes = await res.json();
+          renderNotes(notes);
+        } else {
+          container.innerHTML = `<p class="note-empty">${t("modal.error")}</p>`;
+        }
+      } catch (e) {
+        console.error("Load notes error:", e);
+        container.innerHTML = `<p class="note-empty">${t("modal.error")}</p>`;
+      }
+    }
+
+    // 施術履歴を描画
+    function renderNotes(notes) {
+      const container = document.getElementById("notesList");
+
+      if (!notes || notes.length === 0) {
+        container.innerHTML = `<p class="note-empty">${t("detail.noRecords")}</p>`;
+        return;
+      }
+
+      container.innerHTML = notes.map(n => {
+        const photoHtml = n.photo_url
+          ? `<img class="note-photo" src="${n.photo_url}" alt="photo" onclick="window.open('${n.photo_url}','_blank')">`
+          : "";
+
+        return `<div class="note-card">
+          <div class="note-card-header">
+            <span class="note-date">📅 ${n.visit_date || ""}</span>
+            <span class="note-stylist">✂️ ${n.stylist || ""}</span>
+            <button class="note-delete" onclick="deleteNote(${n.id})">🗑 Delete</button>
+          </div>
+          ${n.service ? `<div class="note-service">💇 ${n.service}</div>` : ""}
+          ${n.note ? `<div class="note-text">${n.note}</div>` : ""}
+          ${photoHtml}
+        </div>`;
+      }).join("");
+    }
+
+    // 施術履歴を削除
+    async function deleteNote(noteId) {
+      if (!confirm(t("detail.deleteConfirm"))) return;
+
+      try {
+        const res = await fetch(`/api/notes?id=${noteId}`, {
+          method: "DELETE",
+          headers: { "x-admin-password": adminPassword }
+        });
+        if (res.ok && currentDetailUserId) {
+          await loadNotes(currentDetailUserId);
+        }
+      } catch (e) {
+        console.error("Delete note error:", e);
+      }
     }
   </script>
 </body>
