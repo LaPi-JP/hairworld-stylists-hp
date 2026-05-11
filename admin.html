@@ -32,6 +32,17 @@
       text-align: center;
       box-shadow: 0 8px 32px rgba(44,36,24,0.15);
     }
+    .login-logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+    .header-logo {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
     .login-box h1 {
       color: #b8922e;
       font-size: 20px;
@@ -683,6 +694,7 @@
         <button class="active" onclick="setAdminLang('en')">EN</button>
         <button onclick="setAdminLang('th')">TH</button>
       </div>
+      <img src="logo (Gold).png" alt="Hairworld Stylists" class="login-logo">
       <h1>Hairworld Stylists</h1>
       <p data-admin-i18n="login.subtitle">Admin Dashboard</p>
       <input type="password" id="passwordInput" data-admin-i18n-placeholder="login.placeholder" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')login()">
@@ -694,7 +706,10 @@
   <!-- ダッシュボード -->
   <div class="dashboard" id="dashboard">
     <div class="header-bar">
-      <h1 data-admin-i18n="dashboard.title">LINE Friends Dashboard</h1>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <img src="logo (Gold).png" alt="Hairworld Stylists" class="header-logo">
+        <h1 data-admin-i18n="dashboard.title">LINE Friends Dashboard</h1>
+      </div>
       <div class="stats">
         <div class="stat-card">
           <div class="stat-number" id="totalCount">-</div>
