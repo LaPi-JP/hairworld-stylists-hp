@@ -136,6 +136,36 @@ module.exports = async function handler(req, res) {
       }
     }
 
+    // --- 3. Supabaseに予約データを保存 ---
+    const SUPABASE_URL = process.env.SUPABASE_URL;
+    const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+    if (SUPABASE_URL && SUPABASE_KEY) {
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/reservations`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`
+          },
+          body: JSON.stringify({
+            user_id: lineUserId || null,
+            name,
+            phone,
+            service,
+            message: message || "",
+            preferred_date: date,
+            preferred_time: time,
+            line_display_name: lineDisplayName || "",
+            language: lang || "en",
+            status: "new"
+          })
+        });
+      } catch (e) {
+        console.error("Reservation DB save error:", e.message);
+      }
+    }
+
     res.json({ success: true, message: "予約リクエストを受け付けました。" });
   } catch (error) {
     console.error("Reserve Error:", error.message);

@@ -485,10 +485,184 @@
     .loading { text-align: center; padding: 40px; color: #888; }
     .empty-state { text-align: center; padding: 40px; color: #666; }
 
+    /* タブ切替 */
+    .tab-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #333;
+    }
+    .tab-bar button {
+      padding: 10px 20px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: #888;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .tab-bar button.active {
+      color: #d4a853;
+      border-bottom-color: #d4a853;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* 予約カード */
+    .reservation-card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .res-info { flex: 1; min-width: 200px; }
+    .res-info .res-name { color: #d4a853; font-size: 15px; font-weight: 600; }
+    .res-info .res-detail { color: #aaa; font-size: 13px; margin-top: 4px; }
+    .res-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .res-status {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .res-status.new { background: rgba(78,205,196,0.15); color: #4ecdc4; }
+    .res-status.confirmed { background: rgba(212,168,83,0.15); color: #d4a853; }
+    .res-status.completed { background: rgba(136,136,136,0.15); color: #888; }
+    .res-status.cancelled { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+    .res-btn {
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid #555;
+      background: none;
+      color: #aaa;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .res-btn:hover { border-color: #d4a853; color: #d4a853; }
+    .res-filter {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .res-filter button {
+      padding: 6px 14px;
+      background: none;
+      border: 1px solid #444;
+      color: #888;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .res-filter button.active { border-color: #d4a853; color: #d4a853; background: rgba(212,168,83,0.1); }
+
+    /* リマインドパネル */
+    .reminder-section {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .reminder-section h3 {
+      color: #d4a853;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    .reminder-card {
+      background: #222;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .reminder-card .rem-info { flex: 1; }
+    .reminder-card .rem-name { color: #e0e0e0; font-size: 14px; font-weight: 500; }
+    .reminder-card .rem-detail { color: #888; font-size: 12px; margin-top: 2px; }
+    .rem-lang-select {
+      padding: 4px 8px;
+      background: #0a0a0a;
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 12px;
+    }
+    .rem-send-btn {
+      padding: 6px 14px;
+      background: #4ecdc4;
+      border: none;
+      border-radius: 6px;
+      color: #000;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .rem-send-btn:hover { opacity: 0.8; }
+    .rem-send-all {
+      padding: 10px 24px;
+      background: #d4a853;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+    .rem-send-all:hover { opacity: 0.9; }
+
+    /* カルテ内リマインド設定 */
+    .reminder-settings {
+      background: #222;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .reminder-settings h3 { color: #d4a853; font-size: 15px; margin-bottom: 12px; }
+    .reminder-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .reminder-row label { color: #888; font-size: 13px; }
+    .reminder-row select, .reminder-row input {
+      padding: 6px 10px;
+      background: #0a0a0a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 13px;
+    }
+    .btn-save-reminder {
+      padding: 6px 16px;
+      background: #4ecdc4;
+      border: none;
+      border-radius: 6px;
+      color: #000;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
     @media (max-width: 768px) {
       .header-bar { flex-direction: column; align-items: flex-start; }
       .header-bar .stats { width: 100%; }
       .stat-card { flex: 1; }
+      .reservation-card { flex-direction: column; }
+      .reminder-card { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -532,40 +706,88 @@
       </div>
     </div>
 
-    <div class="search-bar">
-      <input type="text" id="searchInput" data-admin-i18n-placeholder="dashboard.search" placeholder="Search by name or member number..." oninput="filterFriends()">
+    <!-- タブ切替 -->
+    <div class="tab-bar">
+      <button class="active" onclick="switchTab('friends')" data-admin-i18n="tab.friends">👥 Friends</button>
+      <button onclick="switchTab('reservations')" data-admin-i18n="tab.reservations">📋 Reservations</button>
+      <button onclick="switchTab('reminders')" data-admin-i18n="tab.reminders">🔔 Reminders</button>
     </div>
 
-    <div class="action-bar">
-      <button onclick="loadFriends()" data-admin-i18n="dashboard.refresh">Refresh</button>
-      <button onclick="openBroadcastModal()" data-admin-i18n="dashboard.broadcast">Broadcast Message</button>
-      <button onclick="openSelectedModal()" data-admin-i18n="dashboard.sendSelected" id="sendSelectedBtn" style="display:none;">Send to Selected (0)</button>
-      <label style="display:flex;align-items:center;gap:6px;color:#888;font-size:13px;cursor:pointer;margin-left:auto;">
-        <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)">
-        <span data-admin-i18n="dashboard.selectAll">Select All</span>
-      </label>
+    <!-- タブ1: 会員管理 -->
+    <div class="tab-content active" id="tab-friends">
+      <div class="search-bar">
+        <input type="text" id="searchInput" data-admin-i18n-placeholder="dashboard.search" placeholder="Search by name or member number..." oninput="filterFriends()">
+      </div>
+
+      <div class="action-bar">
+        <button onclick="loadFriends()" data-admin-i18n="dashboard.refresh">Refresh</button>
+        <button onclick="openBroadcastModal()" data-admin-i18n="dashboard.broadcast">Broadcast Message</button>
+        <button onclick="openSelectedModal()" data-admin-i18n="dashboard.sendSelected" id="sendSelectedBtn" style="display:none;">Send to Selected (0)</button>
+        <label style="display:flex;align-items:center;gap:6px;color:#888;font-size:13px;cursor:pointer;margin-left:auto;">
+          <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)">
+          <span data-admin-i18n="dashboard.selectAll">Select All</span>
+        </label>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:40px;"></th>
+              <th></th>
+              <th data-admin-i18n="table.memberNo">Member No.</th>
+              <th data-admin-i18n="table.name">Name</th>
+              <th data-admin-i18n="table.status">Status</th>
+              <th data-admin-i18n="table.coupon">Coupon</th>
+              <th data-admin-i18n="table.validPeriod">Valid Period</th>
+              <th data-admin-i18n="table.registered">Registered</th>
+              <th data-admin-i18n="table.action">Action</th>
+            </tr>
+          </thead>
+          <tbody id="friendsTable">
+            <tr><td colspan="9" class="loading">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:40px;"></th>
-            <th></th>
-            <th data-admin-i18n="table.memberNo">Member No.</th>
-            <th data-admin-i18n="table.name">Name</th>
-            <th data-admin-i18n="table.status">Status</th>
-            <th data-admin-i18n="table.coupon">Coupon</th>
-            <th data-admin-i18n="table.validPeriod">Valid Period</th>
-            <th data-admin-i18n="table.registered">Registered</th>
-            <th data-admin-i18n="table.action">Action</th>
-          </tr>
-        </thead>
-        <tbody id="friendsTable">
-          <tr><td colspan="9" class="loading">Loading...</td></tr>
-        </tbody>
-      </table>
+    <!-- タブ2: 予約管理 -->
+    <div class="tab-content" id="tab-reservations">
+      <div class="res-filter">
+        <button class="active" onclick="filterReservations('all')" data-admin-i18n="res.all">All</button>
+        <button onclick="filterReservations('new')" data-admin-i18n="res.new">🆕 New</button>
+        <button onclick="filterReservations('confirmed')" data-admin-i18n="res.confirmed">✅ Confirmed</button>
+        <button onclick="filterReservations('completed')" data-admin-i18n="res.completed">✔️ Completed</button>
+        <button onclick="filterReservations('cancelled')" data-admin-i18n="res.cancelled">❌ Cancelled</button>
+      </div>
+      <div id="reservationsList">
+        <p class="empty-state" data-admin-i18n="res.loading">Loading...</p>
+      </div>
     </div>
+
+    <!-- タブ3: リマインド -->
+    <div class="tab-content" id="tab-reminders">
+      <div style="margin-bottom:12px;">
+        <button onclick="loadReminders()" style="padding:8px 16px;background:#1a1a1a;border:1px solid #d4a853;color:#d4a853;border-radius:8px;cursor:pointer;font-size:13px;" data-admin-i18n="rem.check">🔍 Check Reminders</button>
+      </div>
+
+      <!-- 予約リマインド（1週間前） -->
+      <div class="reminder-section">
+        <h3 data-admin-i18n="rem.reservationTitle">📋 Upcoming Reservations (within 7 days)</h3>
+        <div id="reservationReminders">
+          <p class="note-empty" data-admin-i18n="rem.noReservation">Click "Check Reminders" to see targets</p>
+        </div>
+      </div>
+
+      <!-- 再来店リマインド -->
+      <div class="reminder-section">
+        <h3 data-admin-i18n="rem.revisitTitle">💇 Revisit Reminders</h3>
+        <div id="revisitReminders">
+          <p class="note-empty" data-admin-i18n="rem.noRevisit">Click "Check Reminders" to see targets</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- 送信モーダル -->
@@ -591,6 +813,29 @@
           <p id="detailMember"></p>
         </div>
         <button class="detail-close" onclick="closeCustomerDetail()" data-admin-i18n="detail.close">Close</button>
+      </div>
+
+      <!-- リマインド設定 -->
+      <div class="reminder-settings">
+        <h3 data-admin-i18n="detail.reminderSettings">🔔 Reminder Settings</h3>
+        <div class="reminder-row">
+          <label data-admin-i18n="detail.preferredLang">Language:</label>
+          <select id="detailLang">
+            <option value="en">English</option>
+            <option value="th">ภาษาไทย</option>
+            <option value="ja">日本語</option>
+          </select>
+          <label data-admin-i18n="detail.reminderMonths">Revisit reminder:</label>
+          <select id="detailReminderMonths">
+            <option value="">Off</option>
+            <option value="1">1 month</option>
+            <option value="2">2 months</option>
+            <option value="3">3 months</option>
+            <option value="4">4 months</option>
+            <option value="6">6 months</option>
+          </select>
+          <button class="btn-save-reminder" onclick="saveReminderSettings()" data-admin-i18n="detail.saveReminder">Save</button>
+        </div>
       </div>
 
       <!-- カルテ追加フォーム -->
@@ -701,7 +946,37 @@
         "detail.noRecords": "No records yet",
         "detail.saving": "Saving...",
         "detail.saved": "Saved!",
-        "detail.deleteConfirm": "Delete this record?"
+        "detail.deleteConfirm": "Delete this record?",
+        "detail.reminderSettings": "🔔 Reminder Settings",
+        "detail.preferredLang": "Language:",
+        "detail.reminderMonths": "Revisit reminder:",
+        "detail.saveReminder": "Save",
+        "detail.reminderSaved": "Saved!",
+        "tab.friends": "👥 Friends",
+        "tab.reservations": "📋 Reservations",
+        "tab.reminders": "🔔 Reminders",
+        "res.all": "All",
+        "res.new": "🆕 New",
+        "res.confirmed": "✅ Confirmed",
+        "res.completed": "✔️ Completed",
+        "res.cancelled": "❌ Cancelled",
+        "res.loading": "Loading...",
+        "res.empty": "No reservations",
+        "res.confirm": "Confirm",
+        "res.complete": "Complete",
+        "res.cancel": "Cancel",
+        "rem.check": "🔍 Check Reminders",
+        "rem.reservationTitle": "📋 Upcoming Reservations (within 7 days)",
+        "rem.revisitTitle": "💇 Revisit Reminders",
+        "rem.noReservation": "Click \"Check Reminders\" to see targets",
+        "rem.noRevisit": "Click \"Check Reminders\" to see targets",
+        "rem.send": "Send",
+        "rem.sent": "Sent!",
+        "rem.sendAll": "Send All",
+        "rem.noTargets": "No reminder targets found",
+        "rem.lastVisit": "Last visit",
+        "rem.target": "Target",
+        "rem.monthsAgo": "months set"
       },
       th: {
         "login.subtitle": "แดชบอร์ดผู้ดูแลระบบ",
@@ -758,7 +1033,37 @@
         "detail.noRecords": "ยังไม่มีบันทึก",
         "detail.saving": "กำลังบันทึก...",
         "detail.saved": "บันทึกแล้ว!",
-        "detail.deleteConfirm": "ลบบันทึกนี้?"
+        "detail.deleteConfirm": "ลบบันทึกนี้?",
+        "detail.reminderSettings": "🔔 ตั้งค่าแจ้งเตือน",
+        "detail.preferredLang": "ภาษา:",
+        "detail.reminderMonths": "แจ้งเตือนมาใช้บริการ:",
+        "detail.saveReminder": "บันทึก",
+        "detail.reminderSaved": "บันทึกแล้ว!",
+        "tab.friends": "👥 เพื่อน",
+        "tab.reservations": "📋 การจอง",
+        "tab.reminders": "🔔 แจ้งเตือน",
+        "res.all": "ทั้งหมด",
+        "res.new": "🆕 ใหม่",
+        "res.confirmed": "✅ ยืนยันแล้ว",
+        "res.completed": "✔️ เสร็จแล้ว",
+        "res.cancelled": "❌ ยกเลิก",
+        "res.loading": "กำลังโหลด...",
+        "res.empty": "ไม่มีการจอง",
+        "res.confirm": "ยืนยัน",
+        "res.complete": "เสร็จ",
+        "res.cancel": "ยกเลิก",
+        "rem.check": "🔍 ตรวจสอบการแจ้งเตือน",
+        "rem.reservationTitle": "📋 การจองใกล้ถึง (ภายใน 7 วัน)",
+        "rem.revisitTitle": "💇 แจ้งเตือนมาใช้บริการ",
+        "rem.noReservation": "คลิก \"ตรวจสอบ\" เพื่อดูรายการ",
+        "rem.noRevisit": "คลิก \"ตรวจสอบ\" เพื่อดูรายการ",
+        "rem.send": "ส่ง",
+        "rem.sent": "ส่งแล้ว!",
+        "rem.sendAll": "ส่งทั้งหมด",
+        "rem.noTargets": "ไม่มีรายการแจ้งเตือน",
+        "rem.lastVisit": "เข้าใช้ล่าสุด",
+        "rem.target": "กำหนด",
+        "rem.monthsAgo": "เดือนที่ตั้ง"
       }
     };
 
@@ -1288,6 +1593,263 @@
         console.error("Delete note error:", e);
       }
     }
+
+    // ========== タブ切替 ==========
+    function switchTab(tab) {
+      document.querySelectorAll(".tab-bar button").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+      document.querySelector(`.tab-bar button[onclick="switchTab('${tab}')"]`).classList.add("active");
+      document.getElementById(`tab-${tab}`).classList.add("active");
+
+      // タブ切替時にデータを読み込み
+      if (tab === "reservations") loadReservations();
+      if (tab === "reminders") {} // 手動で「Check」ボタンを押す
+    }
+
+    // ========== 予約管理 ==========
+    let reservationsData = [];
+    let currentResFilter = "all";
+
+    async function loadReservations(status) {
+      const filter = status || currentResFilter;
+      currentResFilter = filter;
+      const container = document.getElementById("reservationsList");
+      container.innerHTML = `<p class="empty-state">${t("res.loading")}</p>`;
+
+      // フィルターボタンのactive状態
+      document.querySelectorAll(".res-filter button").forEach(b => b.classList.remove("active"));
+      const activeBtn = document.querySelector(`.res-filter button[onclick="filterReservations('${filter}')"]`);
+      if (activeBtn) activeBtn.classList.add("active");
+
+      try {
+        const url = filter === "all" ? "/api/reservations" : `/api/reservations?status=${filter}`;
+        const res = await fetch(url, {
+          headers: { "x-admin-password": adminPassword }
+        });
+        if (res.ok) {
+          reservationsData = await res.json();
+          renderReservations(reservationsData);
+        }
+      } catch (e) {
+        container.innerHTML = `<p class="empty-state">Error loading</p>`;
+      }
+    }
+
+    function filterReservations(status) {
+      loadReservations(status);
+    }
+
+    function renderReservations(list) {
+      const container = document.getElementById("reservationsList");
+      if (!list || list.length === 0) {
+        container.innerHTML = `<p class="empty-state">${t("res.empty")}</p>`;
+        return;
+      }
+
+      container.innerHTML = list.map(r => {
+        const statusLabels = { new: t("res.new"), confirmed: t("res.confirmed"), completed: t("res.completed"), cancelled: t("res.cancelled") };
+        const statusLabel = statusLabels[r.status] || r.status;
+
+        // ステータス変更ボタン
+        let actionBtns = "";
+        if (r.status === "new") {
+          actionBtns = `<button class="res-btn" onclick="updateResStatus(${r.id},'confirmed')">${t("res.confirm")}</button>
+            <button class="res-btn" onclick="updateResStatus(${r.id},'cancelled')">${t("res.cancel")}</button>`;
+        } else if (r.status === "confirmed") {
+          actionBtns = `<button class="res-btn" onclick="updateResStatus(${r.id},'completed')">${t("res.complete")}</button>
+            <button class="res-btn" onclick="updateResStatus(${r.id},'cancelled')">${t("res.cancel")}</button>`;
+        }
+
+        return `<div class="reservation-card">
+          <div class="res-info">
+            <div class="res-name">👤 ${r.name} ${r.line_display_name ? `(${r.line_display_name})` : ""}</div>
+            <div class="res-detail">
+              📅 ${r.preferred_date || "-"} 🕐 ${r.preferred_time || "-"}<br>
+              💇 ${r.service || "-"} 📞 ${r.phone || "-"}<br>
+              ${r.message ? `💬 ${r.message}` : ""}
+            </div>
+          </div>
+          <div class="res-actions">
+            <span class="res-status ${r.status}">${statusLabel}</span>
+            ${actionBtns}
+          </div>
+        </div>`;
+      }).join("");
+    }
+
+    async function updateResStatus(id, status) {
+      try {
+        await fetch("/api/reservations", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-password": adminPassword
+          },
+          body: JSON.stringify({ id, status })
+        });
+        await loadReservations();
+      } catch (e) {
+        console.error("Update status error:", e);
+      }
+    }
+
+    // ========== リマインド ==========
+    async function loadReminders() {
+      const resContainer = document.getElementById("reservationReminders");
+      const revContainer = document.getElementById("revisitReminders");
+      resContainer.innerHTML = `<p class="note-empty">${t("res.loading")}</p>`;
+      revContainer.innerHTML = `<p class="note-empty">${t("res.loading")}</p>`;
+
+      try {
+        const res = await fetch("/api/reminders", {
+          headers: { "x-admin-password": adminPassword }
+        });
+        if (!res.ok) throw new Error("Failed");
+        const data = await res.json();
+
+        // タイプA: 予約リマインド
+        if (data.reservationReminders && data.reservationReminders.length > 0) {
+          resContainer.innerHTML = data.reservationReminders.map(r => `
+            <div class="reminder-card">
+              <div class="rem-info">
+                <div class="rem-name">👤 ${r.name} ${r.line_display_name ? `(${r.line_display_name})` : ""}</div>
+                <div class="rem-detail">📅 ${r.preferred_date} 🕐 ${r.preferred_time} | 💇 ${r.service}</div>
+              </div>
+              <select class="rem-lang-select" id="resLang-${r.id}">
+                <option value="en" ${r.language === "en" ? "selected" : ""}>EN</option>
+                <option value="th" ${r.language === "th" ? "selected" : ""}>TH</option>
+                <option value="ja" ${r.language === "ja" ? "selected" : ""}>JP</option>
+              </select>
+              <button class="rem-send-btn" onclick="sendReminder('reservation',${r.id},null,'resLang-${r.id}')" id="remBtn-res-${r.id}">${t("rem.send")}</button>
+            </div>
+          `).join("");
+        } else {
+          resContainer.innerHTML = `<p class="note-empty">${t("rem.noTargets")}</p>`;
+        }
+
+        // タイプB: 再来店リマインド
+        if (data.revisitReminders && data.revisitReminders.length > 0) {
+          revContainer.innerHTML = data.revisitReminders.map(r => `
+            <div class="reminder-card">
+              <div class="rem-info">
+                <div class="rem-name">👤 ${r.display_name} <span style="color:#888;font-size:12px;">${r.member_number || ""}</span></div>
+                <div class="rem-detail">${t("rem.target")}: ${r.next_reminder_date} | ${r.reminder_months} ${t("rem.monthsAgo")}</div>
+              </div>
+              <select class="rem-lang-select" id="revLang-${r.user_id}">
+                <option value="en" ${r.preferred_lang === "en" ? "selected" : ""}>EN</option>
+                <option value="th" ${r.preferred_lang === "th" ? "selected" : ""}>TH</option>
+                <option value="ja" ${r.preferred_lang === "ja" ? "selected" : ""}>JP</option>
+              </select>
+              <button class="rem-send-btn" onclick="sendReminder('revisit',null,'${r.user_id}','revLang-${r.user_id}')" id="remBtn-rev-${r.user_id}">${t("rem.send")}</button>
+            </div>
+          `).join("");
+        } else {
+          revContainer.innerHTML = `<p class="note-empty">${t("rem.noTargets")}</p>`;
+        }
+      } catch (e) {
+        console.error("Load reminders error:", e);
+        resContainer.innerHTML = `<p class="note-empty">Error</p>`;
+        revContainer.innerHTML = `<p class="note-empty">Error</p>`;
+      }
+    }
+
+    async function sendReminder(type, targetId, userId, langSelectId) {
+      const lang = document.getElementById(langSelectId).value;
+      const btnId = type === "reservation" ? `remBtn-res-${targetId}` : `remBtn-rev-${userId}`;
+      const btn = document.getElementById(btnId);
+      btn.textContent = "...";
+      btn.disabled = true;
+
+      try {
+        const res = await fetch("/api/reminders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-password": adminPassword
+          },
+          body: JSON.stringify({ type, targetId, userId, lang })
+        });
+        if (res.ok) {
+          btn.textContent = t("rem.sent");
+          btn.style.background = "#888";
+        } else {
+          const err = await res.json();
+          alert(err.error || t("modal.error"));
+          btn.textContent = t("rem.send");
+          btn.disabled = false;
+        }
+      } catch (e) {
+        alert(t("modal.error"));
+        btn.textContent = t("rem.send");
+        btn.disabled = false;
+      }
+    }
+
+    // ========== カルテ内リマインド設定 ==========
+    async function saveReminderSettings() {
+      if (!currentDetailUserId) return;
+
+      const preferredLang = document.getElementById("detailLang").value;
+      const reminderMonths = document.getElementById("detailReminderMonths").value;
+
+      // 最終来店日を取得（最新のnoteのvisit_date）
+      let lastVisitDate = null;
+      try {
+        const notesRes = await fetch(`/api/notes?userId=${currentDetailUserId}`, {
+          headers: { "x-admin-password": adminPassword }
+        });
+        if (notesRes.ok) {
+          const notes = await notesRes.json();
+          if (notes.length > 0) lastVisitDate = notes[0].visit_date;
+        }
+      } catch (e) {}
+
+      const btn = document.querySelector(".btn-save-reminder");
+      btn.textContent = "...";
+
+      try {
+        const res = await fetch("/api/reminders", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-password": adminPassword
+          },
+          body: JSON.stringify({
+            userId: currentDetailUserId,
+            preferredLang,
+            reminderMonths: reminderMonths ? parseInt(reminderMonths) : null,
+            lastVisitDate
+          })
+        });
+        if (res.ok) {
+          btn.textContent = t("detail.reminderSaved");
+          // friendsDataも更新
+          const friend = friendsData.find(f => f.user_id === currentDetailUserId);
+          if (friend) {
+            friend.preferred_lang = preferredLang;
+            friend.reminder_months = reminderMonths ? parseInt(reminderMonths) : null;
+          }
+        } else {
+          alert(t("modal.error"));
+        }
+      } catch (e) {
+        alert(t("modal.error"));
+      }
+
+      setTimeout(() => { btn.textContent = t("detail.saveReminder"); }, 1500);
+    }
+
+    // openCustomerDetailにリマインド設定の読み込みを追加
+    const _originalOpenDetail = openCustomerDetail;
+    openCustomerDetail = function(userId) {
+      _originalOpenDetail(userId);
+      // リマインド設定をセット
+      const friend = friendsData.find(f => f.user_id === userId);
+      if (friend) {
+        document.getElementById("detailLang").value = friend.preferred_lang || "th";
+        document.getElementById("detailReminderMonths").value = friend.reminder_months || "";
+      }
+    };
   </script>
 </body>
 </html>
