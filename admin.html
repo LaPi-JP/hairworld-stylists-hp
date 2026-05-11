@@ -1121,7 +1121,6 @@
             ctx.drawImage(img, 0, 0, w, h);
             // JPEG形式で圧縮
             const dataUrl = canvas.toDataURL("image/jpeg", quality);
-            console.log("Resized photo size:", Math.round(dataUrl.length / 1024), "KB");
             resolve(dataUrl);
           };
           img.src = e.target.result;
@@ -1145,7 +1144,6 @@
       // 写真をリサイズ・圧縮してBase64に変換
       let photoData = "";
       if (photoInput.files && photoInput.files[0]) {
-        console.log("Original photo size:", Math.round(photoInput.files[0].size / 1024), "KB");
         photoData = await resizeImage(photoInput.files[0]);
       }
 
@@ -1155,27 +1153,21 @@
       btn.disabled = true;
 
       try {
-        const bodyData = JSON.stringify({
-          userId: currentDetailUserId,
-          stylist,
-          service,
-          note,
-          visitDate,
-          photoData
-        });
-        console.log("Request body size:", Math.round(bodyData.length / 1024), "KB");
-
         const res = await fetch("/api/notes", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "x-admin-password": adminPassword
           },
-          body: bodyData
+          body: JSON.stringify({
+            userId: currentDetailUserId,
+            stylist,
+            service,
+            note,
+            visitDate,
+            photoData
+          })
         });
-
-        const result = await res.json();
-        console.log("API response:", result);
 
         if (res.ok) {
           btn.textContent = t("detail.saved");
@@ -1188,7 +1180,6 @@
           // 履歴を再読み込み
           await loadNotes(currentDetailUserId);
         } else {
-          console.error("API error:", result);
           alert(t("modal.error"));
         }
       } catch (e) {

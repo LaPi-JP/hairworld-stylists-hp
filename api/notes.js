@@ -48,7 +48,6 @@ module.exports = async function handler(req, res) {
     }
 
     let photoUrl = "";
-    let photoDebug = { hasPhotoData: !!photoData, photoDataLength: photoData ? photoData.length : 0 };
 
     // 写真がある場合はSupabase Storageにアップロード
     if (photoData) {
@@ -58,10 +57,6 @@ module.exports = async function handler(req, res) {
         const buffer = Buffer.from(base64Data, "base64");
         const ext = photoData.match(/^data:image\/(\w+);/)?.[1] || "jpg";
         const fileName = `${userId}/${Date.now()}.${ext}`;
-
-        photoDebug.bufferSize = buffer.length;
-        photoDebug.ext = ext;
-        photoDebug.fileName = fileName;
 
         const uploadRes = await fetch(
           `${SUPABASE_URL}/storage/v1/object/customer-photos/${fileName}`,
@@ -77,24 +72,18 @@ module.exports = async function handler(req, res) {
           }
         );
 
-        photoDebug.uploadStatus = uploadRes.status;
-
         if (uploadRes.ok) {
           photoUrl = `${SUPABASE_URL}/storage/v1/object/public/customer-photos/${fileName}`;
-          photoDebug.success = true;
         } else {
           const errText = await uploadRes.text();
-          photoDebug.uploadError = errText;
           console.error("Photo upload error:", errText);
         }
       } catch (e) {
-        photoDebug.exception = e.message;
         console.error("Photo upload error:", e.message);
       }
     }
 
     // DBに保存
-    photoDebug.photoUrl = photoUrl;
     try {
       const noteData = {
         user_id: userId,
@@ -105,8 +94,6 @@ module.exports = async function handler(req, res) {
         visit_date: visitDate || new Date().toISOString().split("T")[0]
       };
 
-      photoDebug.noteDataSent = noteData;
-
       const response = await fetch(`${SUPABASE_URL}/rest/v1/customer_notes`, {
         method: "POST",
         headers: { ...headers, "Prefer": "return=representation" },
@@ -116,14 +103,14 @@ module.exports = async function handler(req, res) {
       if (!response.ok) {
         const errText = await response.text();
         console.error("DB save error:", errText);
-        return res.status(500).json({ error: "Failed to save note", photoDebug });
+        return res.status(500).json({ error: "Failed to save note" });
       }
 
       const saved = await response.json();
-      return res.json({ success: true, data: saved, photoDebug });
+      return res.json({ success: true, data: saved });
     } catch (e) {
       console.error("Save note error:", e.message);
-      return res.status(500).json({ error: "Failed to save note", photoDebug });
+      return res.status(500).json({ error: "Failed to save note" });
     }
   }
 
