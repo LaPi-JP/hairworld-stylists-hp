@@ -93,6 +93,7 @@ module.exports = async function handler(req, res) {
     }
 
     // DBに保存
+    photoDebug.photoUrl = photoUrl;
     try {
       const noteData = {
         user_id: userId,
@@ -102,6 +103,8 @@ module.exports = async function handler(req, res) {
         photo_url: photoUrl,
         visit_date: visitDate || new Date().toISOString().split("T")[0]
       };
+
+      photoDebug.noteDataSent = noteData;
 
       const response = await fetch(`${SUPABASE_URL}/rest/v1/customer_notes`, {
         method: "POST",
