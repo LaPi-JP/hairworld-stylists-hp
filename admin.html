@@ -360,6 +360,7 @@
           <tr>
             <th style="width:40px;"></th>
             <th></th>
+            <th data-admin-i18n="table.memberNo">Member No.</th>
             <th data-admin-i18n="table.name">Name</th>
             <th data-admin-i18n="table.status">Status</th>
             <th data-admin-i18n="table.coupon">Coupon</th>
@@ -369,7 +370,7 @@
           </tr>
         </thead>
         <tbody id="friendsTable">
-          <tr><td colspan="8" class="loading">Loading...</td></tr>
+          <tr><td colspan="9" class="loading">Loading...</td></tr>
         </tbody>
       </table>
     </div>
@@ -407,6 +408,7 @@
         "dashboard.logout": "Logout",
         "dashboard.refresh": "Refresh",
         "dashboard.broadcast": "Broadcast Message",
+        "table.memberNo": "Member No.",
         "table.name": "Name",
         "table.status": "Status",
         "table.coupon": "Coupon",
@@ -446,6 +448,7 @@
         "dashboard.logout": "ออกจากระบบ",
         "dashboard.refresh": "รีเฟรช",
         "dashboard.broadcast": "ส่งข้อความถึงทุกคน",
+        "table.memberNo": "เลขสมาชิก",
         "table.name": "ชื่อ",
         "table.status": "สถานะ",
         "table.coupon": "คูปอง",
@@ -560,7 +563,7 @@
       let activeCount = 0;
 
       if (!friends || friends.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="empty-state">${t("table.empty")}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" class="empty-state">${t("table.empty")}</td></tr>`;
         document.getElementById("totalCount").textContent = "0";
         document.getElementById("activeCoupons").textContent = "0";
         return;
@@ -598,6 +601,7 @@
         return `<tr id="row-${f.user_id}">
           <td><input type="checkbox" class="friend-checkbox" value="${f.user_id}" data-name="${f.display_name}" onchange="updateSelectedCount()"></td>
           <td>${avatar}</td>
+          <td><span class="coupon-code">${f.member_number || "-"}</span></td>
           <td><strong>${f.display_name || "Unknown"}</strong></td>
           <td>${f.status_message || "-"}</td>
           <td><span class="coupon-code">${f.coupon_code}</span> <span class="${couponClass}">${couponStatus}</span></td>

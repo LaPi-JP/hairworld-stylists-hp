@@ -64,6 +64,31 @@ module.exports = async function handler(req, res) {
         // クーポンコード生成（HW + 年月 + ランダム4桁）
         const couponCode = `HW${String(now.getFullYear()).slice(2)}${String(now.getMonth() + 1).padStart(2, "0")}${Math.floor(1000 + Math.random() * 9000)}`;
 
+        // 会員番号を生成（HW-YYMM-00001形式）
+        let memberNumber = "";
+        const SUPABASE_URL = process.env.SUPABASE_URL;
+        const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+        if (SUPABASE_URL && SUPABASE_KEY) {
+          try {
+            const countRes = await fetch(
+              `${SUPABASE_URL}/rest/v1/line_friends?select=id&order=id.desc&limit=1`,
+              {
+                headers: {
+                  "apikey": SUPABASE_KEY,
+                  "Authorization": `Bearer ${SUPABASE_KEY}`
+                }
+              }
+            );
+            const countData = await countRes.json();
+            const nextNum = (countData && countData.length > 0) ? countData[0].id + 1 : 1;
+            const yyMm = `${String(now.getFullYear()).slice(2)}${String(now.getMonth() + 1).padStart(2, "0")}`;
+            memberNumber = `HW-${yyMm}-${String(nextNum).padStart(5, "0")}`;
+          } catch (e) {
+            console.error("Member number generation error:", e.message);
+            memberNumber = `HW-${String(now.getFullYear()).slice(2)}${String(now.getMonth() + 1).padStart(2, "0")}-00000`;
+          }
+        }
+
         // クーポンメッセージ（3言語対応）
         const couponMessage = [
           "🎉 Welcome to Hairworld Stylists!",
@@ -74,6 +99,7 @@ module.exports = async function handler(req, res) {
           "🎁 15% OFF COUPON",
           "━━━━━━━━━━━━━━",
           "",
+          memberNumber ? `🆔 Member No: ${memberNumber}` : "",
           `🔖 Code: ${couponCode}`,
           `📅 Valid: ${startStr} - ${endStr}`,
           "",
@@ -125,6 +151,7 @@ module.exports = async function handler(req, res) {
             const salonNotify = [
               "🆕 เพื่อนใหม่เพิ่มบัญชี LINE!",
               "━━━━━━━━━━━━━━",
+              memberNumber ? `🆔 เลขสมาชิก: ${memberNumber}` : "",
               `👤 ชื่อ: ${displayName}`,
               statusMessage ? `💬 สถานะ: ${statusMessage}` : "",
               `🎁 คูปอง: ${couponCode}`,
@@ -151,8 +178,6 @@ module.exports = async function handler(req, res) {
         }
 
         // Supabaseにデータを保存
-        const SUPABASE_URL = process.env.SUPABASE_URL;
-        const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
         if (SUPABASE_URL && SUPABASE_KEY) {
           try {
             const dbStartStr = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, "0")}-${String(startDate.getDate()).padStart(2, "0")}`;
@@ -173,7 +198,8 @@ module.exports = async function handler(req, res) {
                 status_message: statusMessage,
                 coupon_code: couponCode,
                 coupon_start: dbStartStr,
-                coupon_end: dbEndStr
+                coupon_end: dbEndStr,
+                member_number: memberNumber || null
               })
             });
             console.log("Saved to Supabase:", displayName);
