@@ -105,6 +105,7 @@ module.exports = async function handler(req, res) {
               "━━━━━━━━━━━━━━",
               `👤 User ID: ${userId}`,
               `🎁 คูปอง: ${couponCode}`,
+              "💰 ส่วนลด: 15% OFF (ทุกบริการ)",
               `📅 ใช้ได้: ${startStr} - ${endStr}`,
               "━━━━━━━━━━━━━━"
             ].join("\n");
