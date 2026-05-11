@@ -118,6 +118,27 @@
     }
     .logout-btn:hover { border-color: #ff6b6b; color: #ff6b6b; }
 
+    /* 言語切替ボタン */
+    .lang-switch {
+      display: flex;
+      gap: 6px;
+    }
+    .lang-switch button {
+      padding: 6px 14px;
+      background: none;
+      border: 1px solid #555;
+      color: #888;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .lang-switch button.active {
+      border-color: #d4a853;
+      color: #d4a853;
+      background: rgba(212, 168, 83, 0.1);
+    }
+
     /* アクションバー */
     .action-bar {
       display: flex;
@@ -279,34 +300,44 @@
   <!-- ログイン画面 -->
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
+      <div class="lang-switch" style="justify-content:center;margin-bottom:16px;">
+        <button class="active" onclick="setAdminLang('en')">EN</button>
+        <button onclick="setAdminLang('th')">TH</button>
+      </div>
       <h1>Hairworld Stylists</h1>
-      <p>Admin Dashboard</p>
-      <input type="password" id="passwordInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')login()">
-      <button onclick="login()">Login</button>
-      <p class="login-error" id="loginError">Invalid password</p>
+      <p data-admin-i18n="login.subtitle">Admin Dashboard</p>
+      <input type="password" id="passwordInput" data-admin-i18n-placeholder="login.placeholder" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')login()">
+      <button onclick="login()" data-admin-i18n="login.button">Login</button>
+      <p class="login-error" id="loginError" data-admin-i18n="login.error">Invalid password</p>
     </div>
   </div>
 
   <!-- ダッシュボード -->
   <div class="dashboard" id="dashboard">
     <div class="header-bar">
-      <h1>LINE Friends Dashboard</h1>
+      <h1 data-admin-i18n="dashboard.title">LINE Friends Dashboard</h1>
       <div class="stats">
         <div class="stat-card">
           <div class="stat-number" id="totalCount">-</div>
-          <div class="stat-label">Total Friends</div>
+          <div class="stat-label" data-admin-i18n="dashboard.totalFriends">Total Friends</div>
         </div>
         <div class="stat-card">
           <div class="stat-number" id="activeCoupons">-</div>
-          <div class="stat-label">Active Coupons</div>
+          <div class="stat-label" data-admin-i18n="dashboard.activeCoupons">Active Coupons</div>
         </div>
       </div>
-      <button class="logout-btn" onclick="logout()">Logout</button>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div class="lang-switch" id="dashLangSwitch">
+          <button class="active" onclick="setAdminLang('en')">EN</button>
+          <button onclick="setAdminLang('th')">TH</button>
+        </div>
+        <button class="logout-btn" onclick="logout()" data-admin-i18n="dashboard.logout">Logout</button>
+      </div>
     </div>
 
     <div class="action-bar">
-      <button onclick="loadFriends()">Refresh</button>
-      <button onclick="openBroadcastModal()">Broadcast Message</button>
+      <button onclick="loadFriends()" data-admin-i18n="dashboard.refresh">Refresh</button>
+      <button onclick="openBroadcastModal()" data-admin-i18n="dashboard.broadcast">Broadcast Message</button>
     </div>
 
     <div class="table-container">
@@ -314,12 +345,12 @@
         <thead>
           <tr>
             <th></th>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Coupon</th>
-            <th>Valid Period</th>
-            <th>Registered</th>
-            <th>Action</th>
+            <th data-admin-i18n="table.name">Name</th>
+            <th data-admin-i18n="table.status">Status</th>
+            <th data-admin-i18n="table.coupon">Coupon</th>
+            <th data-admin-i18n="table.validPeriod">Valid Period</th>
+            <th data-admin-i18n="table.registered">Registered</th>
+            <th data-admin-i18n="table.action">Action</th>
           </tr>
         </thead>
         <tbody id="friendsTable">
@@ -332,12 +363,12 @@
   <!-- 送信モーダル -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
-      <h2 id="modalTitle">Send Message</h2>
-      <p id="modalDesc">Send a message to all friends</p>
-      <textarea id="messageInput" placeholder="Enter your message here..."></textarea>
+      <h2 id="modalTitle" data-admin-i18n="modal.sendTitle">Send Message</h2>
+      <p id="modalDesc" data-admin-i18n="modal.sendDesc">Send a message to all friends</p>
+      <textarea id="messageInput" data-admin-i18n-placeholder="modal.placeholder" placeholder="Enter your message here..."></textarea>
       <div class="modal-actions">
-        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-        <button class="btn-send" id="sendBtn" onclick="sendMessage()">Send</button>
+        <button class="btn-cancel" onclick="closeModal()" data-admin-i18n="modal.cancel">Cancel</button>
+        <button class="btn-send" id="sendBtn" onclick="sendMessage()" data-admin-i18n="modal.send">Send</button>
       </div>
     </div>
   </div>
@@ -346,6 +377,108 @@
     let adminPassword = "";
     let friendsData = [];
     let sendTarget = null; // null = broadcast, userId = individual
+    let adminLang = "en";
+
+    // 管理画面の翻訳データ
+    const adminTranslations = {
+      en: {
+        "login.subtitle": "Admin Dashboard",
+        "login.placeholder": "Enter admin password",
+        "login.button": "Login",
+        "login.error": "Invalid password",
+        "dashboard.title": "LINE Friends Dashboard",
+        "dashboard.totalFriends": "Total Friends",
+        "dashboard.activeCoupons": "Active Coupons",
+        "dashboard.logout": "Logout",
+        "dashboard.refresh": "Refresh",
+        "dashboard.broadcast": "Broadcast Message",
+        "table.name": "Name",
+        "table.status": "Status",
+        "table.coupon": "Coupon",
+        "table.validPeriod": "Valid Period",
+        "table.registered": "Registered",
+        "table.action": "Action",
+        "table.empty": "No friends registered yet",
+        "table.loading": "Loading...",
+        "coupon.upcoming": "Upcoming",
+        "coupon.active": "Active",
+        "coupon.expired": "Expired",
+        "modal.sendTitle": "Send Message",
+        "modal.sendDesc": "Send a message to all friends",
+        "modal.sendToTitle": "Send to",
+        "modal.sendToDesc": "Send a direct message to",
+        "modal.placeholder": "Enter your message here...",
+        "modal.cancel": "Cancel",
+        "modal.send": "Send",
+        "modal.sending": "Sending...",
+        "modal.sent": "Message sent!",
+        "modal.broadcastResult": "Message sent to {sent}/{total} friends!",
+        "modal.error": "Error sending message",
+        "btn.send": "Send"
+      },
+      th: {
+        "login.subtitle": "แดชบอร์ดผู้ดูแลระบบ",
+        "login.placeholder": "กรอกรหัสผ่านผู้ดูแล",
+        "login.button": "เข้าสู่ระบบ",
+        "login.error": "รหัสผ่านไม่ถูกต้อง",
+        "dashboard.title": "แดชบอร์ดเพื่อน LINE",
+        "dashboard.totalFriends": "เพื่อนทั้งหมด",
+        "dashboard.activeCoupons": "คูปองที่ใช้ได้",
+        "dashboard.logout": "ออกจากระบบ",
+        "dashboard.refresh": "รีเฟรช",
+        "dashboard.broadcast": "ส่งข้อความถึงทุกคน",
+        "table.name": "ชื่อ",
+        "table.status": "สถานะ",
+        "table.coupon": "คูปอง",
+        "table.validPeriod": "ระยะเวลาใช้ได้",
+        "table.registered": "วันที่ลงทะเบียน",
+        "table.action": "จัดการ",
+        "table.empty": "ยังไม่มีเพื่อนที่ลงทะเบียน",
+        "table.loading": "กำลังโหลด...",
+        "coupon.upcoming": "รอใช้งาน",
+        "coupon.active": "ใช้ได้",
+        "coupon.expired": "หมดอายุ",
+        "modal.sendTitle": "ส่งข้อความ",
+        "modal.sendDesc": "ส่งข้อความถึงเพื่อนทุกคน",
+        "modal.sendToTitle": "ส่งถึง",
+        "modal.sendToDesc": "ส่งข้อความโดยตรงถึง",
+        "modal.placeholder": "พิมพ์ข้อความที่นี่...",
+        "modal.cancel": "ยกเลิก",
+        "modal.send": "ส่ง",
+        "modal.sending": "กำลังส่ง...",
+        "modal.sent": "ส่งข้อความแล้ว!",
+        "modal.broadcastResult": "ส่งข้อความถึง {sent}/{total} คนแล้ว!",
+        "modal.error": "เกิดข้อผิดพลาดในการส่งข้อความ",
+        "btn.send": "ส่ง"
+      }
+    };
+
+    // 翻訳テキスト取得
+    function t(key) {
+      return adminTranslations[adminLang][key] || adminTranslations["en"][key] || key;
+    }
+
+    // 言語切替
+    function setAdminLang(lang) {
+      adminLang = lang;
+      // ボタンのactive状態を更新
+      document.querySelectorAll(".lang-switch button").forEach(btn => {
+        btn.classList.toggle("active", btn.textContent === lang.toUpperCase());
+      });
+      // テキスト更新
+      document.querySelectorAll("[data-admin-i18n]").forEach(el => {
+        const key = el.getAttribute("data-admin-i18n");
+        el.textContent = t(key);
+      });
+      document.querySelectorAll("[data-admin-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-admin-i18n-placeholder");
+        el.placeholder = t(key);
+      });
+      // テーブル再描画
+      if (friendsData.length > 0) {
+        renderFriends(friendsData);
+      }
+    }
 
     // ログイン処理
     async function login() {
@@ -404,7 +537,7 @@
       let activeCount = 0;
 
       if (!friends || friends.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No friends registered yet</td></tr>';
+        tbody.innerHTML = `<tr><td colspan="7" class="empty-state">${t("table.empty")}</td></tr>`;
         document.getElementById("totalCount").textContent = "0";
         document.getElementById("activeCoupons").textContent = "0";
         return;
@@ -420,14 +553,14 @@
         let couponClass = "";
 
         if (now < start) {
-          couponStatus = "Upcoming";
+          couponStatus = t("coupon.upcoming");
           couponClass = "coupon-upcoming";
         } else if (now >= start && now <= end) {
-          couponStatus = "Active";
+          couponStatus = t("coupon.active");
           couponClass = "coupon-valid";
           activeCount++;
         } else {
-          couponStatus = "Expired";
+          couponStatus = t("coupon.expired");
           couponClass = "coupon-expired";
         }
 
@@ -446,7 +579,7 @@
           <td><span class="coupon-code">${f.coupon_code}</span> <span class="${couponClass}">${couponStatus}</span></td>
           <td>${f.coupon_start} ~ ${f.coupon_end}</td>
           <td>${regDate}</td>
-          <td><button class="send-btn" onclick="openSendModal('${f.user_id}', '${f.display_name}')">Send</button></td>
+          <td><button class="send-btn" onclick="openSendModal('${f.user_id}', '${f.display_name}')">${t("btn.send")}</button></td>
         </tr>`;
       }).join("");
 
@@ -456,8 +589,8 @@
     // 個別送信モーダル
     function openSendModal(userId, name) {
       sendTarget = userId;
-      document.getElementById("modalTitle").textContent = `Send to ${name}`;
-      document.getElementById("modalDesc").textContent = `Send a direct message to ${name}`;
+      document.getElementById("modalTitle").textContent = `${t("modal.sendToTitle")} ${name}`;
+      document.getElementById("modalDesc").textContent = `${t("modal.sendToDesc")} ${name}`;
       document.getElementById("messageInput").value = "";
       document.getElementById("modalOverlay").classList.add("active");
     }
@@ -465,8 +598,8 @@
     // 一斉送信モーダル
     function openBroadcastModal() {
       sendTarget = null;
-      document.getElementById("modalTitle").textContent = "Broadcast Message";
-      document.getElementById("modalDesc").textContent = `Send a message to all ${friendsData.length} friends`;
+      document.getElementById("modalTitle").textContent = t("modal.sendTitle");
+      document.getElementById("modalDesc").textContent = `${t("modal.sendDesc")} (${friendsData.length})`;
       document.getElementById("messageInput").value = "";
       document.getElementById("modalOverlay").classList.add("active");
     }
@@ -482,7 +615,7 @@
       if (!message) return;
 
       const btn = document.getElementById("sendBtn");
-      btn.textContent = "Sending...";
+      btn.textContent = t("modal.sending");
       btn.disabled = true;
 
       try {
@@ -496,7 +629,7 @@
             },
             body: JSON.stringify({ userId: sendTarget, message })
           });
-          alert("Message sent!");
+          alert(t("modal.sent"));
         } else {
           // 一斉送信
           let sent = 0;
@@ -515,13 +648,13 @@
               console.error("Failed to send to:", f.display_name);
             }
           }
-          alert(`Message sent to ${sent}/${friendsData.length} friends!`);
+          alert(t("modal.broadcastResult").replace("{sent}", sent).replace("{total}", friendsData.length));
         }
       } catch (e) {
-        alert("Error sending message");
+        alert(t("modal.error"));
       }
 
-      btn.textContent = "Send";
+      btn.textContent = t("modal.send");
       btn.disabled = false;
       closeModal();
     }
