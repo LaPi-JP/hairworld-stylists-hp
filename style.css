@@ -1194,6 +1194,56 @@ img {
   letter-spacing: 1px;
 }
 
+/* === LINE友達追加フローティングボタン === */
+.line-float-btn {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  z-index: 1999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #06C755;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(6,199,85,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: lineFloatPulse 3s ease-in-out infinite;
+}
+.line-float-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px rgba(6,199,85,0.5);
+}
+.line-float-btn svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.line-float-label {
+  white-space: nowrap;
+}
+@keyframes lineFloatPulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(6,199,85,0.4); }
+  50% { box-shadow: 0 4px 24px rgba(6,199,85,0.6); }
+}
+
+/* モバイルではラベルを非表示にしてアイコンだけに */
+@media (max-width: 768px) {
+  .line-float-btn {
+    padding: 14px;
+    border-radius: 50%;
+    bottom: 96px;
+    right: 16px;
+  }
+  .line-float-label {
+    display: none;
+  }
+}
+
 /* === チャットボット === */
 .chatbot {
   position: fixed;
