@@ -191,15 +191,20 @@
       }
     }
 
-    /* 印刷ボタン */
-    .print-btn {
+    /* ボタン群 */
+    .btn-group {
       position: fixed;
       bottom: 20px;
       right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btn {
       background: linear-gradient(135deg, #d4a853, #b8922e);
       color: #fff;
       border: none;
-      padding: 12px 28px;
+      padding: 12px 24px;
       border-radius: 8px;
       font-size: 14px;
       font-weight: 600;
@@ -207,8 +212,13 @@
       box-shadow: 0 4px 12px rgba(212,168,83,0.4);
     }
 
-    .print-btn:hover {
+    .action-btn:hover {
       opacity: 0.9;
+    }
+
+    .action-btn:disabled {
+      opacity: 0.6;
+      cursor: wait;
     }
   </style>
 </head>
@@ -253,8 +263,41 @@
     </div>
   </div>
 
-  <!-- 印刷ボタン（画面表示のみ） -->
-  <button class="print-btn no-print" onclick="window.print()">🖨️ Print</button>
+  <!-- ボタン群（画面表示のみ） -->
+  <div class="btn-group no-print">
+    <button class="action-btn" onclick="downloadPNG()">📥 Download PNG</button>
+    <button class="action-btn" onclick="window.print()">🖨️ Print</button>
+  </div>
+
+  <!-- html2canvas CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    async function downloadPNG() {
+      const btn = document.querySelector('.action-btn');
+      btn.textContent = '⏳ Generating...';
+      btn.disabled = true;
+
+      try {
+        const card = document.querySelector('.card');
+        const canvas = await html2canvas(card, {
+          scale: 3,
+          useCORS: true,
+          backgroundColor: '#ffffff',
+          logging: false
+        });
+
+        const link = document.createElement('a');
+        link.download = 'Hairworld-LINE-QR-Card.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch (e) {
+        alert('PNG生成に失敗しました: ' + e.message);
+      }
+
+      btn.textContent = '📥 Download PNG';
+      btn.disabled = false;
+    }
+  </script>
 
 </body>
 </html>
