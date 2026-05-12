@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hairworld Stylists - Admin Manual</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', 'Noto Sans Thai', 'Noto Sans JP', sans-serif;
+      background: #f5f0e8;
+      color: #2c2418;
+      line-height: 1.8;
+    }
+
+    /* ヘッダー */
+    .manual-header {
+      background: linear-gradient(135deg, #2c2418 0%, #3d3225 100%);
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .manual-header img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+    .manual-header h1 {
+      color: #d4a853;
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+    .manual-header p {
+      color: rgba(212,168,83,0.7);
+      font-size: 14px;
+    }
+
+    /* 言語切替 */
+    .lang-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .lang-toggle button {
+      padding: 8px 20px;
+      border: 1px solid #d4a853;
+      background: transparent;
+      color: #d4a853;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .lang-toggle button.active {
+      background: #d4a853;
+      color: #2c2418;
+    }
+
+    /* コンテンツ */
+    .manual-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
+    }
+
+    /* 目次 */
+    .toc {
+      background: #fff;
+      border: 1px solid #e0d5c3;
+      border-radius: 12px;
+      padding: 24px 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(44,36,24,0.06);
+    }
+    .toc h2 {
+      color: #b8922e;
+      font-size: 18px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #e0d5c3;
+      padding-bottom: 8px;
+    }
+    .toc ol {
+      padding-left: 20px;
+    }
+    .toc li {
+      margin-bottom: 6px;
+    }
+    .toc a {
+      color: #2c2418;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .toc a:hover {
+      color: #b8922e;
+      text-decoration: underline;
+    }
+    .toc ol ol {
+      margin-top: 4px;
+    }
+    .toc ol ol li {
+      margin-bottom: 2px;
+    }
+
+    /* セクション */
+    .section {
+      background: #fff;
+      border: 1px solid #e0d5c3;
+      border-radius: 12px;
+      padding: 24px 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(44,36,24,0.06);
+    }
+    .section h2 {
+      color: #b8922e;
+      font-size: 20px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #f0ebe3;
+    }
+    .section h3 {
+      color: #2c2418;
+      font-size: 16px;
+      margin: 20px 0 10px;
+      padding-left: 12px;
+      border-left: 3px solid #d4a853;
+    }
+    .section p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .section ul, .section ol {
+      padding-left: 24px;
+      margin-bottom: 12px;
+    }
+    .section li {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    /* ステップ表示 */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+    }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 40px;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #d4a853, #b8922e);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* 注意ボックス */
+    .note-box {
+      background: #faf5eb;
+      border-left: 4px solid #d4a853;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+    .note-box strong {
+      color: #b8922e;
+    }
+    .warning-box {
+      background: #fef5f5;
+      border-left: 4px solid #d94f4f;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+    .warning-box strong {
+      color: #d94f4f;
+    }
+
+    /* キーワードラベル */
+    .label {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    .label-tab { background: rgba(184,146,46,0.15); color: #b8922e; }
+    .label-btn { background: rgba(42,157,143,0.15); color: #2a9d8f; }
+    .label-status { background: rgba(138,125,107,0.15); color: #8a7d6b; }
+
+    /* テーブル */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+    .info-table th {
+      background: #f9f6f1;
+      color: #b8922e;
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #e0d5c3;
+      font-weight: 600;
+    }
+    .info-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #efe9de;
+    }
+    .info-table tr:hover {
+      background: #faf7f2;
+    }
+
+    /* 印刷用 */
+    @media print {
+      body { background: #fff; }
+      .manual-header { break-after: avoid; }
+      .section { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+      .lang-toggle, .no-print { display: none !important; }
+    }
+
+    /* フッター */
+    .manual-footer {
+      text-align: center;
+      padding: 20px;
+      color: #b0a594;
+      font-size: 12px;
+      border-top: 1px solid #e0d5c3;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 600px) {
+      .manual-header h1 { font-size: 22px; }
+      .section { padding: 20px 16px; }
+      .section h2 { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <div class="manual-header">
+    <img src="logo (Gold).png" alt="Hairworld Stylists">
+    <h1>Hairworld Stylists</h1>
+    <p class="th-text">ระบบจัดการลูกค้า - คู่มือการใช้งาน</p>
+    <p class="jp-text" style="display:none;">顧客管理システム - 利用マニュアル</p>
+
+    <div class="lang-toggle no-print">
+      <button class="active" onclick="setManualLang('th')">ภาษาไทย</button>
+      <button onclick="setManualLang('jp')">日本語</button>
+    </div>
+  </div>
+
+  <div class="manual-content">
+
+    <!-- ===== 目次 ===== -->
+    <div class="toc">
+      <h2 class="th-text">สารบัญ</h2>
+      <h2 class="jp-text" style="display:none;">目次</h2>
+      <ol>
+        <li>
+          <a href="#sec-login" class="th-text">เข้าสู่ระบบ / ออกจากระบบ</a>
+          <a href="#sec-login" class="jp-text" style="display:none;">ログイン / ログアウト</a>
+        </li>
+        <li>
+          <a href="#sec-overview" class="th-text">ภาพรวมแดชบอร์ด</a>
+          <a href="#sec-overview" class="jp-text" style="display:none;">ダッシュボード概要</a>
+        </li>
+        <li>
+          <a href="#sec-friends" class="th-text">แท็บเพื่อน (จัดการสมาชิก)</a>
+          <a href="#sec-friends" class="jp-text" style="display:none;">友だちタブ（会員管理）</a>
+          <ol>
+            <li>
+              <a href="#sec-friends-search" class="th-text">ค้นหาสมาชิก</a>
+              <a href="#sec-friends-search" class="jp-text" style="display:none;">会員検索</a>
+            </li>
+            <li>
+              <a href="#sec-friends-msg" class="th-text">ส่งข้อความ</a>
+              <a href="#sec-friends-msg" class="jp-text" style="display:none;">メッセージ送信</a>
+            </li>
+            <li>
+              <a href="#sec-friends-detail" class="th-text">รายละเอียดลูกค้า (คาร์เต้)</a>
+              <a href="#sec-friends-detail" class="jp-text" style="display:none;">お客様詳細（カルテ）</a>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <a href="#sec-reservations" class="th-text">แท็บการจอง</a>
+          <a href="#sec-reservations" class="jp-text" style="display:none;">予約タブ</a>
+          <ol>
+            <li>
+              <a href="#sec-res-add" class="th-text">เพิ่มการจองด้วยตนเอง</a>
+              <a href="#sec-res-add" class="jp-text" style="display:none;">手動で予約を追加</a>
+            </li>
+            <li>
+              <a href="#sec-res-status" class="th-text">จัดการสถานะการจอง</a>
+              <a href="#sec-res-status" class="jp-text" style="display:none;">予約ステータスの管理</a>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <a href="#sec-reminders" class="th-text">แท็บแจ้งเตือน</a>
+          <a href="#sec-reminders" class="jp-text" style="display:none;">リマインドタブ</a>
+          <ol>
+            <li>
+              <a href="#sec-rem-a" class="th-text">แจ้งเตือนการจอง</a>
+              <a href="#sec-rem-a" class="jp-text" style="display:none;">予約リマインド</a>
+            </li>
+            <li>
+              <a href="#sec-rem-b" class="th-text">แจ้งเตือนมาใช้บริการ</a>
+              <a href="#sec-rem-b" class="jp-text" style="display:none;">再来店リマインド</a>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <a href="#sec-faq" class="th-text">คำถามที่พบบ่อย</a>
+          <a href="#sec-faq" class="jp-text" style="display:none;">よくある質問</a>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ===== 1. ログイン ===== -->
+    <div class="section" id="sec-login">
+      <!-- TH -->
+      <div class="th-text">
+        <h2>1. เข้าสู่ระบบ / ออกจากระบบ</h2>
+
+        <h3>วิธีเข้าสู่ระบบ</h3>
+        <ol class="steps">
+          <li>เข้าถึงหน้าผู้ดูแลที่: <strong>https://hairworld-stylists-hp.vercel.app/admin.html</strong></li>
+          <li>เลือกภาษาที่ต้องการ (<span class="label label-btn">EN</span> หรือ <span class="label label-btn">TH</span>) ที่ด้านบนของหน้าจอเข้าสู่ระบบ</li>
+          <li>กรอกรหัสผ่านผู้ดูแลแล้วคลิก <strong>"เข้าสู่ระบบ"</strong> (หรือกด Enter)</li>
+          <li>หากรหัสผ่านถูกต้อง จะเข้าสู่แดชบอร์ดโดยอัตโนมัติ</li>
+        </ol>
+
+        <div class="warning-box">
+          <strong>สำคัญ:</strong> หากเห็นข้อความ "รหัสผ่านไม่ถูกต้อง" กรุณาตรวจสอบรหัสผ่านแล้วลองใหม่อีกครั้ง ติดต่อผู้ดูแลระบบหากลืมรหัสผ่าน
+        </div>
+
+        <h3>วิธีออกจากระบบ</h3>
+        <p>คลิกปุ่ม <strong>"ออกจากระบบ"</strong> ที่มุมขวาบนของแดชบอร์ด</p>
+      </div>
+
+      <!-- JP -->
+      <div class="jp-text" style="display:none;">
+        <h2>1. ログイン / ログアウト</h2>
+
+        <h3>ログイン方法</h3>
+        <ol class="steps">
+          <li>管理画面にアクセス: <strong>https://hairworld-stylists-hp.vercel.app/admin.html</strong></li>
+          <li>ログイン画面上部の言語切替ボタンで表示言語を選択 (<span class="label label-btn">EN</span> または <span class="label label-btn">TH</span>)</li>
+          <li>管理者パスワードを入力し、<strong>「ログイン」</strong>ボタンをクリック（またはEnterキーを押す）</li>
+          <li>パスワードが正しければ、ダッシュボードに移動します</li>
+        </ol>
+
+        <div class="warning-box">
+          <strong>重要:</strong> 「パスワードが正しくありません」と表示された場合は、パスワードを再確認してください。パスワードを忘れた場合はシステム管理者にご連絡ください。
+        </div>
+
+        <h3>ログアウト方法</h3>
+        <p>ダッシュボード右上の<strong>「ログアウト」</strong>ボタンをクリックします。</p>
+      </div>
+    </div>
+
+    <!-- ===== 2. ダッシュボード概要 ===== -->
+    <div class="section" id="sec-overview">
+      <!-- TH -->
+      <div class="th-text">
+        <h2>2. ภาพรวมแดชบอร์ด</h2>
+        <p>หลังจากเข้าสู่ระบบ คุณจะเห็นแดชบอร์ดหลักพร้อมส่วนประกอบต่อไปนี้:</p>
+
+        <table class="info-table">
+          <tr>
+            <th>ส่วนประกอบ</th>
+            <th>คำอธิบาย</th>
+          </tr>
+          <tr>
+            <td><strong>เพื่อนทั้งหมด</strong></td>
+            <td>จำนวนเพื่อน LINE ทั้งหมดที่ลงทะเบียนแล้ว</td>
+          </tr>
+          <tr>
+            <td><strong>คูปองที่ใช้ได้</strong></td>
+            <td>จำนวนคูปองที่ยังใช้ได้อยู่ในปัจจุบัน</td>
+          </tr>
+          <tr>
+            <td><strong>สลับ EN / TH</strong></td>
+            <td>สลับภาษาแดชบอร์ดระหว่างอังกฤษและไทย</td>
+          </tr>
+          <tr>
+            <td><strong>ออกจากระบบ</strong></td>
+            <td>ออกจากระบบและกลับไปหน้าเข้าสู่ระบบ</td>
+          </tr>
+        </table>
+
+        <h3>สามแท็บหลัก</h3>
+        <p>แดชบอร์ดมีสามแท็บ:</p>
+        <ul>
+          <li><span class="label label-tab">👥 เพื่อน</span> — ดูและจัดการสมาชิกเพื่อน LINE</li>
+          <li><span class="label label-tab">📋 การจอง</span> — ดูและจัดการการจองของลูกค้า</li>
+          <li><span class="label label-tab">🔔 แจ้งเตือน</span> — ตรวจสอบและส่งข้อความแจ้งเตือนทาง LINE</li>
+        </ul>
+      </div>
+
+      <!-- JP -->
+      <div class="jp-text" style="display:none;">
+        <h2>2. ダッシュボード概要</h2>
+        <p>ログイン後、メインダッシュボードが表示されます。以下の要素で構成されています：</p>
+
+        <table class="info-table">
+          <tr>
+            <th>項目</th>
+            <th>説明</th>
+          </tr>
+          <tr>
+            <td><strong>友だち合計</strong></td>
+            <td>登録済みLINE友だちの総数</td>
+          </tr>
+          <tr>
+            <td><strong>有効クーポン</strong></td>
+            <td>現在使用可能なクーポンの数</td>
+          </tr>
+          <tr>
+            <td><strong>EN / TH 切替</strong></td>
+            <td>ダッシュボードの表示言語を英語・タイ語間で切替</td>
+          </tr>
+          <tr>
+            <td><strong>ログアウト</strong></td>
+            <td>ログアウトしてログイン画面に戻る</td>
+          </tr>
+        </table>
+
+        <h3>3つのメインタブ</h3>
+        <p>ダッシュボードには3つのタブがあります：</p>
+        <ul>
+          <li><span class="label label-tab">👥 友だち</span> — LINE友だち会員の閲覧・管理</li>
+          <li><span class="label label-tab">📋 予約</span> — お客様の予約の閲覧・管理</li>
+          <li><span class="label label-tab">🔔 リマインド</span> — LINEリマインドメッセージの確認・送信</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== 3. Friends タブ ===== -->
+    <div class="section" id="sec-friends">
+      <!-- TH -->
+      <div class="th-text">
+        <h2>3. แท็บเพื่อน (จัดการสมาชิก)</h2>
+        <p>แท็บนี้แสดงเพื่อน LINE ทั้งหมดที่เพิ่มร้านเป็นเพื่อน ข้อมูลที่แสดงสำหรับสมาชิกแต่ละคน:</p>
+        <ul>
+          <li><strong>รูปโปรไฟล์</strong> — รูปโปรไฟล์ LINE</li>
+          <li><strong>เลขสมาชิก</strong> — เลขสมาชิกที่กำหนดอัตโนมัติ</li>
+          <li><strong>ชื่อ</strong> — ชื่อแสดงใน LINE (คลิกเพื่อเปิดรายละเอียดลูกค้า)</li>
+          <li><strong>สถานะ</strong> — ข้อความสถานะ LINE</li>
+          <li><strong>คูปอง</strong> — รหัสคูปองและสถานะ (รอใช้งาน / ใช้ได้ / หมดอายุ)</li>
+          <li><strong>ระยะเวลาใช้ได้</strong> — วันเริ่มและสิ้นสุดคูปอง</li>
+          <li><strong>วันที่ลงทะเบียน</strong> — วันที่สมาชิกลงทะเบียน</li>
+          <li><strong>ปุ่มส่ง</strong> — ส่งข้อความ LINE โดยตรงถึงสมาชิกคนนี้</li>
+        </ul>
+
+        <h3 id="sec-friends-search">3-1. ค้นหาสมาชิก</h3>
+        <p>ใช้ช่องค้นหาด้านบนเพื่อกรองสมาชิกตาม:</p>
+        <ul>
+          <li>ชื่อแสดง</li>
+          <li>เลขสมาชิก</li>
+          <li>รหัสคูปอง</li>
+        </ul>
+        <p>เพียงพิมพ์คำค้นหา รายการจะกรองอัตโนมัติ</p>
+
+        <h3 id="sec-friends-msg">3-2. ส่งข้อความ</h3>
+        <p>มีสามวิธีในการส่งข้อความ LINE:</p>
+
+        <table class="info-table">
+          <tr>
+            <th>วิธี</th>
+            <th>วิธีใช้</th>
+          </tr>
+          <tr>
+            <td><strong>ส่งถึงบุคคล</strong></td>
+            <td>คลิกปุ่ม <span class="label label-btn">ส่ง</span> ข้างชื่อสมาชิก</td>
+          </tr>
+          <tr>
+            <td><strong>ส่งถึงทุกคน</strong></td>
+            <td>คลิกปุ่ม <strong>"ส่งข้อความถึงทุกคน"</strong> ในแถบเครื่องมือ</td>
+          </tr>
+          <tr>
+            <td><strong>ส่งถึงที่เลือก</strong></td>
+            <td>ติ๊กเลือกสมาชิก แล้วคลิก <strong>"ส่งถึงที่เลือก (N)"</strong></td>
+          </tr>
+        </table>
+
+        <ol class="steps">
+          <li>เลือกวิธีใดวิธีหนึ่งข้างต้น</li>
+          <li>หน้าต่างข้อความจะปรากฏ พิมพ์ข้อความของคุณ</li>
+          <li>คลิก <strong>"ส่ง"</strong> เพื่อส่งข้อความผ่าน LINE</li>
+          <li>จะมีการแจ้งเตือนแสดงจำนวนข้อความที่ส่งสำเร็จ</li>
+        </ol>
+
+        <div class="note-box">
+          <strong>เคล็ดลับ:</strong> ใช้ <strong>"เลือกทั้งหมด"</strong> เพื่อเลือกสมาชิกทั้งหมดอย่างรวดเร็ว แล้วยกเลิกเลือกคนที่ไม่ต้องการ
+        </div>
+
+        <h3 id="sec-friends-detail">3-3. รายละเอียดลูกค้า (คาร์เต้)</h3>
+        <p>คลิกที่ <strong>ชื่อ</strong> ของสมาชิก (แสดงเป็นสีทอง) เพื่อเปิดหน้ารายละเอียดลูกค้า หน้านี้มีสามส่วน:</p>
+
+        <h3>a) ตั้งค่าแจ้งเตือน</h3>
+        <ul>
+          <li><strong>ภาษา</strong> — ตั้งภาษาที่ต้องการสำหรับแจ้งเตือน (อังกฤษ / ไทย / ญี่ปุ่น)</li>
+          <li><strong>แจ้งเตือนมาใช้บริการ</strong> — กำหนดจำนวนเดือนหลังเข้าใช้บริการครั้งสุดท้ายเพื่อส่งแจ้งเตือน (ปิด / 1-6 เดือน)</li>
+          <li>คลิก <strong>"บันทึก"</strong> เพื่อเก็บการตั้งค่า</li>
+        </ul>
+
+        <h3>b) เพิ่มบันทึกการเข้าใช้บริการ</h3>
+        <p>บันทึกการเข้าใช้บริการของลูกค้าแต่ละครั้ง:</p>
+        <ol class="steps">
+          <li>เลือก <strong>วันที่</strong> ที่เข้าใช้บริการ (ค่าเริ่มต้นเป็นวันนี้)</li>
+          <li>เลือก <strong>ช่างผม</strong> ที่ให้บริการ (Laphit / Aoy / Ploy / Tuk)</li>
+          <li>กรอก <strong>บริการ</strong> ที่ทำ (เช่น ตัด, ทำสี #7N, ดัด)</li>
+          <li>เพิ่ม <strong>หมายเหตุ</strong> เกี่ยวกับประเภทเส้นผม ความชอบ หรือโน้ตสำหรับครั้งถัดไป</li>
+          <li>เลือก <strong>อัปโหลดรูปสูงสุด 3 รูป</strong> ของทรงผมที่เสร็จแล้ว (ไม่บังคับ)</li>
+          <li>คลิก <strong>"บันทึก"</strong> เพื่อเก็บบันทึก</li>
+        </ol>
+
+        <div class="note-box">
+          <strong>เคล็ดลับ:</strong> รูปภาพจะถูกบีบอัดอัตโนมัติเพื่อลดขนาดไฟล์ คุณสามารถคลิกรูปภาพในประวัติเพื่อดูขนาดเต็ม
+        </div>
+
+        <h3>c) ประวัติการเข้าใช้บริการ</h3>
+        <p>ด้านล่างแบบฟอร์ม คุณจะเห็นบันทึกการเข้าใช้บริการทั้งหมดของลูกค้า:</p>
+        <ul>
+          <li>วันที่และช่างผม</li>
+          <li>บริการที่ทำ</li>
+          <li>หมายเหตุ</li>
+          <li>รูปภาพที่อัปโหลด</li>
+        </ul>
+        <p>แต่ละบันทึกมีปุ่ม <strong>"ลบ"</strong> หากต้องการลบ (จะมีกล่องยืนยันปรากฏ)</p>
+      </div>
+
+      <!-- JP -->
+      <div class="jp-text" style="display:none;">
+        <h2>3. 友だちタブ（会員管理）</h2>
+        <p>このタブではサロンをLINE友だちに追加した全会員が表示されます。各会員の表示情報：</p>
+        <ul>
+          <li><strong>プロフィール写真</strong> — LINEプロフィール画像</li>
+          <li><strong>会員番号</strong> — 自動付番される会員番号</li>
+          <li><strong>名前</strong> — LINE表示名（クリックでお客様詳細を開く）</li>
+          <li><strong>ステータス</strong> — LINEステータスメッセージ</li>
+          <li><strong>クーポン</strong> — クーポンコードとステータス（開始前 / 有効 / 期限切れ）</li>
+          <li><strong>有効期間</strong> — クーポンの開始日・終了日</li>
+          <li><strong>登録日</strong> — 会員登録日</li>
+          <li><strong>送信ボタン</strong> — この会員にLINEメッセージを個別送信</li>
+        </ul>
+
+        <h3 id="sec-friends-search">3-1. 会員検索</h3>
+        <p>上部の検索バーで以下の条件でフィルターできます：</p>
+        <ul>
+          <li>表示名</li>
+          <li>会員番号</li>
+          <li>クーポンコード</li>
+        </ul>
+        <p>検索語を入力するだけで自動的にフィルターされます。</p>
+
+        <h3 id="sec-friends-msg">3-2. メッセージ送信</h3>
+        <p>LINEメッセージの送信方法は3つあります：</p>
+
+        <table class="info-table">
+          <tr>
+            <th>方法</th>
+            <th>操作</th>
+          </tr>
+          <tr>
+            <td><strong>個別送信</strong></td>
+            <td>会員名の横にある<span class="label label-btn">送信</span>ボタンをクリック</td>
+          </tr>
+          <tr>
+            <td><strong>一斉送信</strong></td>
+            <td>アクションバーの<strong>「一斉送信」</strong>ボタンをクリック</td>
+          </tr>
+          <tr>
+            <td><strong>選択送信</strong></td>
+            <td>会員のチェックボックスを選択し、<strong>「選択者に送信 (N)」</strong>をクリック</td>
+          </tr>
+        </table>
+
+        <ol class="steps">
+          <li>上記3つの方法のいずれかを選択します。</li>
+          <li>メッセージ入力ウィンドウが表示されます。メッセージを入力してください。</li>
+          <li><strong>「送信」</strong>をクリックしてLINE経由で送信します。</li>
+          <li>送信成功件数を示す確認アラートが表示されます。</li>
+        </ol>
+
+        <div class="note-box">
+          <strong>ヒント:</strong> <strong>「全選択」</strong>チェックボックスで全会員を一括選択し、除外したい人のチェックを外す使い方が便利です。
+        </div>
+
+        <h3 id="sec-friends-detail">3-3. お客様詳細（カルテ）</h3>
+        <p>会員の<strong>名前</strong>（ゴールド色で表示）をクリックするとお客様詳細ページが開きます。このページは3つのセクションで構成されています：</p>
+
+        <h3>a) リマインド設定</h3>
+        <ul>
+          <li><strong>言語</strong> — リマインドメッセージの送信言語を設定（英語 / タイ語 / 日本語）</li>
+          <li><strong>再来店リマインド</strong> — 最終来店日から何ヶ月後にリマインドを送るか設定（オフ / 1〜6ヶ月）</li>
+          <li><strong>「保存」</strong>をクリックして設定を保存します。</li>
+        </ul>
+
+        <h3>b) 施術記録の追加</h3>
+        <p>お客様の来店ごとに以下の詳細を記録します：</p>
+        <ol class="steps">
+          <li>来店<strong>日付</strong>を選択（デフォルトは当日）</li>
+          <li>担当<strong>スタイリスト</strong>を選択（Laphit / Aoy / Ploy / Tuk）</li>
+          <li>実施した<strong>施術内容</strong>を入力（例：カット、カラー #7N、パーマ）</li>
+          <li><strong>コメント</strong>に髪質、好み、次回への申し送りなどを記入</li>
+          <li>必要に応じて仕上がり写真を<strong>最大3枚アップロード</strong></li>
+          <li><strong>「保存」</strong>をクリックして記録を保存</li>
+        </ol>
+
+        <div class="note-box">
+          <strong>ヒント:</strong> 写真はアップロード時に自動圧縮されます。履歴内の写真をクリックするとフルサイズで表示できます。
+        </div>
+
+        <h3>c) 施術履歴</h3>
+        <p>フォームの下に、そのお客様の過去の施術記録がすべて表示されます：</p>
+        <ul>
+          <li>日付とスタイリスト</li>
+          <li>施術内容</li>
+          <li>コメント・メモ</li>
+          <li>アップロード写真</li>
+        </ul>
+        <p>各記録には<strong>「削除」</strong>ボタンがあり、クリックすると確認ダイアログが表示されます。</p>
+      </div>
+    </div>
+
+    <!-- ===== 4. Reservations タブ ===== -->
+    <div class="section" id="sec-reservations">
+      <!-- TH -->
+      <div class="th-text">
+        <h2>4. แท็บการจอง</h2>
+        <p>แท็บนี้จัดการการจองของลูกค้าทั้งหมด การจองอาจมาจาก LINE (อัตโนมัติ) หรือเพิ่มด้วยตนเองโดยพนักงาน</p>
+
+        <h3>กรองตามสถานะ</h3>
+        <p>ใช้ปุ่มกรองด้านบนเพื่อดูการจองตามสถานะ:</p>
+        <table class="info-table">
+          <tr>
+            <th>สถานะ</th>
+            <th>ความหมาย</th>
+          </tr>
+          <tr>
+            <td><span class="label label-tab">ทั้งหมด</span></td>
+            <td>แสดงการจองทั้งหมด</td>
+          </tr>
+          <tr>
+            <td><span class="label" style="background:rgba(42,157,143,0.15);color:#2a9d8f;">🆕 ใหม่</span></td>
+            <td>การจองใหม่ ยังไม่ได้รับการยืนยันจากพนักงาน</td>
+          </tr>
+          <tr>
+            <td><span class="label" style="background:rgba(184,146,46,0.15);color:#b8922e;">✅ ยืนยันแล้ว</span></td>
+            <td>การจองที่ยืนยันแล้วโดยพนักงาน</td>
+          </tr>
+          <tr>
+            <td><span class="label" style="background:rgba(138,125,107,0.15);color:#8a7d6b;">✔️ เสร็จแล้ว</span></td>
+            <td>ลูกค้ามาใช้บริการแล้ว เสร็จสิ้น</td>
+          </tr>
+          <tr>
+            <td><span class="label" style="background:rgba(217,79,79,0.15);color:#d94f4f;">❌ ยกเลิก</span></td>
+            <td>การจองถูกยกเลิก</td>
+          </tr>
+        </table>
+
+        <h3 id="sec-res-add">4-1. เพิ่มการจองด้วยตนเอง</h3>
+        <p>สำหรับการจองทางโทรศัพท์หรือ walk-in:</p>
+        <ol class="steps">
+          <li>คลิกปุ่ม <strong>"+ เพิ่มการจอง"</strong></li>
+          <li>หากลูกค้าเป็นสมาชิก LINE เลือกจากดร็อปดาวน์ <strong>"สมาชิกที่มีอยู่"</strong> เพื่อกรอกชื่ออัตโนมัติ</li>
+          <li>กรอกข้อมูลที่จำเป็น: <strong>ชื่อ</strong>, <strong>วันที่</strong>, และ <strong>เวลา</strong></li>
+          <li>เพิ่ม <strong>เบอร์โทร</strong>, <strong>บริการ</strong>, และ <strong>หมายเหตุ</strong> (ไม่บังคับ)</li>
+          <li>คลิก <strong>"บันทึกการจอง"</strong></li>
+        </ol>
+
+        <div class="note-box">
+          <strong>หมายเหตุ:</strong> การจองที่เพิ่มด้วยตนเองจะบันทึกเป็นสถานะ "ยืนยันแล้ว" โดยอัตโนมัติ
+        </div>
+
+        <h3 id="sec-res-status">4-2. จัดการสถานะการจอง</h3>
+        <p>การ์ดการจองแต่ละใบจะแสดงปุ่มดำเนินการตามสถานะปัจจุบัน:</p>
+        <ul>
+          <li>การจอง <strong>ใหม่</strong>: <span class="label label-btn">ยืนยัน</span> หรือ <span class="label" style="background:rgba(217,79,79,0.15);color:#d94f4f;">ยกเลิก</span></li>
+          <li>การจอง <strong>ยืนยันแล้ว</strong>: <span class="label label-btn">เสร็จ</span> หรือ <span class="label" style="background:rgba(217,79,79,0.15);color:#d94f4f;">ยกเลิก</span></li>
+          <li>การจอง <strong>เสร็จแล้ว / ยกเลิก</strong>: ไม่มีการดำเนินการเพิ่มเติม</li>
+        </ul>
+      </div>
+
+      <!-- JP -->
+      <div class="jp-text" style="display:none;">
+        <h2>4. 予約タブ</h2>
+        <p>このタブではお客様の予約をすべて管理します。予約はLINEからの自動登録、またはスタッフによる手動追加が可能です。</p>
+
+        <h3>ステータスでフィルター</h3>
+        <p>上部のフィルターボタンでステータス別に表示：</p>
+        <table class="info-table">
+          <tr>
+            <th>ステータス</th>
+            <th>意味</th>
+          </tr>
+          <tr>
+            <td><span class="label label-tab">すべて</span></td>
+            <td>全予約を表示</td>
+          </tr>
+          <tr>
+            <td><span class="label" style="background:rgba(42,157,143,0.15);color:#2a9d8f;">🆕 新規</span></td>
+            <td>新規予約、スタッフ未確認</td>
+          </tr>
+          <tr>
+            <td><span class="label" style="background:rgba(184,146,46,0.15);color:#b8922e;">✅ 確認済み</span></td>
+            <td>スタッフが確認した予約</td>
+          </tr>
+          <tr>
+            <td><span class="label" style="background:rgba(138,125,107,0.15);color:#8a7d6b;">✔️ 完了</span></td>
+            <td>来店済み、施術完了</td>
+          </tr>
+          <tr>
+            <td><span class="label" style="background:rgba(217,79,79,0.15);color:#d94f4f;">❌ キャンセル</span></td>
+            <td>予約がキャンセルされた</td>
+          </tr>
+        </table>
+
+        <h3 id="sec-res-add">4-1. 手動で予約を追加</h3>
+        <p>電話やウォークインでの予約を登録する場合：</p>
+        <ol class="steps">
+          <li><strong>「+ 予約を追加」</strong>ボタンをクリック</li>
+          <li>お客様がLINE会員の場合、<strong>「既存会員」</strong>ドロップダウンから選択すると名前が自動入力されます</li>
+          <li>必須項目を入力：<strong>名前</strong>、<strong>日付</strong>、<strong>時間</strong></li>
+          <li>任意で<strong>電話番号</strong>、<strong>施術内容</strong>、<strong>メモ</strong>を追加</li>
+          <li><strong>「予約を保存」</strong>をクリック</li>
+        </ol>
+
+        <div class="note-box">
+          <strong>補足:</strong> 手動で追加した予約は自動的に「確認済み」ステータスで保存されます。
+        </div>
+
+        <h3 id="sec-res-status">4-2. 予約ステータスの管理</h3>
+        <p>各予約カードには、現在のステータスに応じたアクションボタンが表示されます：</p>
+        <ul>
+          <li><strong>新規</strong>予約: <span class="label label-btn">確認</span> または <span class="label" style="background:rgba(217,79,79,0.15);color:#d94f4f;">キャンセル</span></li>
+          <li><strong>確認済み</strong>予約: <span class="label label-btn">完了</span> または <span class="label" style="background:rgba(217,79,79,0.15);color:#d94f4f;">キャンセル</span></li>
+          <li><strong>完了 / キャンセル</strong>済み予約: 追加操作なし</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== 5. Reminders タブ ===== -->
+    <div class="section" id="sec-reminders">
+      <!-- TH -->
+      <div class="th-text">
+        <h2>5. แท็บแจ้งเตือน</h2>
+        <p>แท็บนี้ช่วยส่งข้อความแจ้งเตือนอัตโนมัติทาง LINE มีสองประเภทแจ้งเตือน:</p>
+
+        <h3 id="sec-rem-a">5-1. แจ้งเตือนการจอง (ประเภท A)</h3>
+        <p>แสดงลูกค้าที่มีการจองที่ยืนยันแล้วภายใน <strong>7 วัน</strong> ข้างหน้า</p>
+        <ol class="steps">
+          <li>คลิก <strong>"🔍 ตรวจสอบการแจ้งเตือน"</strong> เพื่อค้นหาการจองที่ใกล้ถึง</li>
+          <li>รายชื่อลูกค้าที่มีการจองใกล้ถึงจะปรากฏ</li>
+          <li>สำหรับลูกค้าแต่ละคน เลือก <strong>ภาษา</strong> (EN / TH / JP) สำหรับข้อความแจ้งเตือน</li>
+          <li>คลิก <strong>"ส่ง"</strong> เพื่อส่งแจ้งเตือนถึงลูกค้าทาง LINE</li>
+        </ol>
+
+        <div class="note-box">
+          <strong>สิ่งที่ลูกค้าจะได้รับ:</strong> ข้อความ LINE ที่เป็นมิตรเตือนเกี่ยวกับนัดหมายที่จะมาถึง รวมถึงวันที่ เวลา และบริการ
+        </div>
+
+        <h3 id="sec-rem-b">5-2. แจ้งเตือนมาใช้บริการ (ประเภท B)</h3>
+        <p>แสดงลูกค้าที่เข้าใช้บริการครั้งสุดท้ายนานกว่าระยะเวลาแจ้งเตือนที่ตั้งไว้</p>
+        <p>ตัวอย่างเช่น หากตั้งแจ้งเตือนของลูกค้าที่ <strong>2 เดือน</strong> และเข้าใช้บริการครั้งสุดท้ายเกิน 2 เดือนแล้ว จะปรากฏในรายการนี้</p>
+
+        <ol class="steps">
+          <li>คลิก <strong>"🔍 ตรวจสอบการแจ้งเตือน"</strong> เพื่อค้นหาลูกค้าที่ครบกำหนดมาใช้บริการ</li>
+          <li>รายชื่อลูกค้าจะปรากฏ แสดงวันที่เข้าใช้บริการครั้งสุดท้ายและการตั้งค่าแจ้งเตือน</li>
+          <li>เลือก <strong>ภาษา</strong> สำหรับข้อความ</li>
+          <li>คลิก <strong>"ส่ง"</strong> เพื่อส่งข้อเชิญชวนมาใช้บริการทาง LINE</li>
+        </ol>
+
+        <div class="note-box">
+          <strong>วิธีตั้งค่าแจ้งเตือนมาใช้บริการ:</strong> เปิดหน้ารายละเอียดลูกค้า (จากแท็บเพื่อน) แล้วตั้งค่า "แจ้งเตือนมาใช้บริการ" เป็น 1-6 เดือน ดูรายละเอียดในหัวข้อ 3-3
+        </div>
+
+        <div class="warning-box">
+          <strong>สำคัญ:</strong> แจ้งเตือนจะทำงานเฉพาะลูกค้าที่มีบันทึกการเข้าใช้บริการ อย่าลืมเพิ่มบันทึกหลังให้บริการทุกครั้ง (ดูหัวข้อ 3-3b)
+        </div>
+      </div>
+
+      <!-- JP -->
+      <div class="jp-text" style="display:none;">
+        <h2>5. リマインドタブ</h2>
+        <p>このタブではLINE経由でリマインドメッセージを送信できます。2種類のリマインドがあります：</p>
+
+        <h3 id="sec-rem-a">5-1. 予約リマインド（タイプA）</h3>
+        <p>今後<strong>7日以内</strong>に確認済みの予約があるお客様が表示されます。</p>
+        <ol class="steps">
+          <li><strong>「🔍 リマインドを確認」</strong>をクリックして、直近の予約を検索</li>
+          <li>予約が近いお客様のリストが表示されます</li>
+          <li>各お客様ごとにリマインドメッセージの<strong>言語</strong>（EN / TH / JP）を選択</li>
+          <li><strong>「送信」</strong>をクリックしてLINEでリマインドを送信</li>
+        </ol>
+
+        <div class="note-box">
+          <strong>お客様が受け取るもの:</strong> 予約日時と施術内容を含む、フレンドリーなLINEリマインドメッセージが届きます。
+        </div>
+
+        <h3 id="sec-rem-b">5-2. 再来店リマインド（タイプB）</h3>
+        <p>最終来店日から設定したリマインド期間を超えたお客様が表示されます。</p>
+        <p>例：お客様のリマインドが<strong>2ヶ月</strong>に設定されていて、最終来店日から2ヶ月以上経過している場合、このリストに表示されます。</p>
+
+        <ol class="steps">
+          <li><strong>「🔍 リマインドを確認」</strong>をクリックして、再来店対象のお客様を検索</li>
+          <li>最終来店日とリマインド設定が表示されたお客様リストが表示されます</li>
+          <li>メッセージの<strong>言語</strong>を選択</li>
+          <li><strong>「送信」</strong>をクリックしてLINEで再来店のお誘いを送信</li>
+        </ol>
+
+        <div class="note-box">
+          <strong>再来店リマインドの設定方法:</strong> お客様詳細ページ（友だちタブから開く）で「再来店リマインド」を1〜6ヶ月に設定してください。詳しくはセクション3-3を参照。
+        </div>
+
+        <div class="warning-box">
+          <strong>重要:</strong> リマインドは施術記録があるお客様にのみ有効です。施術後は必ず施術記録を追加してください（セクション3-3b参照）。
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 6. FAQ ===== -->
+    <div class="section" id="sec-faq">
+      <!-- TH -->
+      <div class="th-text">
+        <h2>6. คำถามที่พบบ่อย</h2>
+
+        <h3>Q: รายชื่อสมาชิกไม่โหลด</h3>
+        <p><strong>A:</strong> คลิกปุ่ม <strong>"รีเฟรช"</strong> หากปัญหายังคงอยู่ ลองออกจากระบบแล้วเข้าสู่ระบบใหม่ ตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</p>
+
+        <h3>Q: มองไม่เห็นรูปภาพของลูกค้าในประวัติ</h3>
+        <p><strong>A:</strong> รูปภาพอาจใช้เวลาโหลดสักครู่ คลิกที่รูปเพื่อเปิดในหน้าต่างใหม่ หากรูปยังไม่ปรากฏ อาจอัปโหลดไม่ถูกต้อง</p>
+
+        <h3>Q: จะเปลี่ยนภาษาข้อความแจ้งเตือนอย่างไร?</h3>
+        <p><strong>A:</strong> มีสองวิธี:</p>
+        <ul>
+          <li><strong>ต่อลูกค้า (ค่าเริ่มต้น):</strong> เปิดหน้ารายละเอียดลูกค้าแล้วเปลี่ยนการตั้งค่า "ภาษา" ในส่วนตั้งค่าแจ้งเตือน</li>
+          <li><strong>ตอนส่ง:</strong> ในแท็บแจ้งเตือน ใช้ดร็อปดาวน์ภาษาข้างชื่อลูกค้าก่อนคลิก "ส่ง"</li>
+        </ul>
+
+        <h3>Q: ข้อความ LINE ส่งไม่สำเร็จ</h3>
+        <p><strong>A:</strong> อาจเกิดขึ้นหากลูกค้าบล็อกบัญชี LINE ของร้าน ลูกค้าต้องปลดบล็อกเพื่อรับข้อความ</p>
+
+        <h3>Q: จะลบการจองอย่างไร?</h3>
+        <p><strong>A:</strong> การจองไม่สามารถลบได้ แต่สามารถเปลี่ยนเป็นสถานะ "ยกเลิก" โดยใช้ปุ่มยกเลิก</p>
+
+        <h3>Q: แดชบอร์ดแสดงจำนวนคูปองไม่ถูกต้อง</h3>
+        <p><strong>A:</strong> คลิก <strong>"รีเฟรช"</strong> เพื่อโหลดข้อมูลล่าสุดจากเซิร์ฟเวอร์</p>
+      </div>
+
+      <!-- JP -->
+      <div class="jp-text" style="display:none;">
+        <h2>6. よくある質問</h2>
+
+        <h3>Q: 会員リストが読み込まれない</h3>
+        <p><strong>A:</strong> <strong>「リフレッシュ」</strong>ボタンをクリックしてください。問題が解決しない場合は、一度ログアウトして再ログインしてください。インターネット接続もご確認ください。</p>
+
+        <h3>Q: 施術履歴のお客様写真が表示されない</h3>
+        <p><strong>A:</strong> 写真の読み込みに時間がかかる場合があります。写真をクリックすると新しいウィンドウで開けます。それでも表示されない場合は、アップロード時にエラーがあった可能性があります。</p>
+
+        <h3>Q: リマインドメッセージの言語を変更するには？</h3>
+        <p><strong>A:</strong> 2つの方法があります：</p>
+        <ul>
+          <li><strong>お客様ごとの設定（デフォルト）:</strong> お客様詳細ページを開き、リマインド設定の「言語」を変更</li>
+          <li><strong>送信時に変更:</strong> リマインドタブで、送信前にお客様名の横にある言語ドロップダウンを変更</li>
+        </ul>
+
+        <h3>Q: LINEメッセージの送信に失敗した</h3>
+        <p><strong>A:</strong> お客様がサロンのLINEアカウントをブロックしている可能性があります。メッセージを受信するにはお客様側でブロックを解除する必要があります。</p>
+
+        <h3>Q: 予約を削除するには？</h3>
+        <p><strong>A:</strong> 予約は削除できませんが、キャンセルボタンで「キャンセル」ステータスに変更できます。</p>
+
+        <h3>Q: ダッシュボードのクーポン数が正しくない</h3>
+        <p><strong>A:</strong> <strong>「リフレッシュ」</strong>をクリックして、サーバーから最新データを再読み込みしてください。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <div class="manual-footer">
+    <p class="th-text">Hairworld Stylists - คู่มือระบบจัดการลูกค้า</p>
+    <p class="jp-text" style="display:none;">Hairworld Stylists - 顧客管理システム利用マニュアル</p>
+    <p class="th-text">อัปเดตล่าสุด: พฤษภาคม 2026</p>
+    <p class="jp-text" style="display:none;">最終更新: 2026年5月</p>
+  </div>
+
+  <!-- 言語切替スクリプト -->
+  <script>
+    function setManualLang(lang) {
+      /* ボタンのactive状態を更新 */
+      document.querySelectorAll('.lang-toggle button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+
+      /* テキストの表示切替 */
+      const thElements = document.querySelectorAll('.th-text');
+      const jpElements = document.querySelectorAll('.jp-text');
+
+      if (lang === 'th') {
+        thElements.forEach(el => el.style.display = '');
+        jpElements.forEach(el => el.style.display = 'none');
+      } else {
+        thElements.forEach(el => el.style.display = 'none');
+        jpElements.forEach(el => el.style.display = '');
+      }
+    }
+  </script>
+
+</body>
+</html>
