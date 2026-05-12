@@ -751,3 +751,34 @@ document.addEventListener("DOMContentLoaded", () => {
     if (indicator) indicator.remove();
   }
 });
+
+// ギャラリービデオの再生/停止
+function toggleGalleryVideo() {
+  const video = document.getElementById("galleryVideoEl");
+  const container = document.getElementById("galleryVideo");
+  if (video.paused) {
+    video.play();
+    container.classList.add("playing");
+  } else {
+    video.pause();
+    container.classList.remove("playing");
+  }
+}
+
+// ライトボックス: 写真拡大表示
+function openLightbox(el) {
+  const img = el.querySelector("img");
+  if (!img) return;
+  const lightbox = document.getElementById("galleryLightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  lightboxImg.src = img.src;
+  lightboxImg.alt = img.alt;
+  lightbox.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById("galleryLightbox");
+  lightbox.classList.remove("active");
+  document.body.style.overflow = "";
+}

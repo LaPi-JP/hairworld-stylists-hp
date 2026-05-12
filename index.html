@@ -206,36 +206,71 @@
         <h2 class="section-title" data-i18n="gallery.title">Our Work</h2>
       </div>
       <div class="gallery-grid fade-in">
-        <div class="gallery-item gallery-item--wide">
-          <div class="gallery-placeholder">
-            <span>Hair Style</span>
+        <!-- 上段: 4枚 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150513_0.jpg" alt="Pink bob style" loading="lazy">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150510_0.jpg" alt="Balayage highlights" loading="lazy">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150515_0.jpg" alt="Silver grey waves" loading="lazy">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150514_0.jpg" alt="Short bob highlights" loading="lazy">
+        </div>
+
+        <!-- 中段左 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150512_0.jpg" alt="Medium layered cut" loading="lazy">
+        </div>
+
+        <!-- 中央: ビデオ（2列×2行） -->
+        <div class="gallery-video" id="galleryVideo">
+          <video id="galleryVideoEl" playsinline preload="metadata" loop muted>
+            <source src="Pictures/Aoy_hairmodel.mp4" type="video/mp4">
+          </video>
+          <div class="gallery-video-overlay" onclick="toggleGalleryVideo()">
+            <div class="play-icon">
+              <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
+            </div>
           </div>
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <span>Makeup</span>
-          </div>
+
+        <!-- 中段右 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150518_0.jpg" alt="Platinum blonde" loading="lazy">
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <span>Nail Art</span>
-          </div>
+
+        <!-- 中段左下 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150516_0.jpg" alt="Silver gray style" loading="lazy">
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <span>Interior</span>
-          </div>
+
+        <!-- 中段右下 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150520_0.jpg" alt="Ash blonde long" loading="lazy">
         </div>
-        <div class="gallery-item gallery-item--tall">
-          <div class="gallery-placeholder">
-            <span>Styling</span>
-          </div>
+
+        <!-- 下段: 4枚 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/Susan.jpg" alt="Brunette curls" loading="lazy">
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <span>Color</span>
-          </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150519_0.jpg" alt="Platinum waves" loading="lazy">
         </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150517_0.jpg" alt="Ash brown layers" loading="lazy">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="Pictures/150509_0.jpg" alt="Long wavy brown" loading="lazy">
+        </div>
+      </div>
+
+      <!-- ライトボックス（写真拡大表示） -->
+      <div class="gallery-lightbox" id="galleryLightbox" onclick="closeLightbox()">
+        <span class="gallery-lightbox-close">&times;</span>
+        <img id="lightboxImg" src="" alt="">
       </div>
     </div>
   </section>
