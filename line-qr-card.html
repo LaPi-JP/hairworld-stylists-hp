@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hairworld Stylists - LINE QR Card</title>
+  <style>
+    /* 印刷用リセット */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', 'Noto Sans Thai', 'Noto Sans JP', sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* カードコンテナ（A5サイズ相当） */
+    .card {
+      width: 148mm;
+      min-height: 210mm;
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 上部ゴールドヘッダー */
+    .card-header {
+      width: 100%;
+      background: linear-gradient(135deg, #d4a853 0%, #b8922e 50%, #d4a853 100%);
+      padding: 24px 20px 20px;
+      text-align: center;
+    }
+
+    .card-header img.logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+
+    .card-header h1 {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    .card-header p {
+      color: rgba(255,255,255,0.85);
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    /* メインコンテンツ */
+    .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .card-body .cta-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2c2418;
+      margin-bottom: 4px;
+    }
+
+    .card-body .cta-sub {
+      font-size: 13px;
+      color: #8a7d6b;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* QRコード */
+    .qr-wrapper {
+      background: #fff;
+      border: 3px solid #d4a853;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 12px rgba(212,168,83,0.15);
+    }
+
+    .qr-wrapper img {
+      width: 160px;
+      height: 160px;
+      display: block;
+    }
+
+    .scan-text {
+      font-size: 14px;
+      color: #b8922e;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    /* 特典バナー */
+    .benefit-badge {
+      background: linear-gradient(135deg, #d4a853, #b8922e);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .benefit-desc {
+      font-size: 11px;
+      color: #8a7d6b;
+      margin-bottom: 0;
+    }
+
+    /* フッター */
+    .card-footer {
+      width: 100%;
+      background: #f9f6f1;
+      padding: 14px 20px;
+      text-align: center;
+      border-top: 1px solid #e0d5c3;
+    }
+
+    .card-footer .info {
+      font-size: 11px;
+      color: #8a7d6b;
+      line-height: 1.6;
+    }
+
+    .card-footer .phone {
+      font-size: 14px;
+      color: #b8922e;
+      font-weight: 700;
+    }
+
+    /* 3言語テキスト */
+    .multilang {
+      margin-bottom: 16px;
+    }
+
+    .multilang .lang-line {
+      font-size: 13px;
+      color: #2c2418;
+      line-height: 1.8;
+    }
+
+    .multilang .lang-label {
+      display: inline-block;
+      background: #f5f0e8;
+      color: #b8922e;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    /* 印刷用スタイル */
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+
+      .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        border-radius: 0;
+        width: 148mm;
+        height: 210mm;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* 印刷ボタン */
+    .print-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #d4a853, #b8922e);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(212,168,83,0.4);
+    }
+
+    .print-btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- ヘッダー -->
+    <div class="card-header">
+      <img src="logo (Gold).png" alt="Hairworld Stylists" class="logo">
+      <h1>Hairworld Stylists</h1>
+      <p>HAIR &amp; MAKEUP SALON</p>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <div class="card-body">
+      <!-- 3言語の案内 -->
+      <div class="multilang">
+        <div class="lang-line"><span class="lang-label">TH</span> เพิ่มเพื่อนทาง LINE เพื่อรับข่าวสารและจองคิว</div>
+        <div class="lang-line"><span class="lang-label">EN</span> Add us on LINE for news &amp; reservations</div>
+        <div class="lang-line"><span class="lang-label">JP</span> LINE友達追加で予約＆最新情報をGET</div>
+      </div>
+
+      <!-- QRコード -->
+      <div class="qr-wrapper">
+        <img src="https://qr-official.line.me/gs/M_411vvcqq_GW.png?oat_content=qr" alt="LINE QR Code">
+      </div>
+
+      <p class="scan-text">📱 Scan Me!</p>
+
+      <!-- 特典バッジ -->
+      <div class="benefit-badge">🎁 ลงทะเบียนรับคูปองส่วนลด!</div>
+      <p class="benefit-desc">Register to receive a discount coupon / 登録でクーポンプレゼント</p>
+    </div>
+
+    <!-- フッター -->
+    <div class="card-footer">
+      <p class="phone">📞 063-961-2999</p>
+      <p class="info">
+        55/11 Rama II Soi 50, Bang Khun Thian, Bangkok<br>
+        Open Daily 10:00 - 21:00
+      </p>
+    </div>
+  </div>
+
+  <!-- 印刷ボタン（画面表示のみ） -->
+  <button class="print-btn no-print" onclick="window.print()">🖨️ Print</button>
+
+</body>
+</html>
