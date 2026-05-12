@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hairworld Stylists - SNS Strategy Proposal</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Noto Sans Thai', 'Noto Sans JP', sans-serif;
+      background: #e8e3db;
+      color: #2c2418;
+      line-height: 1.6;
+    }
+
+    /* スライド共通 */
+    .slide {
+      width: 297mm;
+      min-height: 210mm;
+      background: #fff;
+      margin: 20px auto;
+      padding: 0;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+      position: relative;
+      page-break-after: always;
+    }
+    .slide:last-of-type {
+      page-break-after: auto;
+    }
+
+    /* ダーク背景スライド */
+    .slide-dark {
+      background: linear-gradient(135deg, #1a1510 0%, #2c2418 50%, #1a1510 100%);
+      color: #fff;
+    }
+
+    /* スライド内コンテンツ */
+    .slide-content {
+      padding: 40px 50px;
+      height: 100%;
+    }
+
+    /* スライド番号 */
+    .slide-num {
+      position: absolute;
+      bottom: 16px;
+      right: 24px;
+      font-size: 11px;
+      color: #b0a594;
+    }
+    .slide-dark .slide-num {
+      color: rgba(212,168,83,0.4);
+    }
+
+    /* ロゴフッター */
+    .slide-footer {
+      position: absolute;
+      bottom: 16px;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .slide-footer img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+    .slide-footer span {
+      font-size: 10px;
+      color: #b0a594;
+    }
+    .slide-dark .slide-footer span {
+      color: rgba(212,168,83,0.4);
+    }
+
+    /* タイトルスライド */
+    .title-slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 210mm;
+    }
+    .title-slide img.logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 20px;
+    }
+    .title-slide h1 {
+      font-size: 36px;
+      color: #d4a853;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+    .title-slide .subtitle {
+      font-size: 14px;
+      color: rgba(212,168,83,0.6);
+      letter-spacing: 4px;
+      margin-bottom: 40px;
+    }
+    .title-slide .main-title {
+      font-size: 28px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .title-slide .main-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 40px;
+    }
+    .title-slide .date {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+    }
+    .title-line {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #d4a853, transparent);
+      margin: 20px auto;
+    }
+
+    /* セクションヘッダー */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f0ebe3;
+    }
+    .section-num {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #d4a853, #b8922e);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-size: 22px;
+      color: #2c2418;
+      font-weight: 700;
+    }
+    .section-title-sub {
+      font-size: 13px;
+      color: #b8922e;
+      margin-top: 2px;
+    }
+    .slide-dark .section-header {
+      border-bottom-color: rgba(212,168,83,0.2);
+    }
+    .slide-dark .section-title {
+      color: #d4a853;
+    }
+
+    /* カード */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .card-grid-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .card-grid-4 {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    .card {
+      background: #f9f6f1;
+      border: 1px solid #e0d5c3;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .card-dark {
+      background: rgba(212,168,83,0.08);
+      border-color: rgba(212,168,83,0.2);
+    }
+    .card h3 {
+      font-size: 16px;
+      color: #b8922e;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card p {
+      font-size: 13px;
+      color: #5a4e3c;
+      line-height: 1.7;
+    }
+    .slide-dark .card p {
+      color: rgba(255,255,255,0.7);
+    }
+    .card .emoji {
+      font-size: 24px;
+    }
+
+    /* ランキング表 */
+    .rank-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .rank-table th {
+      background: #f9f6f1;
+      color: #b8922e;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid #e0d5c3;
+    }
+    .rank-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #efe9de;
+    }
+    .rank-table tr:hover {
+      background: #faf7f2;
+    }
+    .rank-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #d4a853, #b8922e);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .rank-highlight {
+      background: rgba(212,168,83,0.06);
+    }
+
+    /* フロー図 */
+    .flow-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .flow-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .flow-box {
+      background: #f9f6f1;
+      border: 1px solid #e0d5c3;
+      border-radius: 10px;
+      padding: 14px 20px;
+      text-align: center;
+      min-width: 140px;
+    }
+    .flow-box-gold {
+      background: linear-gradient(135deg, #d4a853, #b8922e);
+      color: #fff;
+      border: none;
+    }
+    .flow-box-green {
+      background: #06C755;
+      color: #fff;
+      border: none;
+    }
+    .flow-box h4 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .flow-box p {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+    .flow-arrow {
+      font-size: 24px;
+      color: #d4a853;
+      padding: 4px 0;
+    }
+
+    /* アクション表 */
+    .action-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .action-table th {
+      background: linear-gradient(135deg, #d4a853, #b8922e);
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .action-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #efe9de;
+    }
+    .priority-star {
+      color: #d4a853;
+      font-weight: 700;
+    }
+    .check-done {
+      color: #2a9d8f;
+      font-weight: 700;
+    }
+
+    /* 完了バッジ */
+    .badge-done {
+      display: inline-block;
+      background: #2a9d8f;
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+    .badge-todo {
+      display: inline-block;
+      background: #d4a853;
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+    .badge-next {
+      display: inline-block;
+      background: #8a7d6b;
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    /* 比較ハイライト */
+    .highlight-box {
+      background: rgba(212,168,83,0.08);
+      border-left: 4px solid #d4a853;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0;
+      font-size: 14px;
+    }
+    .highlight-box strong {
+      color: #b8922e;
+    }
+
+    /* 大きな数字 */
+    .big-stat {
+      text-align: center;
+      padding: 12px;
+    }
+    .big-stat .num {
+      font-size: 36px;
+      font-weight: 700;
+      color: #d4a853;
+    }
+    .big-stat .label {
+      font-size: 12px;
+      color: #8a7d6b;
+      margin-top: 4px;
+    }
+
+    /* 言語切替（画面表示のみ） */
+    .lang-bar {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      gap: 6px;
+    }
+    .lang-bar button {
+      padding: 8px 18px;
+      border: 1px solid #d4a853;
+      background: #fff;
+      color: #b8922e;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .lang-bar button.active {
+      background: #d4a853;
+      color: #fff;
+    }
+    .pdf-btn {
+      padding: 8px 18px;
+      border: 1px solid #2a9d8f;
+      background: #2a9d8f;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* 印刷用 */
+    @media print {
+      body { background: none; }
+      .slide {
+        box-shadow: none;
+        margin: 0;
+        width: 100%;
+        height: 100vh;
+        page-break-after: always;
+        page-break-inside: avoid;
+      }
+      .lang-bar { display: none !important; }
+      .slide-content { padding: 30px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 言語切替 + PDF -->
+  <div class="lang-bar no-print">
+    <button class="active" onclick="setLang('th')">ภาษาไทย</button>
+    <button onclick="setLang('jp')">日本語</button>
+    <button class="pdf-btn" onclick="window.print()">📄 PDF</button>
+  </div>
+
+  <!-- ===== スライド1: 表紙 ===== -->
+  <div class="slide slide-dark">
+    <div class="title-slide">
+      <img src="logo (Gold).png" alt="Hairworld Stylists" class="logo">
+      <h1>Hairworld Stylists</h1>
+      <div class="subtitle">HAIR & MAKEUP SALON</div>
+      <div class="title-line"></div>
+      <div class="main-title th-text">กลยุทธ์ SNS เพื่อเพิ่มเพื่อน LINE<br>และดึงดูดลูกค้าใหม่</div>
+      <div class="main-title jp-text" style="display:none;">LINE友だちを増やし<br>新規顧客を獲得するSNS戦略</div>
+      <div class="main-sub th-text">แผนการตลาดออนไลน์สำหรับร้าน Hairworld Stylists</div>
+      <div class="main-sub jp-text" style="display:none;">Hairworld Stylists オンラインマーケティング計画</div>
+      <div class="date">May 2026</div>
+    </div>
+    <div class="slide-num">1</div>
+  </div>
+
+  <!-- ===== スライド2: 目標 ===== -->
+  <div class="slide">
+    <div class="slide-content">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div>
+          <div class="section-title th-text">เป้าหมาย: ทำไมต้องเพิ่มเพื่อน LINE?</div>
+          <div class="section-title jp-text" style="display:none;">目標：なぜLINE友だちを増やすのか？</div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-3" style="margin-bottom:24px;">
+        <div class="card" style="text-align:center;">
+          <div class="big-stat">
+            <div class="num">💬</div>
+            <div class="num" style="font-size:28px;">LINE</div>
+          </div>
+          <p class="th-text" style="font-size:14px;color:#2c2418;font-weight:600;">ช่องทางติดต่อหลักของคนไทย</p>
+          <p class="jp-text" style="display:none;font-size:14px;color:#2c2418;font-weight:600;">タイ人の主要連絡手段</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="big-stat">
+            <div class="num">📱</div>
+            <div class="num" style="font-size:28px;">93%</div>
+          </div>
+          <p class="th-text" style="font-size:14px;color:#2c2418;font-weight:600;">คนไทยใช้ LINE ทุกวัน</p>
+          <p class="jp-text" style="display:none;font-size:14px;color:#2c2418;font-weight:600;">タイ人の日常的なLINE利用率</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="big-stat">
+            <div class="num">🔄</div>
+            <div class="num" style="font-size:28px;">Repeat</div>
+          </div>
+          <p class="th-text" style="font-size:14px;color:#2c2418;font-weight:600;">ส่งข้อความ แจ้งเตือน กลับมาใช้บริการ</p>
+          <p class="jp-text" style="display:none;font-size:14px;color:#2c2418;font-weight:600;">メッセージ・リマインドでリピート促進</p>
+        </div>
+      </div>
+
+      <div class="highlight-box th-text">
+        <strong>เป้าหมายหลัก:</strong> ใช้ SNS ดึงดูดลูกค้าใหม่ → นำเข้า LINE → สร้างลูกค้าประจำ ผ่านระบบจอง, คูปอง และแจ้งเตือนอัตโนมัติ
+      </div>
+      <div class="highlight-box jp-text" style="display:none;">
+        <strong>主な目標:</strong> SNSで新規顧客を獲得 → LINEに誘導 → 予約システム・クーポン・自動リマインドでリピーターに育てる
+      </div>
+
+      <div class="card-grid" style="margin-top:20px;">
+        <div class="card">
+          <h3 class="th-text">✅ สิ่งที่ร้านมีแล้ว</h3>
+          <h3 class="jp-text" style="display:none;">✅ 既に完成しているもの</h3>
+          <ul style="font-size:13px;color:#5a4e3c;padding-left:18px;line-height:2;">
+            <li class="th-text">เว็บไซต์ร้าน (3 ภาษา: ไทย/อังกฤษ/ญี่ปุ่น)</li>
+            <li class="jp-text" style="display:none;">サロンHP（3言語: タイ/英語/日本語）</li>
+            <li class="th-text">ระบบจองออนไลน์ผ่าน LINE</li>
+            <li class="jp-text" style="display:none;">LINE経由のオンライン予約システム</li>
+            <li class="th-text">ระบบจัดการลูกค้า (CRM)</li>
+            <li class="jp-text" style="display:none;">顧客管理システム（CRM）</li>
+            <li class="th-text">คูปองส่วนลดอัตโนมัติสำหรับเพื่อนใหม่</li>
+            <li class="jp-text" style="display:none;">新規友だち向け自動クーポン配布</li>
+            <li class="th-text">ระบบแจ้งเตือนการจองและมาใช้บริการ</li>
+            <li class="jp-text" style="display:none;">予約・再来店リマインドシステム</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="th-text">🎯 สิ่งที่ต้องทำต่อ</h3>
+          <h3 class="jp-text" style="display:none;">🎯 次にやるべきこと</h3>
+          <ul style="font-size:13px;color:#5a4e3c;padding-left:18px;line-height:2;">
+            <li class="th-text">เพิ่มจำนวนเพื่อน LINE</li>
+            <li class="jp-text" style="display:none;">LINE友だち数を増やす</li>
+            <li class="th-text">ดึงดูดลูกค้าใหม่ผ่าน SNS</li>
+            <li class="jp-text" style="display:none;">SNSで新規顧客を獲得</li>
+            <li class="th-text">สร้างการรับรู้ของร้านในย่านพระราม 2</li>
+            <li class="jp-text" style="display:none;">Rama 2エリアでの認知度向上</li>
+            <li class="th-text">เพิ่มรีวิวบน Google Maps</li>
+            <li class="jp-text" style="display:none;">Google Mapsのレビューを増やす</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><img src="logo (Gold).png" alt=""><span>Hairworld Stylists</span></div>
+    <div class="slide-num">2</div>
+  </div>
+
+  <!-- ===== スライド3: タイのSNS事情 ===== -->
+  <div class="slide">
+    <div class="slide-content">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div>
+          <div class="section-title th-text">สถานการณ์ SNS ในประเทศไทย 2025-2026</div>
+          <div class="section-title jp-text" style="display:none;">タイのSNS事情 2025-2026</div>
+        </div>
+      </div>
+
+      <table class="rank-table">
+        <thead>
+          <tr>
+            <th style="width:60px;" class="th-text">อันดับ</th>
+            <th style="width:60px;" class="jp-text" style="display:none;">順位</th>
+            <th>SNS</th>
+            <th class="th-text">ลักษณะเด่น</th>
+            <th class="jp-text" style="display:none;">特徴</th>
+            <th class="th-text">เหมาะกับร้านอย่างไร</th>
+            <th class="jp-text" style="display:none;">サロンでの活用法</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="rank-highlight">
+            <td><span class="rank-num">1</span></td>
+            <td><strong>Facebook</strong></td>
+            <td class="th-text">แพลตฟอร์มที่คนไทยใช้มากที่สุด ทุกกลุ่มอายุ ใช้ค้นหาร้านค้า</td>
+            <td class="jp-text" style="display:none;">タイで最も利用者が多い。全世代。お店探しにも使われる</td>
+            <td class="th-text">⭐ สำคัญที่สุด — เพจร้าน, โพสต์ผลงาน, โฆษณาท้องถิ่น</td>
+            <td class="jp-text" style="display:none;">⭐ 最重要 — お店ページ、作品投稿、地域広告</td>
+          </tr>
+          <tr>
+            <td><span class="rank-num">2</span></td>
+            <td><strong>LINE</strong></td>
+            <td class="th-text">แอปส่งข้อความหลักของคนไทย เกือบทุกคนใช้</td>
+            <td class="jp-text" style="display:none;">タイの国民的メッセンジャー。ほぼ全員が利用</td>
+            <td class="th-text">มีแล้ว ✅ — จอง, คูปอง, แจ้งเตือน, CRM</td>
+            <td class="jp-text" style="display:none;">導入済み ✅ — 予約、クーポン、リマインド、CRM</td>
+          </tr>
+          <tr class="rank-highlight">
+            <td><span class="rank-num">3</span></td>
+            <td><strong>TikTok</strong></td>
+            <td class="th-text">กำลังเติบโตเร็วมาก คนไทยอายุ 18-35 คอนเทนต์ความงามได้รับความนิยม</td>
+            <td class="jp-text" style="display:none;">急成長中。18-35歳のタイ人に人気。美容コンテンツが特に強い</td>
+            <td class="th-text">⭐ พลังการกระจาย — วิดีโอ before/after, ทรานส์ฟอร์ม</td>
+            <td class="jp-text" style="display:none;">⭐ 拡散力 — ビフォーアフター動画、変身動画</td>
+          </tr>
+          <tr>
+            <td><span class="rank-num">4</span></td>
+            <td><strong>Instagram</strong></td>
+            <td class="th-text">กลุ่มคนรุ่นใหม่ในเมือง ไม่แข็งเท่า FB ในไทย</td>
+            <td class="jp-text" style="display:none;">都市部の若年層中心。タイではFBほどの影響力はない</td>
+            <td class="th-text">ลำดับรอง — เหมาะสำหรับลูกค้าต่างชาติ/ญี่ปุ่น</td>
+            <td class="jp-text" style="display:none;">優先度低め — 外国人・日本人客向け</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box th-text" style="margin-top:20px;">
+        <strong>⚡ ข้อแตกต่างจากญี่ปุ่น:</strong> ในญี่ปุ่น Instagram สำคัญที่สุด แต่ในไทย <strong>Facebook ยังเป็นอันดับ 1</strong> โดยเฉพาะในย่านชุมชนอย่างพระราม 2 — Facebook + Google Maps คือหัวใจสำคัญ
+      </div>
+      <div class="highlight-box jp-text" style="display:none;">
+        <strong>⚡ 日本との違い:</strong> 日本ではInstagramが最重要ですが、タイでは<strong>Facebookがまだ1位</strong>です。特にRama 2のような住宅地エリアでは Facebook + Google Maps が鍵です
+      </div>
+    </div>
+    <div class="slide-footer"><img src="logo (Gold).png" alt=""><span>Hairworld Stylists</span></div>
+    <div class="slide-num">3</div>
+  </div>
+
+  <!-- ===== スライド4: 戦略1 Facebook ===== -->
+  <div class="slide">
+    <div class="slide-content">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div>
+          <div class="section-title th-text">กลยุทธ์ที่ 1: Facebook — ช่องทางหลัก</div>
+          <div class="section-title jp-text" style="display:none;">戦略1: Facebook — メインチャネル</div>
+          <div class="section-title-sub th-text">แพลตฟอร์มที่สำคัญที่สุดสำหรับร้านเสริมสวยในไทย</div>
+          <div class="section-title-sub jp-text" style="display:none;">タイの美容サロンにとって最も重要なプラットフォーム</div>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>📝 <span class="th-text">คอนเทนต์ที่ควรโพสต์</span><span class="jp-text" style="display:none;">投稿すべきコンテンツ</span></h3>
+          <ul style="font-size:13px;color:#5a4e3c;padding-left:18px;line-height:2;">
+            <li class="th-text">ภาพ Before / After ผลงานของช่าง</li>
+            <li class="jp-text" style="display:none;">スタイリストの施術ビフォー・アフター写真</li>
+            <li class="th-text">รีวิวจากลูกค้า (ขออนุญาตก่อนโพสต์)</li>
+            <li class="jp-text" style="display:none;">お客様のレビュー（許可を得て投稿）</li>
+            <li class="th-text">โปรโมชั่น / ข้อเสนอพิเศษ</li>
+            <li class="jp-text" style="display:none;">プロモーション・特別オファー</li>
+            <li class="th-text">บรรยากาศในร้าน / ทีมช่าง</li>
+            <li class="jp-text" style="display:none;">店内の雰囲気・スタイリストチーム</li>
+            <li class="th-text">เทรนด์ทรงผม / ทิปส์ดูแลผม</li>
+            <li class="jp-text" style="display:none;">ヘアトレンド・ヘアケアのコツ</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🎯 <span class="th-text">โฆษณา Facebook (แนะนำ)</span><span class="jp-text" style="display:none;">Facebook広告（推奨）</span></h3>
+          <ul style="font-size:13px;color:#5a4e3c;padding-left:18px;line-height:2;">
+            <li class="th-text">ตั้งเป้าหมาย: รัศมี 5-10 กม. จากร้าน</li>
+            <li class="jp-text" style="display:none;">ターゲット: 店舗から半径5〜10km</li>
+            <li class="th-text">กลุ่มเป้าหมาย: ผู้หญิง 20-50 ปี ย่านพระราม 2</li>
+            <li class="jp-text" style="display:none;">対象: 女性 20-50歳 Rama 2エリア</li>
+            <li class="th-text">งบ: เริ่มต้น 100-300 บาท/วัน</li>
+            <li class="jp-text" style="display:none;">予算: 1日100〜300バーツから開始</li>
+            <li class="th-text">เนื้อหาโฆษณา: ผลงาน + "เพิ่มเพื่อน LINE รับส่วนลด"</li>
+            <li class="jp-text" style="display:none;">広告内容: 施術作品 +「LINE友だち追加で割引」</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight-box th-text" style="margin-top:16px;">
+        <strong>🔗 เชื่อมต่อกับ LINE:</strong> ทุกโพสต์ให้ใส่ "เพิ่มเพื่อน LINE รับคูปองส่วนลด!" พร้อมลิงก์ → ลูกค้าคลิก → เพิ่มเพื่อน → ได้คูปองอัตโนมัติ
+      </div>
+      <div class="highlight-box jp-text" style="display:none;">
+        <strong>🔗 LINEへの導線:</strong> 全投稿に「LINE友だち追加で割引クーポン!」+リンクを記載 → お客様がクリック → 友だち追加 → クーポン自動配布
+      </div>
+    </div>
+    <div class="slide-footer"><img src="logo (Gold).png" alt=""><span>Hairworld Stylists</span></div>
+    <div class="slide-num">4</div>
+  </div>
+
+  <!-- ===== スライド5: 戦略2 TikTok + Google Maps ===== -->
+  <div class="slide">
+    <div class="slide-content">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div>
+          <div class="section-title th-text">กลยุทธ์ที่ 2 & 3: TikTok + Google Maps</div>
+          <div class="section-title jp-text" style="display:none;">戦略2 & 3: TikTok + Google Maps</div>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>🎵 TikTok — <span class="th-text">พลังการกระจาย</span><span class="jp-text" style="display:none;">拡散力</span></h3>
+          <ul style="font-size:13px;color:#5a4e3c;padding-left:18px;line-height:1.9;">
+            <li class="th-text">วิดีโอ Before/After แบบ Time-lapse (15-30 วินาที)</li>
+            <li class="jp-text" style="display:none;">ビフォーアフターのタイムラプス動画（15-30秒）</li>
+            <li class="th-text">ใส่แท็กสถานที่: #พระราม2 #บางขุนเทียน #กรุงเทพ</li>
+            <li class="jp-text" style="display:none;">位置タグ: #พระราม2 #บางขุนเทียน #กรุงเทพ</li>
+            <li class="th-text">โพสต์ 1-2 ครั้ง/สัปดาห์</li>
+            <li class="jp-text" style="display:none;">週1〜2回投稿</li>
+            <li class="th-text">ใส่ลิงก์ LINE ในโปรไฟล์</li>
+            <li class="jp-text" style="display:none;">プロフィールにLINEリンク設置</li>
+            <li class="th-text">ไม่ต้องใช้งบโฆษณา — เนื้อหาดีก็กระจายได้เอง</li>
+            <li class="jp-text" style="display:none;">広告費不要 — 良いコンテンツは自然に拡散</li>
+          </ul>
+          <div class="highlight-box th-text" style="margin-top:12px;">
+            <strong>💡</strong> รีวิวของลูกค้าคนที่ 3 "มาจาก TikTok" — พิสูจน์แล้วว่า TikTok ดึงลูกค้าได้จริง!
+          </div>
+          <div class="highlight-box jp-text" style="display:none;margin-top:12px;">
+            <strong>💡</strong> 3人目のレビュー客が「TikTokを見て来た」— TikTokが実際に集客できている証拠!
+          </div>
+        </div>
+        <div class="card">
+          <h3>📍 Google Maps — <span class="th-text">ลูกค้าค้นหาร้าน</span><span class="jp-text" style="display:none;">お店探し</span></h3>
+          <ul style="font-size:13px;color:#5a4e3c;padding-left:18px;line-height:1.9;">
+            <li class="th-text">คนไทยค้นหา "ร้านทำผมใกล้ฉัน" บน Google Maps</li>
+            <li class="jp-text" style="display:none;">タイ人は「近くの美容室」をGoogle Mapsで検索</li>
+            <li class="th-text">Google Business Profile ต้องข้อมูลครบ</li>
+            <li class="jp-text" style="display:none;">Googleビジネスプロフィールの情報を充実させる</li>
+            <li class="th-text">อัปเดตรูปภาพผลงานและบรรยากาศร้าน</li>
+            <li class="jp-text" style="display:none;">施術写真や店内の雰囲気写真を更新</li>
+            <li class="th-text">ขอรีวิวจากลูกค้า → ⭐⭐⭐⭐⭐</li>
+            <li class="jp-text" style="display:none;">お客様にレビューをお願い → ⭐⭐⭐⭐⭐</li>
+            <li class="th-text">ใส่ลิงก์เว็บไซต์และ LINE ในข้อมูลร้าน</li>
+            <li class="jp-text" style="display:none;">HPとLINEリンクを店舗情報に掲載</li>
+          </ul>
+          <div class="highlight-box th-text" style="margin-top:12px;">
+            <strong>⚠️ สำคัญ:</strong> ลูกค้าหลายคนตัดสินใจจาก <strong>รีวิว + ดาว</strong> บน Google Maps ก่อนเลือกร้าน
+          </div>
+          <div class="highlight-box jp-text" style="display:none;margin-top:12px;">
+            <strong>⚠️ 重要:</strong> 多くのお客様がGoogle Mapsの<strong>レビューと星</strong>を見てお店を選びます
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><img src="logo (Gold).png" alt=""><span>Hairworld Stylists</span></div>
+    <div class="slide-num">5</div>
+  </div>
+
+  <!-- ===== スライド6: 導線全体図 ===== -->
+  <div class="slide slide-dark">
+    <div class="slide-content">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div>
+          <div class="section-title th-text" style="color:#d4a853;">แผนผังการเชื่อมต่อ: SNS → LINE → ลูกค้าประจำ</div>
+          <div class="section-title jp-text" style="display:none;color:#d4a853;">導線全体図: SNS → LINE → リピーター</div>
+        </div>
+      </div>
+
+      <div class="flow-container">
+        <!-- SNS層 -->
+        <div class="flow-row">
+          <div class="flow-box card-dark" style="border:1px solid rgba(212,168,83,0.3);">
+            <h4 style="color:#d4a853;">📘 Facebook</h4>
+            <p class="th-text" style="color:rgba(255,255,255,0.6);">โพสต์ผลงาน + โฆษณาท้องถิ่น</p>
+            <p class="jp-text" style="display:none;color:rgba(255,255,255,0.6);">作品投稿 + 地域広告</p>
+          </div>
+          <div class="flow-box card-dark" style="border:1px solid rgba(212,168,83,0.3);">
+            <h4 style="color:#d4a853;">🎵 TikTok</h4>
+            <p class="th-text" style="color:rgba(255,255,255,0.6);">วิดีโอ Before/After</p>
+            <p class="jp-text" style="display:none;color:rgba(255,255,255,0.6);">ビフォーアフター動画</p>
+          </div>
+          <div class="flow-box card-dark" style="border:1px solid rgba(212,168,83,0.3);">
+            <h4 style="color:#d4a853;">📍 Google Maps</h4>
+            <p class="th-text" style="color:rgba(255,255,255,0.6);">รีวิว + ค้นหาร้าน</p>
+            <p class="jp-text" style="display:none;color:rgba(255,255,255,0.6);">レビュー + 店舗検索</p>
+          </div>
+          <div class="flow-box card-dark" style="border:1px solid rgba(212,168,83,0.3);">
+            <h4 style="color:#d4a853;">🌐 Website</h4>
+            <p class="th-text" style="color:rgba(255,255,255,0.6);">SEO + ข้อมูลร้าน</p>
+            <p class="jp-text" style="display:none;color:rgba(255,255,255,0.6);">SEO + サロン情報</p>
+          </div>
+        </div>
+
+        <div class="flow-arrow">▼</div>
+        <p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:4px;" class="th-text">ทุกช่องทางมีลิงก์ "เพิ่มเพื่อน LINE รับคูปอง!"</p>
+        <p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:4px;" class="jp-text" style="display:none;">全チャネルに「LINE友だち追加でクーポン!」リンク</p>
+        <div class="flow-arrow">▼</div>
+
+        <!-- LINE層 -->
+        <div class="flow-row">
+          <div class="flow-box flow-box-green" style="min-width:300px;">
+            <h4>💚 LINE เพิ่มเพื่อน + คูปองอัตโนมัติ</h4>
+            <p class="th-text">ลูกค้าได้คูปองทันที → แรงจูงใจมาใช้บริการ</p>
+            <p class="jp-text" style="display:none;">即クーポン配布 → 来店の動機付け</p>
+          </div>
+        </div>
+
+        <div class="flow-arrow">▼</div>
+
+        <!-- 来店層 -->
+        <div class="flow-row">
+          <div class="flow-box flow-box-gold">
+            <h4>💇 <span class="th-text">มาใช้บริการ</span><span class="jp-text" style="display:none;">来店</span></h4>
+            <p class="th-text">ตัด ทำสี ดัด เมคอัพ ทำเล็บ</p>
+            <p class="jp-text" style="display:none;">カット・カラー・パーマ・メイク・ネイル</p>
+          </div>
+        </div>
+
+        <div class="flow-arrow">▼</div>
+
+        <!-- リピーター層 -->
+        <div class="flow-row">
+          <div class="flow-box card-dark" style="border:1px solid rgba(42,157,143,0.4);">
+            <h4 style="color:#2a9d8f;">📋 <span class="th-text">จอง</span><span class="jp-text" style="display:none;">予約</span></h4>
+            <p class="th-text" style="color:rgba(255,255,255,0.6);">จองผ่าน LINE</p>
+            <p class="jp-text" style="display:none;color:rgba(255,255,255,0.6);">LINE予約</p>
+          </div>
+          <div class="flow-box card-dark" style="border:1px solid rgba(42,157,143,0.4);">
+            <h4 style="color:#2a9d8f;">🔔 <span class="th-text">แจ้งเตือน</span><span class="jp-text" style="display:none;">リマインド</span></h4>
+            <p class="th-text" style="color:rgba(255,255,255,0.6);">เตือนก่อนนัด + เชิญกลับมา</p>
+            <p class="jp-text" style="display:none;color:rgba(255,255,255,0.6);">予約前通知 + 再来店促進</p>
+          </div>
+          <div class="flow-box card-dark" style="border:1px solid rgba(42,157,143,0.4);">
+            <h4 style="color:#2a9d8f;">⭐ <span class="th-text">รีวิว</span><span class="jp-text" style="display:none;">レビュー</span></h4>
+            <p class="th-text" style="color:rgba(255,255,255,0.6);">ขอรีวิวบน Google/FB</p>
+            <p class="jp-text" style="display:none;color:rgba(255,255,255,0.6);">Google/FBレビュー依頼</p>
+          </div>
+          <div class="flow-box card-dark" style="border:1px solid rgba(42,157,143,0.4);">
+            <h4 style="color:#2a9d8f;">🔄 <span class="th-text">ลูกค้าประจำ</span><span class="jp-text" style="display:none;">リピーター</span></h4>
+            <p class="th-text" style="color:rgba(255,255,255,0.6);">กลับมาใช้บริการซ้ำ</p>
+            <p class="jp-text" style="display:none;color:rgba(255,255,255,0.6);">継続来店</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><img src="logo (Gold).png" alt=""><span>Hairworld Stylists</span></div>
+    <div class="slide-num">6</div>
+  </div>
+
+  <!-- ===== スライド7: アクションプラン ===== -->
+  <div class="slide">
+    <div class="slide-content">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div>
+          <div class="section-title th-text">แผนปฏิบัติการ</div>
+          <div class="section-title jp-text" style="display:none;">アクションプラン</div>
+        </div>
+      </div>
+
+      <table class="action-table">
+        <thead>
+          <tr>
+            <th style="width:50px;" class="th-text">ลำดับ</th>
+            <th style="width:50px;" class="jp-text" style="display:none;">優先</th>
+            <th class="th-text">สิ่งที่ต้องทำ</th>
+            <th class="jp-text" style="display:none;">アクション</th>
+            <th style="width:90px;" class="th-text">สถานะ</th>
+            <th style="width:90px;" class="jp-text" style="display:none;">ステータス</th>
+            <th class="th-text">ผลที่คาดหวัง</th>
+            <th class="jp-text" style="display:none;">期待される効果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="priority-star">⭐ 1</td>
+            <td class="th-text"><strong>ใส่ลิงก์ LINE ในทุก SNS</strong> (Facebook, TikTok, Instagram, Google)</td>
+            <td class="jp-text" style="display:none;"><strong>全SNSにLINEリンク設置</strong>（Facebook, TikTok, Instagram, Google）</td>
+            <td><span class="badge-todo th-text">ต้องทำ</span><span class="badge-todo jp-text" style="display:none;">要対応</span></td>
+            <td class="th-text">เปิดช่องทางให้ลูกค้าเข้า LINE จากทุกที่</td>
+            <td class="jp-text" style="display:none;">あらゆる場所からLINEへの流入口を確保</td>
+          </tr>
+          <tr>
+            <td class="priority-star">⭐ 2</td>
+            <td class="th-text"><strong>โพสต์ผลงานบน Facebook</strong> สัปดาห์ละ 2-3 ครั้ง</td>
+            <td class="jp-text" style="display:none;"><strong>Facebookに施術写真を投稿</strong> 週2〜3回</td>
+            <td><span class="badge-todo th-text">ต้องทำ</span><span class="badge-todo jp-text" style="display:none;">要対応</span></td>
+            <td class="th-text">เพิ่มการรับรู้ของร้านในย่านพระราม 2</td>
+            <td class="jp-text" style="display:none;">Rama 2エリアでの認知度向上</td>
+          </tr>
+          <tr>
+            <td class="priority-star">⭐ 3</td>
+            <td class="th-text"><strong>สมัคร/อัปเดต Google Business Profile</strong></td>
+            <td class="jp-text" style="display:none;"><strong>Googleビジネスプロフィール登録・更新</strong></td>
+            <td><span class="badge-todo th-text">ต้องทำ</span><span class="badge-todo jp-text" style="display:none;">要対応</span></td>
+            <td class="th-text">ค้นหา "ร้านทำผมใกล้ฉัน" แล้วเจอร้าน</td>
+            <td class="jp-text" style="display:none;">「近くの美容室」検索で表示される</td>
+          </tr>
+          <tr>
+            <td class="priority-star">⭐ 4</td>
+            <td class="th-text"><strong>โพสต์ TikTok</strong> สัปดาห์ละ 1-2 ครั้ง (วิดีโอ Before/After)</td>
+            <td class="jp-text" style="display:none;"><strong>TikTok投稿</strong> 週1〜2回（ビフォーアフター動画）</td>
+            <td><span class="badge-todo th-text">ต้องทำ</span><span class="badge-todo jp-text" style="display:none;">要対応</span></td>
+            <td class="th-text">ดึงดูดลูกค้าใหม่ ฟรี ไม่ต้องใช้เงิน</td>
+            <td class="jp-text" style="display:none;">無料で新規顧客を獲得</td>
+          </tr>
+          <tr>
+            <td class="priority-star">⭐ 5</td>
+            <td class="th-text"><strong>ขอรีวิวจากลูกค้า</strong> บน Google Maps และ Facebook</td>
+            <td class="jp-text" style="display:none;"><strong>お客様にレビューをお願い</strong>（Google Maps・Facebook）</td>
+            <td><span class="badge-todo th-text">ต้องทำ</span><span class="badge-todo jp-text" style="display:none;">要対応</span></td>
+            <td class="th-text">เพิ่มความน่าเชื่อถือ ลูกค้าใหม่ตัดสินใจง่ายขึ้น</td>
+            <td class="jp-text" style="display:none;">信頼度UP、新規客が来店しやすくなる</td>
+          </tr>
+          <tr style="background:#f9f6f1;">
+            <td class="priority-star">✅</td>
+            <td class="th-text"><strong>เว็บไซต์ + SEO + ปุ่ม LINE บนเว็บ</strong></td>
+            <td class="jp-text" style="display:none;"><strong>HP + SEO + LINE友だち追加ボタン</strong></td>
+            <td><span class="badge-done th-text">เสร็จแล้ว</span><span class="badge-done jp-text" style="display:none;">完了</span></td>
+            <td class="th-text">เว็บไซต์พร้อม SEO ภาษาไทย + OG image + ปุ่ม LINE</td>
+            <td class="jp-text" style="display:none;">HP完成、タイ語SEO + OG画像 + LINEボタン</td>
+          </tr>
+          <tr style="background:#f9f6f1;">
+            <td class="priority-star">✅</td>
+            <td class="th-text"><strong>QR Code LINE สำหรับหน้าร้าน</strong></td>
+            <td class="jp-text" style="display:none;"><strong>店内用LINE QRカード</strong></td>
+            <td><span class="badge-done th-text">เสร็จแล้ว</span><span class="badge-done jp-text" style="display:none;">完了</span></td>
+            <td class="th-text">ลูกค้าที่มาร้านแล้วแต่ยังไม่ได้เพิ่มเพื่อน LINE</td>
+            <td class="jp-text" style="display:none;">来店済みだがLINE未登録のお客様を逃さない</td>
+          </tr>
+          <tr style="background:#f9f6f1;">
+            <td class="priority-star">✅</td>
+            <td class="th-text"><strong>ระบบจัดการลูกค้า (CRM) + แจ้งเตือน</strong></td>
+            <td class="jp-text" style="display:none;"><strong>顧客管理システム + リマインド</strong></td>
+            <td><span class="badge-done th-text">เสร็จแล้ว</span><span class="badge-done jp-text" style="display:none;">完了</span></td>
+            <td class="th-text">จัดการลูกค้า ส่งแจ้งเตือน สร้างลูกค้าประจำ</td>
+            <td class="jp-text" style="display:none;">顧客管理、リマインド送信、リピーター育成</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-footer"><img src="logo (Gold).png" alt=""><span>Hairworld Stylists</span></div>
+    <div class="slide-num">7</div>
+  </div>
+
+  <!-- ===== スライド8: まとめ ===== -->
+  <div class="slide slide-dark">
+    <div class="slide-content" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:210mm;">
+      <img src="logo (Gold).png" alt="Hairworld Stylists" style="width:80px;height:80px;object-fit:contain;margin-bottom:20px;">
+      <h2 style="color:#d4a853;font-size:28px;margin-bottom:8px;" class="th-text">สรุป</h2>
+      <h2 style="color:#d4a853;font-size:28px;margin-bottom:8px;" class="jp-text" style="display:none;">まとめ</h2>
+      <div class="title-line"></div>
+
+      <div style="max-width:700px;margin:20px auto;">
+        <p style="font-size:20px;color:#fff;margin-bottom:24px;line-height:1.6;" class="th-text">
+          <strong style="color:#d4a853;">Facebook</strong> + <strong style="color:#d4a853;">TikTok</strong> + <strong style="color:#d4a853;">Google Maps</strong><br>ดึงดูดลูกค้าใหม่เข้าสู่ <strong style="color:#06C755;">LINE</strong><br>แล้วเปลี่ยนเป็นลูกค้าประจำ
+        </p>
+        <p style="font-size:20px;color:#fff;margin-bottom:24px;line-height:1.6;" class="jp-text" style="display:none;">
+          <strong style="color:#d4a853;">Facebook</strong> + <strong style="color:#d4a853;">TikTok</strong> + <strong style="color:#d4a853;">Google Maps</strong><br>で新規顧客を <strong style="color:#06C755;">LINE</strong> に誘導し<br>リピーターに育てる
+        </p>
+
+        <div style="display:flex;gap:24px;justify-content:center;margin:32px 0;">
+          <div style="text-align:center;">
+            <div style="font-size:40px;">📘</div>
+            <div style="color:#d4a853;font-size:14px;font-weight:600;margin-top:4px;">Facebook</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:12px;" class="th-text">ช่องทางหลัก</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:12px;" class="jp-text" style="display:none;">メイン</div>
+          </div>
+          <div style="font-size:32px;color:#d4a853;align-self:center;">+</div>
+          <div style="text-align:center;">
+            <div style="font-size:40px;">🎵</div>
+            <div style="color:#d4a853;font-size:14px;font-weight:600;margin-top:4px;">TikTok</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:12px;" class="th-text">กระจายฟรี</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:12px;" class="jp-text" style="display:none;">無料拡散</div>
+          </div>
+          <div style="font-size:32px;color:#d4a853;align-self:center;">+</div>
+          <div style="text-align:center;">
+            <div style="font-size:40px;">📍</div>
+            <div style="color:#d4a853;font-size:14px;font-weight:600;margin-top:4px;">Google Maps</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:12px;" class="th-text">ค้นหาร้าน</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:12px;" class="jp-text" style="display:none;">店舗検索</div>
+          </div>
+          <div style="font-size:32px;color:#d4a853;align-self:center;">→</div>
+          <div style="text-align:center;">
+            <div style="font-size:40px;">💚</div>
+            <div style="color:#06C755;font-size:14px;font-weight:600;margin-top:4px;">LINE</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:12px;" class="th-text">ลูกค้าประจำ</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:12px;" class="jp-text" style="display:none;">リピーター</div>
+          </div>
+        </div>
+
+        <div class="title-line"></div>
+        <p style="color:rgba(255,255,255,0.5);font-size:14px;margin-top:20px;" class="th-text">
+          ขอบคุณครับ — พร้อมเริ่มต้นเมื่อไหร่ก็บอกนะครับ!
+        </p>
+        <p style="color:rgba(255,255,255,0.5);font-size:14px;margin-top:20px;" class="jp-text" style="display:none;">
+          ありがとうございます — いつでも始められます！
+        </p>
+      </div>
+    </div>
+    <div class="slide-footer"><img src="logo (Gold).png" alt=""><span>Hairworld Stylists</span></div>
+    <div class="slide-num">8</div>
+  </div>
+
+  <!-- 言語切替スクリプト -->
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('.lang-bar button:not(.pdf-btn)').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const thEls = document.querySelectorAll('.th-text');
+      const jpEls = document.querySelectorAll('.jp-text');
+
+      if (lang === 'th') {
+        thEls.forEach(el => el.style.display = '');
+        jpEls.forEach(el => el.style.display = 'none');
+      } else {
+        thEls.forEach(el => el.style.display = 'none');
+        jpEls.forEach(el => el.style.display = '');
+      }
+    }
+  </script>
+
+</body>
+</html>
