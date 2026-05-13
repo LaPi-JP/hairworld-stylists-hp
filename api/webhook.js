@@ -89,33 +89,26 @@ module.exports = async function handler(req, res) {
           }
         }
 
-        // クーポンメッセージ（3言語対応）
+        // クーポンメッセージ（タイ語）
         const couponMessage = [
-          "🎉 Welcome to Hairworld Stylists!",
-          "ยินดีต้อนรับสู่ Hairworld Stylists!",
-          "Hairworld Stylistsへようこそ！",
+          "🎉 ยินดีต้อนรับสู่ Hairworld Stylists!",
           "",
           "━━━━━━━━━━━━━━",
-          "🎁 15% OFF COUPON",
+          "🎁 คูปองส่วนลด 15%",
           "━━━━━━━━━━━━━━",
           "",
-          memberNumber ? `🆔 Member No: ${memberNumber}` : "",
-          `🔖 Code: ${couponCode}`,
-          `📅 Valid: ${startStr} - ${endStr}`,
+          memberNumber ? `🆔 เลขสมาชิก: ${memberNumber}` : "",
+          `🔖 รหัสคูปอง: ${couponCode}`,
+          `📅 ใช้ได้: ${startStr} - ${endStr}`,
           "",
-          "💇 All services / ทุกบริการ / 全サービス対象",
+          "💇 ใช้ได้กับทุกบริการ",
           "",
-          "📌 How to use / วิธีใช้ / ご利用方法:",
-          "Show this message when you visit.",
-          "แสดงข้อความนี้เมื่อมาใช้บริการ",
-          "ご来店時にこのメッセージをご提示ください。",
+          "📌 วิธีใช้:",
+          "แสดงข้อความนี้เมื่อมาใช้บริการที่ร้าน",
           "",
-          "📞 Reservation / จองคิว / ご予約:",
-          "063-961-2999",
+          "📞 จองคิว: 063-961-2999",
           "",
-          "We look forward to seeing you! 🌟",
-          "รอต้อนรับค่ะ 🌟",
-          "ご来店をお待ちしております！🌟"
+          "รอต้อนรับค่ะ 🌟"
         ].join("\n");
 
         // クーポンを送信
