@@ -340,8 +340,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // 現在の言語（localStorageから復元、デフォルトは英語）
-  let currentLang = localStorage.getItem("hwLang") || "en";
+  // 現在の言語（localStorageから復元、デフォルトはタイ語）
+  let currentLang = localStorage.getItem("hwLang") || "th";
 
   // 言語切り替え関数
   function setLanguage(lang) {
