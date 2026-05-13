@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -691,8 +691,8 @@
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
       <div class="lang-switch" style="justify-content:center;margin-bottom:16px;">
-        <button class="active" onclick="setAdminLang('en')">EN</button>
-        <button onclick="setAdminLang('th')">TH</button>
+        <button onclick="setAdminLang('en')">EN</button>
+        <button class="active" onclick="setAdminLang('th')">TH</button>
       </div>
       <img src="logo (Gold).png" alt="Hairworld Stylists" class="login-logo">
       <h1>Hairworld Stylists</h1>
@@ -722,8 +722,8 @@
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
         <div class="lang-switch" id="dashLangSwitch">
-          <button class="active" onclick="setAdminLang('en')">EN</button>
-          <button onclick="setAdminLang('th')">TH</button>
+          <button onclick="setAdminLang('en')">EN</button>
+          <button class="active" onclick="setAdminLang('th')">TH</button>
         </div>
         <button class="logout-btn" onclick="logout()" data-admin-i18n="dashboard.logout">Logout</button>
       </div>
@@ -959,7 +959,7 @@
     let adminPassword = "";
     let friendsData = [];
     let sendTarget = null; // null = broadcast, userId = individual
-    let adminLang = "en";
+    let adminLang = localStorage.getItem("hwAdminLang") || "th";
 
     // 管理画面の翻訳データ
     const adminTranslations = {
@@ -1179,6 +1179,7 @@
     // 言語切替
     function setAdminLang(lang) {
       adminLang = lang;
+      localStorage.setItem("hwAdminLang", lang);
       // ボタンのactive状態を更新
       document.querySelectorAll(".lang-switch button").forEach(btn => {
         btn.classList.toggle("active", btn.textContent === lang.toUpperCase());
@@ -2049,6 +2050,9 @@
         document.getElementById("detailReminderMonths").value = friend.reminder_months || "";
       }
     };
+
+    // ページ読み込み時に保存された言語を適用
+    setAdminLang(adminLang);
   </script>
 </body>
 </html>
