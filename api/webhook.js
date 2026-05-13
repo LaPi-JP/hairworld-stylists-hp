@@ -108,7 +108,8 @@ module.exports = async function handler(req, res) {
           "",
           "📞 จองคิว: 063-961-2999",
           "",
-          "รอต้อนรับค่ะ 🌟"
+          "Hairworld stylists",
+          "ยินดีต้อนรับค่ะ ❤️"
         ].join("\n");
 
         // クーポンを送信
