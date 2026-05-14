@@ -676,12 +676,190 @@
       cursor: pointer;
     }
 
+    /* カレンダービュー */
+    .res-view-toggle {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .res-view-toggle button {
+      padding: 6px 14px;
+      background: none;
+      border: 1px solid #d5cbbe;
+      color: #8a7d6b;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .res-view-toggle button.active {
+      border-color: #d4a853;
+      color: #b8922e;
+      background: rgba(212,168,83,0.1);
+    }
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .calendar-nav button {
+      padding: 6px 14px;
+      background: #fff;
+      border: 1px solid #d5cbbe;
+      border-radius: 6px;
+      color: #2c2418;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .calendar-nav button:hover {
+      border-color: #d4a853;
+      color: #b8922e;
+    }
+    .calendar-nav .calendar-month-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2c2418;
+    }
+    .calendar-today-btn {
+      padding: 4px 10px;
+      background: #d4a853;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border: 1px solid #e0d5c3;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .calendar-header-cell {
+      padding: 8px 4px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #8a7d6b;
+      background: #f5f0e8;
+      border-bottom: 1px solid #e0d5c3;
+    }
+    .calendar-header-cell.sunday { color: #d94f4f; }
+    .calendar-cell {
+      min-height: 90px;
+      padding: 4px;
+      border-bottom: 1px solid #e0d5c3;
+      border-right: 1px solid #e0d5c3;
+      vertical-align: top;
+      position: relative;
+    }
+    .calendar-cell:nth-child(7n) { border-right: none; }
+    .calendar-cell.other-month { background: #faf8f4; }
+    .calendar-cell.other-month .calendar-day-num { color: #ccc; }
+    .calendar-cell.today { background: rgba(212,168,83,0.08); }
+    .calendar-cell.today .calendar-day-num { color: #d4a853; font-weight: 700; }
+    .calendar-cell.sunday { background: rgba(217,79,79,0.04); }
+    .calendar-day-num {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2c2418;
+      margin-bottom: 2px;
+      padding: 2px 4px;
+    }
+    .calendar-events {
+      max-height: 72px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+    .calendar-events::-webkit-scrollbar { width: 3px; }
+    .calendar-events::-webkit-scrollbar-thumb { background: #d5cbbe; border-radius: 3px; }
+    .cal-event {
+      font-size: 11px;
+      padding: 2px 4px;
+      margin-bottom: 2px;
+      border-radius: 3px;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+    .cal-event:hover { opacity: 0.8; }
+    .cal-event.status-new { background: rgba(59,130,246,0.12); color: #2563eb; }
+    .cal-event.status-confirmed { background: rgba(34,197,94,0.12); color: #16a34a; }
+    .cal-event.status-completed { background: rgba(156,163,175,0.15); color: #6b7280; }
+    .cal-event.status-cancelled { background: rgba(239,68,68,0.1); color: #dc2626; text-decoration: line-through; }
+
+    /* カレンダー予約ポップアップ */
+    .cal-popup-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(44,36,24,0.4);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .cal-popup {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(44,36,24,0.2);
+    }
+    .cal-popup h3 {
+      color: #b8922e;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .cal-popup .popup-detail {
+      font-size: 13px;
+      color: #2c2418;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .cal-popup .popup-detail span { color: #8a7d6b; }
+    .cal-popup .popup-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .cal-popup .popup-actions button {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      border: 1px solid #d5cbbe;
+      background: none;
+      color: #8a7d6b;
+    }
+    .cal-popup .popup-actions button:hover {
+      border-color: #d4a853;
+      color: #b8922e;
+    }
+    .cal-popup .popup-actions .btn-close-popup {
+      margin-left: auto;
+      background: #f5f0e8;
+    }
+
     @media (max-width: 768px) {
       .header-bar { flex-direction: column; align-items: flex-start; }
       .header-bar .stats { width: 100%; }
       .stat-card { flex: 1; }
       .reservation-card { flex-direction: column; }
       .reminder-card { flex-direction: column; align-items: flex-start; }
+      .calendar-cell { min-height: 60px; padding: 2px; }
+      .calendar-day-num { font-size: 11px; }
+      .cal-event { font-size: 10px; padding: 1px 3px; }
+      .cal-event .cal-event-name,
+      .cal-event .cal-event-service { display: none; }
+      .calendar-events { max-height: 52px; }
     }
   </style>
 </head>
@@ -785,6 +963,25 @@
           <button onclick="filterReservations('cancelled')" data-admin-i18n="res.cancelled">❌ Cancelled</button>
         </div>
         <button onclick="toggleAddReservation()" style="padding:8px 16px;background:#d4a853;border:none;border-radius:8px;color:#000;font-weight:600;font-size:13px;cursor:pointer;" data-admin-i18n="res.addNew">+ Add Reservation</button>
+      </div>
+
+      <!-- ビュー切り替えトグル -->
+      <div class="res-view-toggle">
+        <button class="active" onclick="switchResView('list')" id="btnViewList" data-admin-i18n="res.viewList">📋 List</button>
+        <button onclick="switchResView('calendar')" id="btnViewCalendar" data-admin-i18n="res.viewCalendar">📅 Calendar</button>
+      </div>
+
+      <!-- カレンダービュー -->
+      <div id="calendarView" style="display:none;">
+        <div class="calendar-nav">
+          <button onclick="changeCalendarMonth(-1)">◀</button>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="calendar-month-label" id="calendarMonthLabel"></span>
+            <button class="calendar-today-btn" onclick="goToToday()" data-admin-i18n="res.today">Today</button>
+          </div>
+          <button onclick="changeCalendarMonth(1)">▶</button>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
       </div>
 
       <!-- 手動予約追加フォーム -->
@@ -1064,7 +1261,20 @@
         "res.saveRes": "Save Reservation",
         "res.saving": "Saving...",
         "res.saved": "Saved!",
-        "res.required": "Please fill in Name, Date, and Time"
+        "res.required": "Please fill in Name, Date, and Time",
+        "res.viewList": "📋 List",
+        "res.viewCalendar": "📅 Calendar",
+        "res.today": "Today",
+        "cal.sun": "Sun",
+        "cal.mon": "Mon",
+        "cal.tue": "Tue",
+        "cal.wed": "Wed",
+        "cal.thu": "Thu",
+        "cal.fri": "Fri",
+        "cal.sat": "Sat",
+        "res.message": "Message",
+        "res.status": "Status",
+        "res.close": "Close"
       },
       th: {
         "login.subtitle": "แดชบอร์ดผู้ดูแลระบบ",
@@ -1167,7 +1377,20 @@
         "res.saveRes": "บันทึกการจอง",
         "res.saving": "กำลังบันทึก...",
         "res.saved": "บันทึกแล้ว!",
-        "res.required": "กรุณากรอก ชื่อ วันที่ และเวลา"
+        "res.required": "กรุณากรอก ชื่อ วันที่ และเวลา",
+        "res.viewList": "📋 รายการ",
+        "res.viewCalendar": "📅 ปฏิทิน",
+        "res.today": "วันนี้",
+        "cal.sun": "อา.",
+        "cal.mon": "จ.",
+        "cal.tue": "อ.",
+        "cal.wed": "พ.",
+        "cal.thu": "พฤ.",
+        "cal.fri": "ศ.",
+        "cal.sat": "ส.",
+        "res.message": "ข้อความ",
+        "res.status": "สถานะ",
+        "res.close": "ปิด"
       }
     };
 
@@ -1196,6 +1419,10 @@
       // テーブル再描画
       if (friendsData.length > 0) {
         renderFriends(friendsData);
+      }
+      // カレンダーが表示中なら再描画
+      if (currentResView === "calendar" && calendarData.length > 0) {
+        renderCalendar();
       }
     }
 
@@ -2050,6 +2277,209 @@
         document.getElementById("detailReminderMonths").value = friend.reminder_months || "";
       }
     };
+
+    // ========== カレンダービュー ==========
+    let currentResView = "list"; // "list" または "calendar"
+    let calendarYear = new Date().getFullYear();
+    let calendarMonth = new Date().getMonth(); // 0-11
+    let calendarData = []; // カレンダー用の予約データ
+
+    // ビュー切り替え
+    function switchResView(view) {
+      currentResView = view;
+      document.getElementById("btnViewList").classList.toggle("active", view === "list");
+      document.getElementById("btnViewCalendar").classList.toggle("active", view === "calendar");
+
+      // リスト関連要素の表示/非表示
+      const listElements = document.getElementById("reservationsList");
+      const filterRow = document.querySelector(".res-filter");
+      const calendarView = document.getElementById("calendarView");
+
+      if (view === "list") {
+        listElements.style.display = "";
+        if (filterRow) filterRow.style.display = "";
+        calendarView.style.display = "none";
+      } else {
+        listElements.style.display = "none";
+        if (filterRow) filterRow.style.display = "none";
+        calendarView.style.display = "";
+        loadCalendarData();
+      }
+    }
+
+    // カレンダーデータ読み込み
+    async function loadCalendarData() {
+      try {
+        const res = await fetch("/api/reservations", {
+          headers: { "x-admin-password": adminPassword }
+        });
+        if (res.ok) {
+          calendarData = await res.json();
+          renderCalendar();
+        }
+      } catch (e) {
+        console.error("カレンダーデータ読み込みエラー:", e);
+      }
+    }
+
+    // 月切り替え
+    function changeCalendarMonth(delta) {
+      calendarMonth += delta;
+      if (calendarMonth < 0) { calendarMonth = 11; calendarYear--; }
+      if (calendarMonth > 11) { calendarMonth = 0; calendarYear++; }
+      loadCalendarData();
+    }
+
+    // 今日に戻る
+    function goToToday() {
+      const now = new Date();
+      calendarYear = now.getFullYear();
+      calendarMonth = now.getMonth();
+      loadCalendarData();
+    }
+
+    // カレンダー描画
+    function renderCalendar() {
+      const grid = document.getElementById("calendarGrid");
+      const label = document.getElementById("calendarMonthLabel");
+
+      // 月ラベル
+      const monthNames = {
+        en: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+        th: ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"]
+      };
+      const names = monthNames[adminLang] || monthNames["en"];
+      label.textContent = `${names[calendarMonth]} ${calendarYear}`;
+
+      // 曜日ヘッダー
+      const dayKeys = ["cal.sun","cal.mon","cal.tue","cal.wed","cal.thu","cal.fri","cal.sat"];
+      let html = dayKeys.map((key, i) =>
+        `<div class="calendar-header-cell${i === 0 ? ' sunday' : ''}">${t(key)}</div>`
+      ).join("");
+
+      // カレンダーの日付計算
+      const firstDay = new Date(calendarYear, calendarMonth, 1);
+      const startDayOfWeek = firstDay.getDay(); // 0=日曜
+      const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+      const prevMonthDays = new Date(calendarYear, calendarMonth, 0).getDate();
+
+      const today = new Date();
+      const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+
+      // 該当月の予約をマップに整理（日付 -> 予約配列）
+      const reservationMap = {};
+      calendarData.forEach(r => {
+        if (!r.preferred_date) return;
+        if (!reservationMap[r.preferred_date]) reservationMap[r.preferred_date] = [];
+        reservationMap[r.preferred_date].push(r);
+      });
+      // 各日の予約を時間順にソート
+      Object.values(reservationMap).forEach(arr => {
+        arr.sort((a, b) => (a.preferred_time || "").localeCompare(b.preferred_time || ""));
+      });
+
+      // 前月の埋め草
+      for (let i = startDayOfWeek - 1; i >= 0; i--) {
+        const day = prevMonthDays - i;
+        html += `<div class="calendar-cell other-month"><div class="calendar-day-num">${day}</div></div>`;
+      }
+
+      // 当月の日付
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateStr = `${calendarYear}-${String(calendarMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+        const dayOfWeek = new Date(calendarYear, calendarMonth, day).getDay();
+        let cellClass = "calendar-cell";
+        if (dateStr === todayStr) cellClass += " today";
+        if (dayOfWeek === 0) cellClass += " sunday";
+
+        const events = reservationMap[dateStr] || [];
+        let eventsHtml = "";
+        if (events.length > 0) {
+          eventsHtml = `<div class="calendar-events">` +
+            events.map(r => {
+              const time = r.preferred_time ? r.preferred_time.slice(0,5) : "--:--";
+              return `<div class="cal-event status-${r.status}" onclick="openCalPopup(${r.id})" title="${time} ${r.name} - ${r.service || ''}">` +
+                `<span class="cal-event-time">${time}</span> ` +
+                `<span class="cal-event-name">${r.name}</span> ` +
+                `<span class="cal-event-service">${r.service || ''}</span>` +
+                `</div>`;
+            }).join("") +
+            `</div>`;
+        }
+
+        html += `<div class="${cellClass}"><div class="calendar-day-num">${day}</div>${eventsHtml}</div>`;
+      }
+
+      // 次月の埋め草（6行=42セルになるまで）
+      const totalCells = startDayOfWeek + daysInMonth;
+      const remainingCells = (7 - (totalCells % 7)) % 7;
+      for (let i = 1; i <= remainingCells; i++) {
+        html += `<div class="calendar-cell other-month"><div class="calendar-day-num">${i}</div></div>`;
+      }
+
+      grid.innerHTML = html;
+    }
+
+    // カレンダー予約ポップアップ
+    function openCalPopup(resId) {
+      const r = calendarData.find(item => item.id === resId);
+      if (!r) return;
+
+      const statusLabels = { new: t("res.new"), confirmed: t("res.confirmed"), completed: t("res.completed"), cancelled: t("res.cancelled") };
+      const statusLabel = statusLabels[r.status] || r.status;
+
+      // ステータス変更ボタン
+      let actionBtns = "";
+      if (r.status === "new") {
+        actionBtns = `<button onclick="calUpdateStatus(${r.id},'confirmed')">${t("res.confirm")}</button>
+          <button onclick="calUpdateStatus(${r.id},'cancelled')">${t("res.cancel")}</button>`;
+      } else if (r.status === "confirmed") {
+        actionBtns = `<button onclick="calUpdateStatus(${r.id},'completed')">${t("res.complete")}</button>
+          <button onclick="calUpdateStatus(${r.id},'cancelled')">${t("res.cancel")}</button>`;
+      }
+
+      const overlay = document.createElement("div");
+      overlay.className = "cal-popup-overlay";
+      overlay.onclick = function(e) { if (e.target === overlay) overlay.remove(); };
+      overlay.innerHTML = `
+        <div class="cal-popup">
+          <h3>👤 ${r.name} ${r.line_display_name ? "(" + r.line_display_name + ")" : ""}</h3>
+          <div class="popup-detail">
+            <span>📅</span> ${r.preferred_date || "-"} &nbsp; <span>🕐</span> ${r.preferred_time || "-"}<br>
+            <span>💇</span> ${r.service || "-"}<br>
+            <span>📞</span> ${r.phone || "-"}<br>
+            ${r.message ? `<span>💬</span> ${r.message}<br>` : ""}
+            <span>${t("res.status")}:</span> ${statusLabel}
+          </div>
+          <div class="popup-actions">
+            ${actionBtns}
+            <button class="btn-close-popup" onclick="this.closest('.cal-popup-overlay').remove()">${t("res.close")}</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+    }
+
+    // カレンダーからステータス更新
+    async function calUpdateStatus(id, status) {
+      try {
+        await fetch("/api/reservations", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-password": adminPassword
+          },
+          body: JSON.stringify({ id, status })
+        });
+        // ポップアップを閉じる
+        const overlay = document.querySelector(".cal-popup-overlay");
+        if (overlay) overlay.remove();
+        // カレンダーを再描画
+        await loadCalendarData();
+      } catch (e) {
+        console.error("ステータス更新エラー:", e);
+      }
+    }
 
     // ページ読み込み時に保存された言語を適用
     setAdminLang(adminLang);
