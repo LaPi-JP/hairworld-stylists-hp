@@ -488,6 +488,27 @@
             <label for="res-phone" data-i18n="reservation.phone">Phone Number <span class="required">*</span></label>
             <input type="tel" id="res-phone" name="phone" required data-i18n-placeholder="reservation.phonePh" placeholder="e.g. 063-961-2999">
           </div>
+          <!-- ミニカレンダー（予約空き状況） -->
+          <div class="mini-calendar" id="mini-calendar">
+            <div class="mini-calendar-header">
+              <button type="button" class="mini-calendar-nav" id="cal-prev">&lsaquo;</button>
+              <span class="mini-calendar-month" id="cal-month-label"></span>
+              <button type="button" class="mini-calendar-nav" id="cal-next">&rsaquo;</button>
+            </div>
+            <div class="mini-calendar-legend">
+              <span class="legend-item"><span class="legend-dot legend-available"></span><span data-i18n="calendar.available">Available</span></span>
+              <span class="legend-item"><span class="legend-dot legend-busy"></span><span data-i18n="calendar.busy">Busy</span></span>
+              <span class="legend-item"><span class="legend-dot legend-full"></span><span data-i18n="calendar.full">Full</span></span>
+            </div>
+            <div class="mini-calendar-grid" id="cal-grid">
+              <!-- JSで動的に生成 -->
+            </div>
+          </div>
+          <!-- 時間帯警告メッセージ -->
+          <div class="availability-warning hidden" id="availability-warning">
+            <span class="availability-warning-icon">&#9888;</span>
+            <span id="availability-warning-text"></span>
+          </div>
           <div class="form-row">
             <div class="form-group">
               <label for="res-date" data-i18n="reservation.date">Preferred Date <span class="required">*</span></label>

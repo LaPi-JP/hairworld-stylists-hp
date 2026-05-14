@@ -112,7 +112,18 @@ document.addEventListener("DOMContentLoaded", () => {
       "reservation.lineConnectTitle": "Step 2: Connect your LINE",
       "reservation.lineConnect": "Receive confirmation via LINE",
       "reservation.lineConnected": "LINE confirmation enabled",
-      "reservation.successLine": "Reservation submitted! A confirmation has been sent to your LINE."
+      "reservation.successLine": "Reservation submitted! A confirmation has been sent to your LINE.",
+      "calendar.available": "Available",
+      "calendar.busy": "Busy",
+      "calendar.full": "Full",
+      "calendar.warning": "This time slot is busy. Your preferred time may not be available. You can also book by phone: 063-961-2999",
+      "calendar.sun": "Sun",
+      "calendar.mon": "Mon",
+      "calendar.tue": "Tue",
+      "calendar.wed": "Wed",
+      "calendar.thu": "Thu",
+      "calendar.fri": "Fri",
+      "calendar.sat": "Sat"
     },
     th: {
       "nav.home": "หน้าแรก",
@@ -224,7 +235,18 @@ document.addEventListener("DOMContentLoaded", () => {
       "reservation.lineConnectTitle": "ขั้นตอนที่ 2: เชื่อมต่อ LINE ของคุณ",
       "reservation.lineConnect": "รับการยืนยันผ่าน LINE",
       "reservation.lineConnected": "เปิดใช้งานการยืนยันผ่าน LINE แล้ว",
-      "reservation.successLine": "ส่งคำขอจองคิวเรียบร้อยแล้ว! ข้อความยืนยันถูกส่งไปยัง LINE ของคุณแล้วค่ะ"
+      "reservation.successLine": "ส่งคำขอจองคิวเรียบร้อยแล้ว! ข้อความยืนยันถูกส่งไปยัง LINE ของคุณแล้วค่ะ",
+      "calendar.available": "ว่าง",
+      "calendar.busy": "ค่อนข้างเต็ม",
+      "calendar.full": "เต็ม",
+      "calendar.warning": "ช่วงเวลานี้มีคิวค่อนข้างเยอะ อาจไม่สามารถรับได้ตามเวลาที่ต้องการ สามารถโทรจองได้ที่: 063-961-2999",
+      "calendar.sun": "อา",
+      "calendar.mon": "จ",
+      "calendar.tue": "อ",
+      "calendar.wed": "พ",
+      "calendar.thu": "พฤ",
+      "calendar.fri": "ศ",
+      "calendar.sat": "ส"
     },
     ja: {
       "nav.home": "ホーム",
@@ -336,7 +358,18 @@ document.addEventListener("DOMContentLoaded", () => {
       "reservation.lineConnectTitle": "ステップ2: LINEを連携する",
       "reservation.lineConnect": "LINEで予約確認を受け取る",
       "reservation.lineConnected": "LINE確認が有効です",
-      "reservation.successLine": "予約リクエストを送信しました！LINEに確認メッセージをお送りしました。"
+      "reservation.successLine": "予約リクエストを送信しました！LINEに確認メッセージをお送りしました。",
+      "calendar.available": "空き",
+      "calendar.busy": "やや混雑",
+      "calendar.full": "混雑",
+      "calendar.warning": "この時間帯は予約が混み合っています。ご希望の時間に対応できない場合がございます。お電話でもご予約いただけます: 063-961-2999",
+      "calendar.sun": "日",
+      "calendar.mon": "月",
+      "calendar.tue": "火",
+      "calendar.wed": "水",
+      "calendar.thu": "木",
+      "calendar.fri": "金",
+      "calendar.sat": "土"
     }
   };
 
@@ -392,6 +425,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const mapLangMap = { en: "en", th: "th", ja: "ja" };
       const mapLang = mapLangMap[lang] || "en";
       googleMap.src = `https://maps.google.com/maps?q=Hairworld+Stylists+Rama+2&hl=${mapLang}&z=16&output=embed`;
+    }
+
+    // ミニカレンダーを再描画（言語切替時）
+    if (typeof renderCalendar === "function" && document.getElementById("cal-grid")) {
+      renderCalendar();
     }
   }
 
@@ -557,6 +595,194 @@ document.addEventListener("DOMContentLoaded", () => {
   // LIFF初期化実行
   if (typeof liff !== "undefined") {
     initLiffForWebsite();
+  }
+
+  // === ミニカレンダー（予約空き状況） ===
+  const calGrid = document.getElementById("cal-grid");
+  const calMonthLabel = document.getElementById("cal-month-label");
+  const calPrev = document.getElementById("cal-prev");
+  const calNext = document.getElementById("cal-next");
+  const availabilityWarning = document.getElementById("availability-warning");
+  const availabilityWarningText = document.getElementById("availability-warning-text");
+
+  // カレンダーの状態管理
+  let calYear = new Date().getFullYear();
+  let calMonth = new Date().getMonth(); // 0始まり
+  let availabilityData = {}; // { "YYYY-MM-DD": { "HH:MM": count } }
+  let availabilityCache = {}; // キャッシュ { "YYYY-MM": data }
+
+  // 予約空き状況APIから指定月のデータを取得
+  async function fetchAvailability(year, month) {
+    const key = `${year}-${String(month + 1).padStart(2, "0")}`;
+    if (availabilityCache[key]) {
+      availabilityData = availabilityCache[key];
+      return;
+    }
+    try {
+      const res = await fetch(`/api/availability?month=${key}`);
+      if (res.ok) {
+        const data = await res.json();
+        availabilityCache[key] = data;
+        availabilityData = data;
+      } else {
+        availabilityData = {};
+      }
+    } catch (e) {
+      console.error("空き状況取得エラー:", e.message);
+      availabilityData = {};
+    }
+  }
+
+  // 日付の予約件数合計を取得
+  function getDayBookingCount(dateStr) {
+    const dayData = availabilityData[dateStr];
+    if (!dayData) return 0;
+    return Object.values(dayData).reduce((sum, c) => sum + c, 0);
+  }
+
+  // 特定の日付・時間の予約件数を取得
+  function getTimeBookingCount(dateStr, timeStr) {
+    const dayData = availabilityData[dateStr];
+    if (!dayData) return 0;
+    return dayData[timeStr] || 0;
+  }
+
+  // カレンダーを描画
+  async function renderCalendar() {
+    if (!calGrid) return;
+    await fetchAvailability(calYear, calMonth);
+
+    const t = (key) => (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
+
+    // 月ラベル更新
+    const monthNames = {
+      en: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+      th: ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"],
+      ja: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
+    };
+    const names = monthNames[currentLang] || monthNames.en;
+    calMonthLabel.textContent = `${names[calMonth]} ${calYear}`;
+
+    // 曜日ヘッダー
+    const dayKeys = ["calendar.sun","calendar.mon","calendar.tue","calendar.wed","calendar.thu","calendar.fri","calendar.sat"];
+    let html = "";
+    dayKeys.forEach(k => {
+      html += `<div class="cal-day-header">${t(k)}</div>`;
+    });
+
+    // 月の初日と最終日
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const lastDate = new Date(calYear, calMonth + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // 前月の空白セル
+    for (let i = 0; i < firstDay; i++) {
+      html += `<div class="cal-day cal-empty"></div>`;
+    }
+
+    // 日付セル
+    for (let d = 1; d <= lastDate; d++) {
+      const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+      const cellDate = new Date(calYear, calMonth, d);
+      const isPast = cellDate < today;
+      const count = getDayBookingCount(dateStr);
+
+      let statusClass = "cal-available";
+      let statusIcon = "○";
+      if (count >= 3) {
+        statusClass = "cal-full";
+        statusIcon = "×";
+      } else if (count >= 1) {
+        statusClass = "cal-busy";
+        statusIcon = "△";
+      }
+
+      if (isPast) {
+        html += `<div class="cal-day cal-past"><span class="cal-day-num">${d}</span></div>`;
+      } else {
+        html += `<div class="cal-day ${statusClass}" data-date="${dateStr}"><span class="cal-day-num">${d}</span><span class="cal-status">${statusIcon}</span></div>`;
+      }
+    }
+
+    calGrid.innerHTML = html;
+
+    // 日付セルのクリックイベント
+    calGrid.querySelectorAll(".cal-day[data-date]").forEach(cell => {
+      cell.addEventListener("click", () => {
+        const dateInput = document.getElementById("res-date");
+        if (dateInput) {
+          dateInput.value = cell.getAttribute("data-date");
+          // 日付変更時に警告をチェック
+          checkAvailabilityWarning();
+        }
+        // 選択状態を更新
+        calGrid.querySelectorAll(".cal-day").forEach(c => c.classList.remove("cal-selected"));
+        cell.classList.add("cal-selected");
+      });
+    });
+  }
+
+  // 時間帯選択時の警告チェック
+  function checkAvailabilityWarning() {
+    const dateInput = document.getElementById("res-date");
+    const timeSelect = document.getElementById("res-time");
+    if (!dateInput || !timeSelect || !availabilityWarning) return;
+
+    const dateVal = dateInput.value;
+    const timeVal = timeSelect.value;
+
+    if (!dateVal || !timeVal) {
+      availabilityWarning.classList.add("hidden");
+      return;
+    }
+
+    const count = getTimeBookingCount(dateVal, timeVal);
+    if (count >= 1) {
+      const t = (key) => (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
+      availabilityWarningText.textContent = t("calendar.warning");
+      availabilityWarning.classList.remove("hidden");
+    } else {
+      availabilityWarning.classList.add("hidden");
+    }
+  }
+
+  // カレンダー初期化
+  if (calGrid) {
+    renderCalendar();
+
+    // 前月・次月ボタン
+    if (calPrev) {
+      calPrev.addEventListener("click", () => {
+        calMonth--;
+        if (calMonth < 0) { calMonth = 11; calYear--; }
+        renderCalendar();
+      });
+    }
+    if (calNext) {
+      calNext.addEventListener("click", () => {
+        calMonth++;
+        if (calMonth > 11) { calMonth = 0; calYear++; }
+        renderCalendar();
+      });
+    }
+
+    // 日付・時間帯変更時に警告チェック
+    const dateInput2 = document.getElementById("res-date");
+    const timeSelect2 = document.getElementById("res-time");
+    if (dateInput2) {
+      dateInput2.addEventListener("change", async () => {
+        // 選択された日付の月のデータを取得
+        const [y, m] = dateInput2.value.split("-").map(Number);
+        if (y && m) {
+          await fetchAvailability(y, m - 1);
+        }
+        checkAvailabilityWarning();
+      });
+    }
+    if (timeSelect2) {
+      timeSelect2.addEventListener("change", checkAvailabilityWarning);
+    }
   }
 
   // === 予約フォーム ===

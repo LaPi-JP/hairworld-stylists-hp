@@ -951,6 +951,221 @@ img {
   min-height: 80px;
 }
 
+/* === ミニカレンダー === */
+.mini-calendar {
+  margin-bottom: 24px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.mini-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.mini-calendar-month {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.mini-calendar-nav {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.mini-calendar-nav:hover {
+  background: rgba(184, 148, 62, 0.1);
+  border-color: var(--color-gold);
+}
+
+/* 凡例 */
+.mini-calendar-legend {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-available {
+  background: #27ae60;
+}
+
+.legend-busy {
+  background: #f39c12;
+}
+
+.legend-full {
+  background: #e74c3c;
+}
+
+/* カレンダーグリッド */
+.mini-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-day-header {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding: 4px 0;
+  text-transform: uppercase;
+}
+
+.cal-day {
+  position: relative;
+  text-align: center;
+  padding: 6px 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.cal-day-num {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.cal-status {
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+/* 空き状態の色分け */
+.cal-available {
+  background: rgba(39, 174, 96, 0.08);
+  border: 1px solid rgba(39, 174, 96, 0.2);
+}
+
+.cal-available .cal-status {
+  color: #27ae60;
+}
+
+.cal-available:hover {
+  background: rgba(39, 174, 96, 0.15);
+  border-color: #27ae60;
+}
+
+.cal-busy {
+  background: rgba(243, 156, 18, 0.08);
+  border: 1px solid rgba(243, 156, 18, 0.2);
+}
+
+.cal-busy .cal-status {
+  color: #f39c12;
+}
+
+.cal-busy:hover {
+  background: rgba(243, 156, 18, 0.15);
+  border-color: #f39c12;
+}
+
+.cal-full {
+  background: rgba(231, 76, 60, 0.08);
+  border: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.cal-full .cal-status {
+  color: #e74c3c;
+}
+
+.cal-full:hover {
+  background: rgba(231, 76, 60, 0.15);
+  border-color: #e74c3c;
+}
+
+/* 過去の日付 */
+.cal-past {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* 空セル */
+.cal-empty {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* 選択状態 */
+.cal-selected {
+  outline: 2px solid var(--color-gold);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 3px rgba(184, 148, 62, 0.2);
+}
+
+/* === 時間帯警告メッセージ === */
+.availability-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  background: rgba(243, 156, 18, 0.1);
+  border: 1px solid rgba(243, 156, 18, 0.3);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #b7791f;
+  line-height: 1.6;
+  animation: warningFadeIn 0.3s ease;
+}
+
+.availability-warning.hidden {
+  display: none;
+}
+
+.availability-warning-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+@keyframes warningFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .reservation-submit {
   width: 100%;
   text-align: center;
@@ -1607,6 +1822,34 @@ img {
     width: calc(100vw - 32px);
     right: -8px;
     max-height: 70vh;
+  }
+
+  /* ミニカレンダー（モバイル） */
+  .mini-calendar {
+    padding: 14px;
+  }
+
+  .cal-day {
+    min-height: 38px;
+    padding: 4px 1px;
+  }
+
+  .cal-day-num {
+    font-size: 12px;
+  }
+
+  .cal-status {
+    font-size: 9px;
+  }
+
+  .mini-calendar-legend {
+    gap: 10px;
+    font-size: 11px;
+  }
+
+  .availability-warning {
+    font-size: 12px;
+    padding: 12px;
   }
 }
 
