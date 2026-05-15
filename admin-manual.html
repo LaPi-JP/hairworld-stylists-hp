@@ -230,6 +230,24 @@
       background: #faf7f2;
     }
 
+    /* スクリーンショット */
+    .screenshot {
+      width: 100%;
+      max-width: 700px;
+      border: 1px solid #e0d5c3;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(44,36,24,0.1);
+      margin: 16px 0 20px;
+      display: block;
+    }
+    .screenshot-caption {
+      font-size: 12px;
+      color: #8a7d6b;
+      text-align: center;
+      margin: -12px 0 16px;
+      font-style: italic;
+    }
+
     /* 印刷用 */
     @media print {
       body { background: #fff; }
@@ -349,6 +367,8 @@
         <h2>1. เข้าสู่ระบบ / ออกจากระบบ</h2>
 
         <h3>วิธีเข้าสู่ระบบ</h3>
+        <img src="manual-screenshots/01-login.png" alt="หน้าเข้าสู่ระบบ" class="screenshot">
+        <p class="screenshot-caption">↑ หน้าจอเข้าสู่ระบบ</p>
         <ol class="steps">
           <li>เข้าถึงหน้าผู้ดูแลที่: <strong>https://hairworld-stylists-hp.vercel.app/admin.html</strong></li>
           <li>เลือกภาษาที่ต้องการ (<span class="label label-btn">EN</span> หรือ <span class="label label-btn">TH</span>) ที่ด้านบนของหน้าจอเข้าสู่ระบบ</li>
@@ -390,7 +410,11 @@
       <!-- TH -->
       <div class="th-text">
         <h2>2. ภาพรวมแดชบอร์ด</h2>
+        <img src="manual-screenshots/02-dashboard.png" alt="แดชบอร์ดหลัก" class="screenshot">
+        <p class="screenshot-caption">↑ แดชบอร์ดหลักหลังเข้าสู่ระบบ</p>
         <p>หลังจากเข้าสู่ระบบ คุณจะเห็นแดชบอร์ดหลักพร้อมส่วนประกอบต่อไปนี้:</p>
+        <img src="manual-screenshots/03-header-bar.png" alt="แถบเครื่องมือด้านบน" class="screenshot">
+        <p class="screenshot-caption">↑ แถบเครื่องมือด้านบน: สถิติ, สลับภาษา, ตั้งค่าเจ้าของร้าน, ออกจากระบบ</p>
 
         <table class="info-table">
           <tr>
@@ -475,6 +499,8 @@
       <!-- TH -->
       <div class="th-text">
         <h2>3. แท็บเพื่อน (จัดการสมาชิก)</h2>
+        <img src="manual-screenshots/04-friends-tab.png" alt="แท็บเพื่อน" class="screenshot">
+        <p class="screenshot-caption">↑ แท็บเพื่อน: รายชื่อสมาชิก LINE ทั้งหมด</p>
         <p>แท็บนี้แสดงเพื่อน LINE ทั้งหมดที่เพิ่มร้านเป็นเพื่อน ข้อมูลที่แสดงสำหรับสมาชิกแต่ละคน:</p>
         <ul>
           <li><strong>รูปโปรไฟล์</strong> — รูปโปรไฟล์ LINE</li>
@@ -664,6 +690,8 @@
       <!-- TH -->
       <div class="th-text">
         <h2>4. แท็บการจอง</h2>
+        <img src="manual-screenshots/06-reservations-tab.png" alt="แท็บการจอง" class="screenshot">
+        <p class="screenshot-caption">↑ แท็บการจอง: รายการจองทั้งหมดพร้อมสถานะ</p>
         <p>แท็บนี้จัดการการจองของลูกค้าทั้งหมด การจองอาจมาจาก LINE (อัตโนมัติ) หรือเพิ่มด้วยตนเองโดยพนักงาน</p>
 
         <h3>กรองตามสถานะ</h3>
@@ -781,6 +809,8 @@
       <!-- TH -->
       <div class="th-text">
         <h2>5. แท็บแจ้งเตือน</h2>
+        <img src="manual-screenshots/07-reminders-tab.png" alt="แท็บแจ้งเตือน" class="screenshot">
+        <p class="screenshot-caption">↑ แท็บแจ้งเตือน: การจองใกล้ถึงและแจ้งเตือนมาใช้บริการ</p>
         <p>แท็บนี้ช่วยส่งข้อความแจ้งเตือนอัตโนมัติทาง LINE มีสองประเภทแจ้งเตือน:</p>
 
         <h3 id="sec-rem-a">5-1. แจ้งเตือนการจอง (ประเภท A)</h3>
@@ -860,6 +890,8 @@
       <!-- TH -->
       <div class="th-text">
         <h2>6. ตั้งค่าเจ้าของร้าน (เปลี่ยนรหัสผ่าน / PIN)</h2>
+        <img src="manual-screenshots/05-owner-settings.png" alt="ตั้งค่าเจ้าของร้าน" class="screenshot">
+        <p class="screenshot-caption">↑ หน้าต่างตั้งค่าเจ้าของร้าน: ต้องกรอก PIN ก่อนเปลี่ยนรหัสผ่านหรือ PIN</p>
         <p>ฟังก์ชันนี้ <strong>เฉพาะเจ้าของร้านเท่านั้น</strong> ที่สามารถใช้ได้ พนักงานทั่วไปจะไม่สามารถเปลี่ยนรหัสผ่านหรือ PIN ได้ เพราะต้องกรอก <strong>PIN เจ้าของร้าน</strong> ก่อน</p>
 
         <div class="note-box">
