@@ -332,6 +332,10 @@
           </ol>
         </li>
         <li>
+          <a href="#sec-owner" class="th-text">ตั้งค่าเจ้าของร้าน (เปลี่ยนรหัสผ่าน / PIN)</a>
+          <a href="#sec-owner" class="jp-text" style="display:none;">オーナー設定（パスワード・PIN変更）</a>
+        </li>
+        <li>
           <a href="#sec-faq" class="th-text">คำถามที่พบบ่อย</a>
           <a href="#sec-faq" class="jp-text" style="display:none;">よくある質問</a>
         </li>
@@ -406,6 +410,10 @@
             <td>สลับภาษาแดชบอร์ดระหว่างอังกฤษและไทย</td>
           </tr>
           <tr>
+            <td><strong>🔑 ตั้งค่าเจ้าของร้าน</strong></td>
+            <td>เปลี่ยนรหัสผ่านเข้าสู่ระบบ หรือเปลี่ยน PIN เจ้าของร้าน (เฉพาะเจ้าของร้านเท่านั้น)</td>
+          </tr>
+          <tr>
             <td><strong>ออกจากระบบ</strong></td>
             <td>ออกจากระบบและกลับไปหน้าเข้าสู่ระบบ</td>
           </tr>
@@ -441,6 +449,10 @@
           <tr>
             <td><strong>EN / TH 切替</strong></td>
             <td>ダッシュボードの表示言語を英語・タイ語間で切替</td>
+          </tr>
+          <tr>
+            <td><strong>🔑 オーナー設定</strong></td>
+            <td>ログインパスワードまたはオーナーPINの変更（オーナーのみ使用可能）</td>
           </tr>
           <tr>
             <td><strong>ログアウト</strong></td>
@@ -843,11 +855,120 @@
       </div>
     </div>
 
-    <!-- ===== 6. FAQ ===== -->
+    <!-- ===== 6. オーナー設定 ===== -->
+    <div class="section" id="sec-owner">
+      <!-- TH -->
+      <div class="th-text">
+        <h2>6. ตั้งค่าเจ้าของร้าน (เปลี่ยนรหัสผ่าน / PIN)</h2>
+        <p>ฟังก์ชันนี้ <strong>เฉพาะเจ้าของร้านเท่านั้น</strong> ที่สามารถใช้ได้ พนักงานทั่วไปจะไม่สามารถเปลี่ยนรหัสผ่านหรือ PIN ได้ เพราะต้องกรอก <strong>PIN เจ้าของร้าน</strong> ก่อน</p>
+
+        <div class="note-box">
+          <strong>ระบบความปลอดภัย:</strong> PIN เจ้าของร้านเป็นรหัสลับที่เฉพาะเจ้าของร้านเท่านั้นที่รู้ ห้ามบอก PIN นี้ให้พนักงานคนอื่น
+        </div>
+
+        <h3>6-1. เปลี่ยนรหัสผ่านเข้าสู่ระบบ</h3>
+        <p>รหัสผ่านนี้เป็นรหัสที่ใช้เข้าสู่ระบบ CRM (ใช้ร่วมกันทั้งทีม)</p>
+        <ol class="steps">
+          <li>เข้าสู่ระบบ CRM แล้วคลิกปุ่ม <strong>"🔑 ตั้งค่าเจ้าของร้าน"</strong> ที่ด้านบน</li>
+          <li>กรอก <strong>PIN เจ้าของร้าน</strong> ในช่องด้านบนของหน้าต่าง</li>
+          <li>เลือกแท็บ <strong>"เปลี่ยนรหัสผ่าน"</strong></li>
+          <li>กรอก <strong>รหัสผ่านปัจจุบัน</strong></li>
+          <li>กรอก <strong>รหัสผ่านใหม่</strong> และ <strong>ยืนยันรหัสผ่านใหม่</strong></li>
+          <li>คลิก <strong>"บันทึก"</strong></li>
+        </ol>
+
+        <div class="warning-box">
+          <strong>สำคัญ:</strong> หลังจากเปลี่ยนรหัสผ่าน กรุณาแจ้งให้พนักงานทุกคนทราบรหัสผ่านใหม่ เพราะทุกคนใช้รหัสผ่านเดียวกันในการเข้าสู่ระบบ
+        </div>
+
+        <h3>6-2. เปลี่ยน PIN เจ้าของร้าน</h3>
+        <p>PIN นี้ใช้สำหรับยืนยันตัวตนเจ้าของร้านเท่านั้น</p>
+        <ol class="steps">
+          <li>คลิกปุ่ม <strong>"🔑 ตั้งค่าเจ้าของร้าน"</strong></li>
+          <li>กรอก <strong>PIN เจ้าของร้านปัจจุบัน</strong></li>
+          <li>เลือกแท็บ <strong>"เปลี่ยน PIN"</strong></li>
+          <li>กรอก <strong>PIN ใหม่</strong> (4 ตัวอักษรขึ้นไป) และ <strong>ยืนยัน PIN ใหม่</strong></li>
+          <li>คลิก <strong>"บันทึก"</strong></li>
+        </ol>
+
+        <table class="info-table">
+          <tr>
+            <th>รายการ</th>
+            <th>ใครรู้?</th>
+            <th>ใช้ทำอะไร?</th>
+          </tr>
+          <tr>
+            <td><strong>รหัสผ่าน (Password)</strong></td>
+            <td>พนักงานทุกคน</td>
+            <td>เข้าสู่ระบบ CRM</td>
+          </tr>
+          <tr>
+            <td><strong>PIN เจ้าของร้าน</strong></td>
+            <td>เจ้าของร้านเท่านั้น</td>
+            <td>เปลี่ยนรหัสผ่าน / เปลี่ยน PIN</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- JP -->
+      <div class="jp-text" style="display:none;">
+        <h2>6. オーナー設定（パスワード・PIN変更）</h2>
+        <p>この機能は<strong>オーナーのみ</strong>が使用できます。一般スタッフはパスワードやPINを変更できません。変更には<strong>オーナーPIN</strong>の入力が必要です。</p>
+
+        <div class="note-box">
+          <strong>セキュリティ:</strong> オーナーPINはオーナーだけが知っている秘密のコードです。他のスタッフには絶対に教えないでください。
+        </div>
+
+        <h3>6-1. ログインパスワードの変更</h3>
+        <p>このパスワードはCRMへのログインに使用します（チーム全員が共有）。</p>
+        <ol class="steps">
+          <li>CRMにログインし、上部の<strong>「🔑 オーナー設定」</strong>ボタンをクリック</li>
+          <li>ウィンドウ上部に<strong>オーナーPIN</strong>を入力</li>
+          <li><strong>「パスワード変更」</strong>タブを選択</li>
+          <li><strong>現在のパスワード</strong>を入力</li>
+          <li><strong>新しいパスワード</strong>と<strong>確認用パスワード</strong>を入力</li>
+          <li><strong>「保存」</strong>をクリック</li>
+        </ol>
+
+        <div class="warning-box">
+          <strong>重要:</strong> パスワード変更後は、全スタッフに新しいパスワードを通知してください。全員が同じパスワードでログインします。
+        </div>
+
+        <h3>6-2. オーナーPINの変更</h3>
+        <p>このPINはオーナーの本人確認にのみ使用します。</p>
+        <ol class="steps">
+          <li><strong>「🔑 オーナー設定」</strong>ボタンをクリック</li>
+          <li><strong>現在のオーナーPIN</strong>を入力</li>
+          <li><strong>「PIN変更」</strong>タブを選択</li>
+          <li><strong>新しいPIN</strong>（4文字以上）と<strong>確認用PIN</strong>を入力</li>
+          <li><strong>「保存」</strong>をクリック</li>
+        </ol>
+
+        <table class="info-table">
+          <tr>
+            <th>項目</th>
+            <th>誰が知っている？</th>
+            <th>用途</th>
+          </tr>
+          <tr>
+            <td><strong>パスワード (Password)</strong></td>
+            <td>スタッフ全員</td>
+            <td>CRMログイン</td>
+          </tr>
+          <tr>
+            <td><strong>オーナーPIN</strong></td>
+            <td>オーナーのみ</td>
+            <td>パスワード変更 / PIN変更</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== 7. FAQ ===== -->
     <div class="section" id="sec-faq">
       <!-- TH -->
       <div class="th-text">
-        <h2>6. คำถามที่พบบ่อย</h2>
+        <h2>7. คำถามที่พบบ่อย</h2>
 
         <h3>Q: รายชื่อสมาชิกไม่โหลด</h3>
         <p><strong>A:</strong> คลิกปุ่ม <strong>"รีเฟรช"</strong> หากปัญหายังคงอยู่ ลองออกจากระบบแล้วเข้าสู่ระบบใหม่ ตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</p>
@@ -870,11 +991,20 @@
 
         <h3>Q: แดชบอร์ดแสดงจำนวนคูปองไม่ถูกต้อง</h3>
         <p><strong>A:</strong> คลิก <strong>"รีเฟรช"</strong> เพื่อโหลดข้อมูลล่าสุดจากเซิร์ฟเวอร์</p>
+
+        <h3>Q: ลืมรหัสผ่านเข้าสู่ระบบ</h3>
+        <p><strong>A:</strong> ติดต่อผู้ดูแลระบบ (Developer) เพื่อรีเซ็ตรหัสผ่าน</p>
+
+        <h3>Q: ลืม PIN เจ้าของร้าน</h3>
+        <p><strong>A:</strong> ติดต่อผู้ดูแลระบบ (Developer) เพื่อรีเซ็ต PIN PIN ไม่สามารถกู้คืนได้ด้วยตนเอง</p>
+
+        <h3>Q: พนักงานสามารถเปลี่ยนรหัสผ่านได้ไหม?</h3>
+        <p><strong>A:</strong> ไม่ได้ค่ะ/ครับ การเปลี่ยนรหัสผ่านต้องกรอก PIN เจ้าของร้าน ซึ่งเฉพาะเจ้าของร้านเท่านั้นที่ทราบ</p>
       </div>
 
       <!-- JP -->
       <div class="jp-text" style="display:none;">
-        <h2>6. よくある質問</h2>
+        <h2>7. よくある質問</h2>
 
         <h3>Q: 会員リストが読み込まれない</h3>
         <p><strong>A:</strong> <strong>「リフレッシュ」</strong>ボタンをクリックしてください。問題が解決しない場合は、一度ログアウトして再ログインしてください。インターネット接続もご確認ください。</p>
@@ -897,6 +1027,15 @@
 
         <h3>Q: ダッシュボードのクーポン数が正しくない</h3>
         <p><strong>A:</strong> <strong>「リフレッシュ」</strong>をクリックして、サーバーから最新データを再読み込みしてください。</p>
+
+        <h3>Q: ログインパスワードを忘れた</h3>
+        <p><strong>A:</strong> システム管理者（Developer）に連絡してパスワードをリセットしてもらってください。</p>
+
+        <h3>Q: オーナーPINを忘れた</h3>
+        <p><strong>A:</strong> システム管理者（Developer）に連絡してPINをリセットしてもらってください。PINは自分で復旧できません。</p>
+
+        <h3>Q: スタッフがパスワードを変更できる？</h3>
+        <p><strong>A:</strong> いいえ。パスワード変更にはオーナーPINの入力が必要で、オーナーのみが知っています。</p>
       </div>
     </div>
 
