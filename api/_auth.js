@@ -1,4 +1,4 @@
-// 共通認証ヘルパー: Supabaseのパスワードを優先、なければ環境変数にフォールバック
+// 共通認証ヘルパー: Supabaseのパスワード OR 環境変数のパスワード、どちらでも認証OK
 async function verifyAdmin(req) {
   const inputPassword = req.headers["x-admin-password"];
   if (!inputPassword) return false;
@@ -7,7 +7,12 @@ async function verifyAdmin(req) {
   const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
   const ENV_PASSWORD = process.env.ADMIN_PASSWORD;
 
-  // Supabaseからパスワードを取得
+  // 環境変数のパスワード（開発者用マスターパスワード）で常にアクセス可能
+  if (ENV_PASSWORD && inputPassword === ENV_PASSWORD) {
+    return true;
+  }
+
+  // Supabaseのパスワード（オーナーが変更した場合）
   if (SUPABASE_URL && SUPABASE_KEY) {
     try {
       const res = await fetch(
@@ -28,8 +33,7 @@ async function verifyAdmin(req) {
     }
   }
 
-  // フォールバック: 環境変数のパスワード
-  return ENV_PASSWORD && inputPassword === ENV_PASSWORD;
+  return false;
 }
 
 module.exports = { verifyAdmin };
