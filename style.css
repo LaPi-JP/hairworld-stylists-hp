@@ -363,7 +363,7 @@ img {
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   gap: 12px;
