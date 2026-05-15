@@ -16,9 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "hero.cta": "Book Now",
       "about.label": "About Us",
       "about.title": "Our Salon,<br>Your Style",
-      "about.lead": "Hairworld Stylists is a friendly hair salon in Bangkok offering hair, makeup, and nail services for everyone.",
-      "about.text1": "Our stylists listen carefully to what you want and work with you to find the right style. We welcome all customers and aim to make every visit a comfortable and enjoyable experience.",
-      "about.text2": "We use quality professional products to take care of your hair, skin, and nails, so you can leave the salon feeling refreshed and happy with your look.",
+      "about.lead": "Hairworld Stylists is a hair salon in Bangkok offering hairstyle design, hair care, makeup, hairstyling, spa, and complete hair care services.",
+      "about.text1": "Our team has extensive expertise and experience, with a dedicated team to analyze and find the style that suits you. We welcome all customers and aim to make every visit an impressive experience.",
+      "about.text2": "We use premium professional-grade products for hair care. Bring your inspiration photos and we'll make it happen — so you always leave the salon feeling refreshed and satisfied with your new look.",
       "about.exp": "Years of Experience",
       "about.clients": "Happy Clients",
       "about.stylists": "Stylists",
@@ -139,9 +139,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "hero.cta": "จองคิว",
       "about.label": "เกี่ยวกับเรา",
       "about.title": "ร้านเรา<br>สไตล์คุณ",
-      "about.lead": "Hairworld Stylists เป็นร้านทำผมในกรุงเทพฯ ให้บริการด้านผม เมคอัพ และเล็บ สำหรับทุกคน",
-      "about.text1": "ช่างของเราตั้งใจฟังความต้องการของคุณ และช่วยหาสไตล์ที่เหมาะกับคุณ เรายินดีต้อนรับลูกค้าทุกท่าน และตั้งใจให้ทุกครั้งที่มาเป็นประสบการณ์ที่สบายใจและน่าประทับใจ",
-      "about.text2": "เราใช้ผลิตภัณฑ์คุณภาพระดับมืออาชีพในการดูแลผม ผิว และเล็บของคุณ เพื่อให้คุณออกจากร้านด้วยความสดชื่นและพอใจกับลุคใหม่",
+      "about.lead": "Hairworld Stylists เป็นร้านทำผมในกรุงเทพฯ ให้บริการ ออกแบบทรงผม ดูแลเส้นผม บริการแต่งหน้า ทำผม สปา ดูแลเส้นผม ครบวงจร",
+      "about.text1": "ทีมงาน เชี่ยวชาญประสบการณ์ ยาวนาน มีทีม วิเคราะห์ ช่วยหาสไตล์ที่เหมาะกับคุณ เรายินดีต้อนรับลูกค้าทุกท่าน และตั้งใจให้ทุกครั้งที่มา เป็นประสบการณ์น่าประทับใจ ทุกครั้งที่มา",
+      "about.text2": "เราใช้ผลิตภัณฑ์คุณภาพพรีเมี่ยมระดับมืออาชีพในการดูแลเส้นผม คุณนำภาพ นำเข้า เพื่อให้คุณพึงพอใจ ออกจากร้านด้วยความสดชื่นและพอใจกับลุคใหม่เสมอ",
       "about.exp": "ปีแห่งประสบการณ์",
       "about.clients": "ลูกค้าที่พึงพอใจ",
       "about.stylists": "ช่าง",
@@ -262,9 +262,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "hero.cta": "ご予約はこちら",
       "about.label": "サロン紹介",
       "about.title": "私たちのサロン、<br>あなたのスタイル",
-      "about.lead": "Hairworld Stylistsは、バンコクにある美容室です。ヘア、メイク、ネイルのサービスを、どなたにも気軽にご利用いただけます。",
-      "about.text1": "スタイリストがお客様のご要望をしっかり伺い、一緒にぴったりのスタイルを見つけます。どなたでも大歓迎です。毎回のご来店が心地よく、楽しいひとときになるよう心がけています。",
-      "about.text2": "プロ仕様の良質な製品を使い、髪・肌・爪をしっかりケア。すっきりした気分でお帰りいただけるよう努めています。",
+      "about.lead": "Hairworld Stylistsは、バンコクにある美容室です。ヘアデザイン、ヘアケア、メイク、ヘアスタイリング、スパなど、トータルヘアケアサービスを提供しています。",
+      "about.text1": "豊富な経験と専門知識を持つチームが、お客様に最適なスタイルを分析・ご提案いたします。すべてのお客様を心より歓迎し、毎回のご来店が印象深い体験となるよう努めています。",
+      "about.text2": "プレミアムなプロ仕様の製品でヘアケアを行います。お好みのイメージ写真をお持ちいただければ再現いたします。いつもすっきりとした気分で、新しいスタイルにご満足いただけるようお手伝いします。",
       "about.exp": "年の経験",
       "about.clients": "お客様の笑顔",
       "about.stylists": "スタイリスト",
@@ -375,6 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 現在の言語（localStorageから復元、デフォルトはタイ語）
   let currentLang = localStorage.getItem("hwLang") || "th";
+  let calendarReady = false;
 
   // 言語切り替え関数
   function setLanguage(lang) {
@@ -428,7 +429,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ミニカレンダーを再描画（言語切替時）
-    if (typeof renderCalendar === "function" && document.getElementById("cal-grid")) {
+    if (calendarReady) {
       renderCalendar();
     }
   }
@@ -749,6 +750,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // カレンダー初期化
   if (calGrid) {
+    calendarReady = true;
     renderCalendar();
 
     // 前月・次月ボタン
