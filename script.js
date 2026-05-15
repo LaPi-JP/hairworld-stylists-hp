@@ -373,14 +373,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // 現在の言語（localStorageから復元、デフォルトはタイ語）
-  let currentLang = localStorage.getItem("hwLang") || "th";
+  // 現在の言語（常にタイ語で開始）
+  let currentLang = "th";
   let calendarReady = false;
 
   // 言語切り替え関数
   function setLanguage(lang) {
     currentLang = lang;
-    localStorage.setItem("hwLang", lang);
 
     // data-i18n属性を持つ全要素を更新
     document.querySelectorAll("[data-i18n]").forEach(el => {
