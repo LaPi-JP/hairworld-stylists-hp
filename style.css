@@ -1766,14 +1766,22 @@ img {
 
   /* ギャラリー: モバイル2列レイアウト（重なり防止） */
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 180px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .gallery-grid .gallery-item {
+    width: calc(50% - 4px);
+    height: 160px;
   }
 
   .gallery-video {
-    grid-column: 1 / -1;
-    grid-row: auto;
+    width: 100%;
+    grid-column: unset;
+    grid-row: unset;
     aspect-ratio: 16 / 9;
+    order: -1;
   }
 
   /* About */
@@ -1878,14 +1886,12 @@ img {
     padding: 36px 24px;
   }
 
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 150px;
+  .gallery-grid .gallery-item {
+    height: 140px;
   }
 
   .gallery-video {
-    grid-column: 1 / -1;
-    grid-row: auto;
+    width: 100%;
     aspect-ratio: 16 / 9;
   }
 
