@@ -1,9 +1,8 @@
 // お客様カルテAPI: 施術履歴の取得・追加・写真アップロード
+const { verifyAdmin } = require("./_auth");
 module.exports = async function handler(req, res) {
-  // 簡易認証
-  const ADMIN_PASS = process.env.ADMIN_PASSWORD;
-  const authHeader = req.headers["x-admin-password"];
-  if (!ADMIN_PASS || authHeader !== ADMIN_PASS) {
+  // 管理者認証（Supabase優先、環境変数フォールバック）
+  if (!(await verifyAdmin(req))) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 

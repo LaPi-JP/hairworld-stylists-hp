@@ -903,7 +903,24 @@
           <button onclick="setAdminLang('en')">EN</button>
           <button class="active" onclick="setAdminLang('th')">TH</button>
         </div>
+        <button class="logout-btn" onclick="showChangePassword()" data-admin-i18n="dashboard.changePassword">🔑 Change Password</button>
         <button class="logout-btn" onclick="logout()" data-admin-i18n="dashboard.logout">Logout</button>
+      </div>
+    </div>
+
+    <!-- パスワード変更モーダル -->
+    <div id="changePwModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:none;justify-content:center;align-items:center;">
+      <div style="background:#fff;border-radius:12px;padding:32px;max-width:400px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.2);">
+        <h3 style="color:#b8922e;margin-bottom:16px;" data-admin-i18n="pw.title">Change Password</h3>
+        <input type="password" id="pwCurrent" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;margin-bottom:12px;font-size:14px;" data-admin-i18n-placeholder="pw.current" placeholder="Current password">
+        <input type="password" id="pwNew" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;margin-bottom:12px;font-size:14px;" data-admin-i18n-placeholder="pw.new" placeholder="New password">
+        <input type="password" id="pwConfirm" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;margin-bottom:16px;font-size:14px;" data-admin-i18n-placeholder="pw.confirm" placeholder="Confirm new password">
+        <p id="pwError" style="color:#d94f4f;font-size:13px;margin-bottom:12px;display:none;"></p>
+        <p id="pwSuccess" style="color:#2e7d32;font-size:13px;margin-bottom:12px;display:none;"></p>
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+          <button onclick="closeChangePassword()" style="padding:10px 20px;border:1px solid #ddd;background:#fff;border-radius:8px;cursor:pointer;font-size:14px;" data-admin-i18n="pw.cancel">Cancel</button>
+          <button onclick="submitChangePassword()" style="padding:10px 20px;background:linear-gradient(135deg,#d4a853,#b8922e);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;" data-admin-i18n="pw.submit">Change</button>
+        </div>
       </div>
     </div>
 
@@ -1169,6 +1186,18 @@
         "dashboard.totalFriends": "Total Friends",
         "dashboard.activeCoupons": "Active Coupons",
         "dashboard.logout": "Logout",
+        "dashboard.changePassword": "🔑 Change Password",
+        "pw.title": "Change Password",
+        "pw.current": "Current password",
+        "pw.new": "New password",
+        "pw.confirm": "Confirm new password",
+        "pw.cancel": "Cancel",
+        "pw.submit": "Change",
+        "pw.errEmpty": "Please fill in all fields.",
+        "pw.errMismatch": "New passwords do not match.",
+        "pw.errShort": "Password must be at least 4 characters.",
+        "pw.errFailed": "Failed to change password.",
+        "pw.success": "Password changed successfully!",
         "dashboard.refresh": "Refresh",
         "dashboard.broadcast": "Broadcast Message",
         "table.memberNo": "Member No.",
@@ -1285,6 +1314,18 @@
         "dashboard.totalFriends": "เพื่อนทั้งหมด",
         "dashboard.activeCoupons": "คูปองที่ใช้ได้",
         "dashboard.logout": "ออกจากระบบ",
+        "dashboard.changePassword": "🔑 เปลี่ยนรหัสผ่าน",
+        "pw.title": "เปลี่ยนรหัสผ่าน",
+        "pw.current": "รหัสผ่านปัจจุบัน",
+        "pw.new": "รหัสผ่านใหม่",
+        "pw.confirm": "ยืนยันรหัสผ่านใหม่",
+        "pw.cancel": "ยกเลิก",
+        "pw.submit": "เปลี่ยน",
+        "pw.errEmpty": "กรุณากรอกข้อมูลให้ครบ",
+        "pw.errMismatch": "รหัสผ่านใหม่ไม่ตรงกัน",
+        "pw.errShort": "รหัสผ่านต้องมีอย่างน้อย 4 ตัวอักษร",
+        "pw.errFailed": "เปลี่ยนรหัสผ่านไม่สำเร็จ",
+        "pw.success": "เปลี่ยนรหัสผ่านสำเร็จ!",
         "dashboard.refresh": "รีเฟรช",
         "dashboard.broadcast": "ส่งข้อความถึงทุกคน",
         "table.memberNo": "เลขสมาชิก",
@@ -1458,6 +1499,69 @@
       document.getElementById("dashboard").classList.remove("active");
       document.getElementById("passwordInput").value = "";
       document.getElementById("loginError").style.display = "none";
+    }
+
+    // パスワード変更モーダル
+    function showChangePassword() {
+      document.getElementById("changePwModal").style.display = "flex";
+      document.getElementById("pwCurrent").value = "";
+      document.getElementById("pwNew").value = "";
+      document.getElementById("pwConfirm").value = "";
+      document.getElementById("pwError").style.display = "none";
+      document.getElementById("pwSuccess").style.display = "none";
+    }
+
+    function closeChangePassword() {
+      document.getElementById("changePwModal").style.display = "none";
+    }
+
+    async function submitChangePassword() {
+      const current = document.getElementById("pwCurrent").value;
+      const newPw = document.getElementById("pwNew").value;
+      const confirm = document.getElementById("pwConfirm").value;
+      const errEl = document.getElementById("pwError");
+      const successEl = document.getElementById("pwSuccess");
+      errEl.style.display = "none";
+      successEl.style.display = "none";
+
+      const t = (key) => (adminTranslations[adminLang] && adminTranslations[adminLang][key]) || adminTranslations.en[key] || key;
+
+      if (!current || !newPw || !confirm) {
+        errEl.textContent = t("pw.errEmpty");
+        errEl.style.display = "block";
+        return;
+      }
+      if (newPw !== confirm) {
+        errEl.textContent = t("pw.errMismatch");
+        errEl.style.display = "block";
+        return;
+      }
+      if (newPw.length < 4) {
+        errEl.textContent = t("pw.errShort");
+        errEl.style.display = "block";
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/change-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ currentPassword: current, newPassword: newPw })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          adminPassword = newPw;
+          successEl.textContent = t("pw.success");
+          successEl.style.display = "block";
+          setTimeout(() => closeChangePassword(), 2000);
+        } else {
+          errEl.textContent = data.error || t("pw.errFailed");
+          errEl.style.display = "block";
+        }
+      } catch (e) {
+        errEl.textContent = t("pw.errFailed");
+        errEl.style.display = "block";
+      }
     }
 
     // 友だち一覧を読み込み
